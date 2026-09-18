@@ -48,3 +48,7 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+
+# Local planning files
+/TODO.md
+/Review_Tag_Generator_TODO.md
