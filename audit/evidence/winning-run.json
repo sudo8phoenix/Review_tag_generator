@@ -1,0 +1,54 @@
+{
+  "record_version": "1.0",
+  "status": "A2/A3 metrics and checkpoint provenance recorded; model files transferred and hashes verified",
+  "model": {
+    "base_name": "distilbert-base-uncased",
+    "seed": 42,
+    "aspect_extraction": {
+      "gate": "A2",
+      "metric": "exact_span_f1",
+      "value": 0.706,
+      "status": "passed",
+      "checkpoint_path": "/kaggle/working/review_tag_generator/models/aspect_extractor/distilbert_weighted_lr3e5/best",
+      "checkpoint_sha256": "43912feea208644795785b7b54a001b60be244165cf6298eb42cfa5a1bb49c3d"
+    },
+    "aspect_sentiment": {
+      "gate": "A3",
+      "metric": "macro_f1",
+      "value": 0.75,
+      "status": "passed",
+      "checkpoint_path": "/kaggle/working/review_tag_generator/models/sentiment_classifier/distilbert/best",
+      "checkpoint_sha256": "d4130c282e9da91145b3e496ea9ca47aebab95ae209734cc4bca7ff18234851d"
+    }
+  },
+  "configuration": {
+    "max_length": 256,
+    "aspect_epochs": 8,
+    "aspect_learning_rate": 0.00003,
+    "sentiment_epochs": 4,
+    "sentiment_learning_rate": 0.00002,
+    "train_batch_size": 16,
+    "eval_batch_size": 16
+  },
+  "raw_dataset_file_sha256": {
+    "data/raw/laptop_acos/laptop_quad_train.tsv": "75572e18961f15d6624c037cf4ccc8964744b59a6be4249132229a4dbd967320",
+    "data/raw/laptop_acos/laptop_quad_dev.tsv": "824d748567199e76c7ad647610127e5f129649d90c0ca78218c18a3b82054c20",
+    "data/raw/laptop_acos/laptop_quad_test.tsv": "8c745fa5df9dd4ccf2c269f2e1e305b8d3bf63bf83ce2df608fe43c2ca9404d3",
+    "data/raw/semeval_2014_laptop/Laptop_Train_v2.xml": "efec2ed73b4efb83b47c697114d800149c558118884afa80362a6e975ba7248c",
+    "data/raw/semeval_2014_laptop/Laptops_Test_Gold.xml": "aa3a30c9dd7e0eacf9b69e898eb4118a36c1b4f391a30a08dfc41a38d8b8745b"
+  },
+  "processed_dataset_hashes": {
+    "A2_aspect_extraction": {
+      "train": "d2e009403d85fadcd28afebef69c33d39bb0c0b9f5258435f80629185e0a7cf4",
+      "validation": "6b3ca2e0a2a91a5d4bbd81edebdb814d0fccc9321c482e7c0b141b0a2e01259d",
+      "test": "2e1235eaa2cac125d5d69509a2803d338a38065063b79104594f0f4d3e7ec963"
+    },
+    "A3_sentiment_classification": {
+      "train": "ebcbb21435c4039155a07a7618269e020bf1e38b7da2c0ed8f0297baf2583eca",
+      "validation": "2d36c1faec0b5fbd2a5f6ffcb78a6d812ff8a3858a15318b42d7f062f4a664d6",
+      "test": "69f3b25ae7fe60b83f155c9b0dc513c985c2dad9e427fc8ffaad0327e90fc0b3"
+    }
+  },
+  "error_samples_path": "audit/evidence/error-samples.jsonl",
+  "action_required": "Fill checkpoint and processed split hashes from the training machine that produced the winning metrics."
+}

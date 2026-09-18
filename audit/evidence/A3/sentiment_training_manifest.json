@@ -1,0 +1,39 @@
+{
+  "checkpoint": {
+    "path": "/kaggle/working/review_tag_generator/models/sentiment_classifier/distilbert/best",
+    "sha256": "d4130c282e9da91145b3e496ea9ca47aebab95ae209734cc4bca7ff18234851d"
+  },
+  "config": {
+    "epochs": 4,
+    "eval_batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 256,
+    "train_batch_size": 16
+  },
+  "dataset_hashes": {
+    "test": "69f3b25ae7fe60b83f155c9b0dc513c985c2dad9e427fc8ffaad0327e90fc0b3",
+    "train": "ebcbb21435c4039155a07a7618269e020bf1e38b7da2c0ed8f0297baf2583eca",
+    "validation": "2d36c1faec0b5fbd2a5f6ffcb78a6d812ff8a3858a15318b42d7f062f4a664d6"
+  },
+  "manifest_version": "1.0",
+  "metrics_paths": {
+    "confusion_matrix": "/kaggle/working/review_tag_generator/audit/evidence/A3/sentiment_confusion_matrix.json",
+    "test": "/kaggle/working/review_tag_generator/audit/evidence/A3/sentiment_test.json",
+    "validation": "/kaggle/working/review_tag_generator/audit/evidence/A3/sentiment_validation.json"
+  },
+  "mode": "transformer",
+  "model": {
+    "name": "distilbert-base-uncased",
+    "revision": null,
+    "tokenizer_name": "distilbert-base-uncased",
+    "tokenizer_revision": null
+  },
+  "reason": "transformer_training_available",
+  "run_id": "sentiment_distilbert_seed42",
+  "runtime": {
+    "cuda_available": true,
+    "gpu_count": 2
+  },
+  "seed": 42,
+  "task_id": "A3_sentiment_classification"
+}

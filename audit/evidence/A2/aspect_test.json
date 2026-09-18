@@ -1,0 +1,12081 @@
+{
+  "errors": [
+    {
+      "gold": [
+        [
+          4,
+          8,
+          "unit"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          8,
+          "unit"
+        ],
+        [
+          9,
+          13,
+          "cost"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00001"
+    },
+    {
+      "gold": [
+        [
+          22,
+          29,
+          "acer 11"
+        ]
+      ],
+      "pred": [
+        [
+          46,
+          48,
+          "11"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00002"
+    },
+    {
+      "gold": [
+        [
+          23,
+          32,
+          "ssd drive"
+        ]
+      ],
+      "pred": [
+        [
+          23,
+          32,
+          "ssd drive"
+        ],
+        [
+          46,
+          50,
+          "emmc"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00003"
+    },
+    {
+      "gold": [
+        [
+          4,
+          12,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "computer"
+        ],
+        [
+          46,
+          52,
+          "tablet"
+        ],
+        [
+          57,
+          65,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00004"
+    },
+    {
+      "gold": [
+        [
+          17,
+          23,
+          "chrome"
+        ]
+      ],
+      "pred": [
+        [
+          17,
+          23,
+          "chrome"
+        ],
+        [
+          55,
+          65,
+          "chromebook"
+        ],
+        [
+          82,
+          89,
+          "windows"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00006"
+    },
+    {
+      "gold": [
+        [
+          20,
+          42,
+          "touchscreen chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          8,
+          13,
+          "price"
+        ],
+        [
+          20,
+          42,
+          "touchscreen chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00010"
+    },
+    {
+      "gold": [
+        [
+          86,
+          90,
+          "keys"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00013"
+    },
+    {
+      "gold": [
+        [
+          149,
+          158,
+          "track pad"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          33,
+          "trackpad"
+        ],
+        [
+          116,
+          141,
+          "right click functionality"
+        ],
+        [
+          149,
+          158,
+          "track pad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00015"
+    },
+    {
+      "gold": [
+        [
+          0,
+          4,
+          "hdmi"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          8,
+          "hdmi out"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00017"
+    },
+    {
+      "gold": [
+        [
+          118,
+          129,
+          "touchscreen"
+        ]
+      ],
+      "pred": [
+        [
+          118,
+          129,
+          "touchscreen"
+        ],
+        [
+          155,
+          161,
+          "tablet"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00019"
+    },
+    {
+      "gold": [
+        [
+          53,
+          57,
+          "acer"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00020"
+    },
+    {
+      "gold": [
+        [
+          7,
+          12,
+          "sound"
+        ]
+      ],
+      "pred": [
+        [
+          7,
+          20,
+          "sound quality"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00022"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          65,
+          72,
+          "loading"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00029"
+    },
+    {
+      "gold": [
+        [
+          37,
+          45,
+          "computer"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00033"
+    },
+    {
+      "gold": [
+        [
+          19,
+          22,
+          "fan"
+        ],
+        [
+          88,
+          93,
+          "sound"
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          22,
+          "fan"
+        ],
+        [
+          68,
+          74,
+          "laptop"
+        ],
+        [
+          88,
+          93,
+          "sound"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00037"
+    },
+    {
+      "gold": [
+        [
+          74,
+          80,
+          "laptop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00050"
+    },
+    {
+      "gold": [
+        [
+          23,
+          32,
+          "processor"
+        ],
+        [
+          37,
+          57,
+          "hybrid storage units"
+        ],
+        [
+          89,
+          96,
+          "web cam"
+        ],
+        [
+          136,
+          144,
+          "keyboard"
+        ],
+        [
+          187,
+          196,
+          "caps lock"
+        ],
+        [
+          200,
+          208,
+          "num lock"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          16,
+          "speed"
+        ],
+        [
+          23,
+          32,
+          "processor"
+        ],
+        [
+          44,
+          57,
+          "storage units"
+        ],
+        [
+          89,
+          96,
+          "web cam"
+        ],
+        [
+          117,
+          127,
+          "resolution"
+        ],
+        [
+          136,
+          144,
+          "keyboard"
+        ],
+        [
+          187,
+          196,
+          "caps lock"
+        ],
+        [
+          200,
+          208,
+          "num lock"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00051"
+    },
+    {
+      "gold": [
+        [
+          0,
+          3,
+          "ram"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          11,
+          "ram upgrade"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00056"
+    },
+    {
+      "gold": [
+        [
+          0,
+          10,
+          "hard drive"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          18,
+          "hard drive upgrade"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00057"
+    },
+    {
+      "gold": [
+        [
+          50,
+          71,
+          "asus customer support"
+        ]
+      ],
+      "pred": [
+        [
+          50,
+          75,
+          "asus customer support and"
+        ],
+        [
+          107,
+          126,
+          "windows 10 software"
+        ],
+        [
+          148,
+          152,
+          "asus"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00063"
+    },
+    {
+      "gold": [
+        [
+          14,
+          25,
+          "asus laptop"
+        ],
+        [
+          56,
+          64,
+          "touchpad"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          18,
+          "asus"
+        ],
+        [
+          56,
+          64,
+          "touchpad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00065"
+    },
+    {
+      "gold": [
+        [
+          55,
+          59,
+          "item"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          12,
+          "screen"
+        ],
+        [
+          55,
+          59,
+          "item"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00069"
+    },
+    {
+      "gold": [
+        [
+          58,
+          70,
+          "work machine"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00070"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          18,
+          22,
+          "size"
+        ],
+        [
+          49,
+          54,
+          "speed"
+        ],
+        [
+          57,
+          67,
+          "durability"
+        ],
+        [
+          74,
+          91,
+          "energy efficiency"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00075"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          8,
+          12,
+          "grid"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00079"
+    },
+    {
+      "gold": [
+        [
+          54,
+          62,
+          "touchpad"
+        ],
+        [
+          72,
+          80,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          11,
+          "feature"
+        ],
+        [
+          54,
+          62,
+          "touchpad"
+        ],
+        [
+          72,
+          80,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00088"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          35,
+          40,
+          "value"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00089"
+    },
+    {
+      "gold": [
+        [
+          30,
+          33,
+          "ram"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          25,
+          "storage"
+        ],
+        [
+          30,
+          33,
+          "ram"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00091"
+    },
+    {
+      "gold": [
+        [
+          11,
+          28,
+          "solid state drive"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          28,
+          "solid state drive"
+        ],
+        [
+          61,
+          68,
+          "boot up"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00093"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          47,
+          52,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00101"
+    },
+    {
+      "gold": [
+        [
+          0,
+          19,
+          "google and partners"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "google"
+        ],
+        [
+          41,
+          52,
+          "chromebooks"
+        ],
+        [
+          72,
+          80,
+          "features"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00104"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          115,
+          118,
+          "use"
+        ],
+        [
+          146,
+          152,
+          "tablet"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00105"
+    },
+    {
+      "gold": [
+        [
+          22,
+          40,
+          "samsung chromebook"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00108"
+    },
+    {
+      "gold": [
+        [
+          0,
+          9,
+          "powers up"
+        ],
+        [
+          30,
+          42,
+          "battery life"
+        ],
+        [
+          51,
+          59,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          9,
+          "powers up"
+        ],
+        [
+          30,
+          42,
+          "battery life"
+        ],
+        [
+          51,
+          59,
+          "keyboard"
+        ],
+        [
+          70,
+          78,
+          "features"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00117"
+    },
+    {
+      "gold": [
+        [
+          17,
+          35,
+          "samsung chromebook"
+        ],
+        [
+          68,
+          73,
+          "brand"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00119"
+    },
+    {
+      "gold": [
+        [
+          20,
+          26,
+          "tablet"
+        ]
+      ],
+      "pred": [
+        [
+          20,
+          26,
+          "tablet"
+        ],
+        [
+          82,
+          93,
+          "performance"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00120"
+    },
+    {
+      "gold": [
+        [
+          23,
+          27,
+          "book"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          11,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00122"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          11,
+          15,
+          "size"
+        ],
+        [
+          20,
+          28,
+          "features"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00130"
+    },
+    {
+      "gold": [
+        [
+          49,
+          59,
+          "navigation"
+        ]
+      ],
+      "pred": [
+        [
+          21,
+          29,
+          "platform"
+        ],
+        [
+          49,
+          59,
+          "navigation"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00135"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          3,
+          8,
+          "works"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00137"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          16,
+          26,
+          "tank blitz"
+        ],
+        [
+          37,
+          52,
+          "game controller"
+        ],
+        [
+          59,
+          62,
+          "rob"
+        ],
+        [
+          114,
+          124,
+          "appearance"
+        ],
+        [
+          140,
+          144,
+          "play"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00138"
+    },
+    {
+      "gold": [
+        [
+          0,
+          12,
+          "battery life"
+        ],
+        [
+          23,
+          30,
+          "display"
+        ],
+        [
+          35,
+          43,
+          "software"
+        ],
+        [
+          94,
+          101,
+          "samsung"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          12,
+          "battery life"
+        ],
+        [
+          15,
+          20,
+          "speed"
+        ],
+        [
+          23,
+          30,
+          "display"
+        ],
+        [
+          35,
+          43,
+          "software"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00145"
+    },
+    {
+      "gold": [
+        [
+          4,
+          11,
+          "display"
+        ],
+        [
+          34,
+          39,
+          "setup"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          11,
+          "display"
+        ],
+        [
+          34,
+          39,
+          "setup"
+        ],
+        [
+          92,
+          99,
+          "charges"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00146"
+    },
+    {
+      "gold": [
+        [
+          0,
+          8,
+          "delivery"
+        ],
+        [
+          35,
+          39,
+          "usps"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          8,
+          "delivery"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00151"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          14,
+          18,
+          "size"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00153"
+    },
+    {
+      "gold": [
+        [
+          18,
+          26,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          17,
+          "functioning"
+        ],
+        [
+          18,
+          26,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00156"
+    },
+    {
+      "gold": [
+        [
+          10,
+          16,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          10,
+          16,
+          "laptop"
+        ],
+        [
+          33,
+          38,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00157"
+    },
+    {
+      "gold": [
+        [
+          28,
+          35,
+          "battery"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "works"
+        ],
+        [
+          28,
+          40,
+          "battery life"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00159"
+    },
+    {
+      "gold": [
+        [
+          10,
+          16,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          16,
+          "excelente laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00160"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          54,
+          62,
+          "features"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00164"
+    },
+    {
+      "gold": [
+        [
+          20,
+          27,
+          "battery"
+        ],
+        [
+          41,
+          47,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          20,
+          32,
+          "battery life"
+        ],
+        [
+          41,
+          47,
+          "screen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00167"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          35,
+          43,
+          "features"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00168"
+    },
+    {
+      "gold": [
+        [
+          35,
+          44,
+          "processor"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          17,
+          "performance"
+        ],
+        [
+          35,
+          44,
+          "processor"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00169"
+    },
+    {
+      "gold": [
+        [
+          40,
+          48,
+          "graphics"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          10,
+          "sims 4"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00170"
+    },
+    {
+      "gold": [
+        [
+          5,
+          26,
+          "first person shooters"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00172"
+    },
+    {
+      "gold": [
+        [
+          0,
+          6,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "laptop"
+        ],
+        [
+          7,
+          11,
+          "boot"
+        ],
+        [
+          31,
+          37,
+          "set up"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00174"
+    },
+    {
+      "gold": [
+        [
+          77,
+          85,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          38,
+          51,
+          "numbering pad"
+        ],
+        [
+          77,
+          85,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00175"
+    },
+    {
+      "gold": [
+        [
+          19,
+          24,
+          "lappy"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00176"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          43,
+          53,
+          "dvd player"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00177"
+    },
+    {
+      "gold": [
+        [
+          18,
+          24,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          34,
+          "screen backlight"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00179"
+    },
+    {
+      "gold": [
+        [
+          14,
+          20,
+          "laptop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00181"
+    },
+    {
+      "gold": [
+        [
+          6,
+          14,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          14,
+          "computer"
+        ],
+        [
+          59,
+          67,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00187"
+    },
+    {
+      "gold": [
+        [
+          0,
+          3,
+          "cpu"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          15,
+          "cpu performance"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00190"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          0,
+          8,
+          "webpages"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00194"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          8,
+          11,
+          "use"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00206"
+    },
+    {
+      "gold": [
+        [
+          5,
+          11,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          11,
+          "laptop"
+        ],
+        [
+          35,
+          43,
+          "designed"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00208"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          43,
+          48,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00211"
+    },
+    {
+      "gold": [
+        [
+          47,
+          54,
+          "battery"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          11,
+          "price"
+        ],
+        [
+          22,
+          33,
+          "performance"
+        ],
+        [
+          47,
+          54,
+          "battery"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00213"
+    },
+    {
+      "gold": [
+        [
+          22,
+          28,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          28,
+          "laptop"
+        ],
+        [
+          53,
+          57,
+          "size"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00216"
+    },
+    {
+      "gold": [
+        [
+          0,
+          8,
+          "graphics"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          8,
+          "graphics"
+        ],
+        [
+          40,
+          46,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00217"
+    },
+    {
+      "gold": [
+        [
+          61,
+          71,
+          "chromebook"
+        ],
+        [
+          101,
+          116,
+          "phantom touches"
+        ]
+      ],
+      "pred": [
+        [
+          61,
+          71,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00220"
+    },
+    {
+      "gold": [
+        [
+          14,
+          20,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          20,
+          "screen"
+        ],
+        [
+          65,
+          69,
+          "size"
+        ],
+        [
+          72,
+          78,
+          "aspect"
+        ],
+        [
+          91,
+          101,
+          "resolution"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00222"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          86,
+          97,
+          "chromebooks"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00223"
+    },
+    {
+      "gold": [
+        [
+          85,
+          93,
+          "hardware"
+        ]
+      ],
+      "pred": [
+        [
+          20,
+          28,
+          "chromeos"
+        ],
+        [
+          85,
+          93,
+          "hardware"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00225"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          175,
+          186,
+          "google docs"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00226"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          40,
+          42,
+          "es"
+        ],
+        [
+          64,
+          72,
+          "charging"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00230"
+    },
+    {
+      "gold": [
+        [
+          9,
+          15,
+          "screen"
+        ],
+        [
+          24,
+          31,
+          "profile"
+        ],
+        [
+          57,
+          63,
+          "stylus"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          15,
+          "screen"
+        ],
+        [
+          57,
+          63,
+          "stylus"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00232"
+    },
+    {
+      "gold": [
+        [
+          55,
+          72,
+          "verified purchase"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00233"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          42,
+          50,
+          "computer"
+        ],
+        [
+          97,
+          107,
+          "navigation"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00234"
+    },
+    {
+      "gold": [
+        [
+          49,
+          53,
+          "apps"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          16,
+          "quality"
+        ],
+        [
+          45,
+          48,
+          "use"
+        ],
+        [
+          49,
+          53,
+          "apps"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00237"
+    },
+    {
+      "gold": [
+        [
+          25,
+          36,
+          "android app"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          36,
+          "android app"
+        ],
+        [
+          60,
+          69,
+          "chrome os"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00241"
+    },
+    {
+      "gold": [
+        [
+          36,
+          44,
+          "chromeos"
+        ],
+        [
+          47,
+          54,
+          "samsung"
+        ]
+      ],
+      "pred": [
+        [
+          36,
+          44,
+          "chromeos"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00246"
+    },
+    {
+      "gold": [
+        [
+          4,
+          12,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "keyboard"
+        ],
+        [
+          21,
+          25,
+          "back"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00248"
+    },
+    {
+      "gold": [
+        [
+          145,
+          155,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          58,
+          63,
+          "price"
+        ],
+        [
+          145,
+          155,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00249"
+    },
+    {
+      "gold": [
+        [
+          55,
+          67,
+          "battery life"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          15,
+          "performance"
+        ],
+        [
+          55,
+          67,
+          "battery life"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00254"
+    },
+    {
+      "gold": [
+        [
+          30,
+          44,
+          "aluminum shell"
+        ],
+        [
+          101,
+          109,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          9,
+          "unit"
+        ],
+        [
+          30,
+          44,
+          "aluminum shell"
+        ],
+        [
+          101,
+          109,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00255"
+    },
+    {
+      "gold": [
+        [
+          129,
+          149,
+          "card reader / writer"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00256"
+    },
+    {
+      "gold": [
+        [
+          48,
+          50,
+          "it"
+        ]
+      ],
+      "pred": [
+        [
+          152,
+          158,
+          "chrome"
+        ],
+        [
+          244,
+          250,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00258"
+    },
+    {
+      "gold": [
+        [
+          4,
+          16,
+          "battery life"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          16,
+          "battery life"
+        ],
+        [
+          35,
+          42,
+          "charges"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00259"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          13,
+          21,
+          "performs"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00260"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          76,
+          86,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00261"
+    },
+    {
+      "gold": [
+        [
+          53,
+          59,
+          "devise"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          28,
+          "play store"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00263"
+    },
+    {
+      "gold": [
+        [
+          0,
+          10,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          10,
+          "chromebook"
+        ],
+        [
+          34,
+          40,
+          "device"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00264"
+    },
+    {
+      "gold": [
+        [
+          4,
+          22,
+          "hdmi and usb ports"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          8,
+          "hdmi"
+        ],
+        [
+          13,
+          22,
+          "usb ports"
+        ],
+        [
+          62,
+          67,
+          "ports"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00265"
+    },
+    {
+      "gold": [
+        [
+          59,
+          65,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          21,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00269"
+    },
+    {
+      "gold": [
+        [
+          18,
+          26,
+          "chromeos"
+        ]
+      ],
+      "pred": [
+        [
+          7,
+          15,
+          "software"
+        ],
+        [
+          18,
+          26,
+          "chromeos"
+        ],
+        [
+          53,
+          69,
+          "operating system"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00271"
+    },
+    {
+      "gold": [
+        [
+          98,
+          105,
+          "machine"
+        ]
+      ],
+      "pred": [
+        [
+          39,
+          44,
+          "price"
+        ],
+        [
+          98,
+          105,
+          "machine"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00272"
+    },
+    {
+      "gold": [
+        [
+          25,
+          35,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          35,
+          "chromebook"
+        ],
+        [
+          63,
+          72,
+          "ms office"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00278"
+    },
+    {
+      "gold": [
+        [
+          14,
+          31,
+          "celeron processor"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          31,
+          "celeron processor"
+        ],
+        [
+          34,
+          42,
+          "browsing"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00280"
+    },
+    {
+      "gold": [
+        [
+          18,
+          28,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          28,
+          "chromebook"
+        ],
+        [
+          60,
+          70,
+          "chromebase"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00281"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          45,
+          62,
+          "google play store"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00283"
+    },
+    {
+      "gold": [
+        [
+          8,
+          15,
+          "graphic"
+        ]
+      ],
+      "pred": [
+        [
+          40,
+          57,
+          "creative software"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00284"
+    },
+    {
+      "gold": [
+        [
+          17,
+          34,
+          "solid state drive"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          8,
+          "drives"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00286"
+    },
+    {
+      "gold": [
+        [
+          17,
+          25,
+          "speakers"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          25,
+          "built - in speakers"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00287"
+    },
+    {
+      "gold": [
+        [
+          11,
+          17,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          17,
+          "screen"
+        ],
+        [
+          27,
+          34,
+          "viewing"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00291"
+    },
+    {
+      "gold": [
+        [
+          16,
+          20,
+          "os x"
+        ],
+        [
+          52,
+          59,
+          "display"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          20,
+          "os x"
+        ],
+        [
+          41,
+          51,
+          "resolution"
+        ],
+        [
+          52,
+          59,
+          "display"
+        ],
+        [
+          94,
+          101,
+          "windows"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00292"
+    },
+    {
+      "gold": [
+        [
+          5,
+          7,
+          "os"
+        ],
+        [
+          5,
+          18,
+          "os x yosemite"
+        ],
+        [
+          11,
+          13,
+          "os"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          7,
+          "os"
+        ],
+        [
+          25,
+          27,
+          "os"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00295"
+    },
+    {
+      "gold": [
+        [
+          4,
+          10,
+          "laptop"
+        ],
+        [
+          31,
+          38,
+          "package"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          10,
+          "laptop"
+        ],
+        [
+          11,
+          16,
+          "works"
+        ],
+        [
+          31,
+          38,
+          "package"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00296"
+    },
+    {
+      "gold": [
+        [
+          5,
+          13,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          13,
+          "computer"
+        ],
+        [
+          27,
+          34,
+          "quality"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00298"
+    },
+    {
+      "gold": [
+        [
+          5,
+          15,
+          "durability"
+        ],
+        [
+          46,
+          57,
+          "portability"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          15,
+          "durability"
+        ],
+        [
+          30,
+          41,
+          "performance"
+        ],
+        [
+          46,
+          57,
+          "portability"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00304"
+    },
+    {
+      "gold": [
+        [
+          37,
+          42,
+          "model"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          28,
+          "processing speed"
+        ],
+        [
+          37,
+          42,
+          "model"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00310"
+    },
+    {
+      "gold": [
+        [
+          10,
+          16,
+          "laptop"
+        ],
+        [
+          55,
+          68,
+          "running speed"
+        ]
+      ],
+      "pred": [
+        [
+          10,
+          16,
+          "laptop"
+        ],
+        [
+          39,
+          46,
+          "feature"
+        ],
+        [
+          55,
+          68,
+          "running speed"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00319"
+    },
+    {
+      "gold": [
+        [
+          4,
+          10,
+          "design"
+        ],
+        [
+          47,
+          56,
+          "track pad"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          10,
+          "design"
+        ],
+        [
+          32,
+          56,
+          "force feedback track pad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00325"
+    },
+    {
+      "gold": [
+        [
+          13,
+          21,
+          "mac book"
+        ],
+        [
+          65,
+          74,
+          "internals"
+        ]
+      ],
+      "pred": [
+        [
+          65,
+          74,
+          "internals"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00326"
+    },
+    {
+      "gold": [
+        [
+          5,
+          18,
+          "this computer"
+        ]
+      ],
+      "pred": [
+        [
+          10,
+          18,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00327"
+    },
+    {
+      "gold": [
+        [
+          12,
+          20,
+          "trackpad"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          20,
+          "force touch trackpad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00328"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          10,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00330"
+    },
+    {
+      "gold": [
+        [
+          22,
+          30,
+          "programs"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          30,
+          "programs"
+        ],
+        [
+          70,
+          79,
+          "functions"
+        ],
+        [
+          86,
+          96,
+          "appearance"
+        ],
+        [
+          101,
+          108,
+          "quality"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00331"
+    },
+    {
+      "gold": [
+        [
+          37,
+          44,
+          "macbook"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00334"
+    },
+    {
+      "gold": [
+        [
+          16,
+          32,
+          "customer service"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          11,
+          "price"
+        ],
+        [
+          16,
+          32,
+          "customer service"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00338"
+    },
+    {
+      "gold": [
+        [
+          47,
+          54,
+          "macbook"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00339"
+    },
+    {
+      "gold": [
+        [
+          0,
+          6,
+          "laptop"
+        ],
+        [
+          46,
+          53,
+          "charger"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "laptop"
+        ],
+        [
+          41,
+          53,
+          "used charger"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00340"
+    },
+    {
+      "gold": [
+        [
+          33,
+          47,
+          "apple products"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "costs"
+        ],
+        [
+          33,
+          47,
+          "apple products"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00342"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          6,
+          11,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00344"
+    },
+    {
+      "gold": [
+        [
+          80,
+          88,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          23,
+          29,
+          "laptop"
+        ],
+        [
+          64,
+          71,
+          "deliver"
+        ],
+        [
+          80,
+          88,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00346"
+    },
+    {
+      "gold": [
+        [
+          23,
+          33,
+          "2016 model"
+        ]
+      ],
+      "pred": [
+        [
+          53,
+          58,
+          "ports"
+        ],
+        [
+          63,
+          80,
+          "magsafe connector"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00348"
+    },
+    {
+      "gold": [
+        [
+          40,
+          46,
+          "system"
+        ],
+        [
+          132,
+          149,
+          "chrome os because"
+        ]
+      ],
+      "pred": [
+        [
+          40,
+          46,
+          "system"
+        ],
+        [
+          132,
+          141,
+          "chrome os"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00354"
+    },
+    {
+      "gold": [
+        [
+          0,
+          6,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "screen"
+        ],
+        [
+          71,
+          82,
+          "touchscreen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00356"
+    },
+    {
+      "gold": [
+        [
+          2,
+          10,
+          "speakers"
+        ],
+        [
+          121,
+          130,
+          "chrome os"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          10,
+          "speakers"
+        ],
+        [
+          43,
+          49,
+          "volume"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00358"
+    },
+    {
+      "gold": [
+        [
+          10,
+          26,
+          "windows 7 laptop"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          8,
+          "trust"
+        ],
+        [
+          10,
+          26,
+          "windows 7 laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00362"
+    },
+    {
+      "gold": [
+        [
+          57,
+          72,
+          "internet access"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          36,
+          "chromebooks"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00365"
+    },
+    {
+      "gold": [
+        [
+          33,
+          50,
+          "screenwriting app"
+        ]
+      ],
+      "pred": [
+        [
+          33,
+          50,
+          "screenwriting app"
+        ],
+        [
+          53,
+          59,
+          "trelby"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00366"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          38,
+          57,
+          "internet connection"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00367"
+    },
+    {
+      "gold": [
+        [
+          50,
+          64,
+          "studio desktop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00368"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          53,
+          59,
+          "button"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00369"
+    },
+    {
+      "gold": [
+        [
+          73,
+          78,
+          "model"
+        ]
+      ],
+      "pred": [
+        [
+          69,
+          78,
+          "4gb model"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00370"
+    },
+    {
+      "gold": [
+        [
+          50,
+          67,
+          "fan - less device"
+        ]
+      ],
+      "pred": [
+        [
+          50,
+          55,
+          "fan -"
+        ],
+        [
+          61,
+          67,
+          "device"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00371"
+    },
+    {
+      "gold": [
+        [
+          21,
+          34,
+          "return policy"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00373"
+    },
+    {
+      "gold": [
+        [
+          24,
+          36,
+          "android apps"
+        ]
+      ],
+      "pred": [
+        [
+          24,
+          36,
+          "android apps"
+        ],
+        [
+          121,
+          127,
+          "window"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00375"
+    },
+    {
+      "gold": [
+        [
+          0,
+          6,
+          "laptop"
+        ],
+        [
+          29,
+          35,
+          "screen"
+        ],
+        [
+          73,
+          81,
+          "air vent"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "laptop"
+        ],
+        [
+          29,
+          35,
+          "screen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00376"
+    },
+    {
+      "gold": [
+        [
+          78,
+          86,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          45,
+          53,
+          "start up"
+        ],
+        [
+          78,
+          86,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00377"
+    },
+    {
+      "gold": [
+        [
+          21,
+          27,
+          "seller"
+        ],
+        [
+          43,
+          53,
+          "mac ' s os"
+        ],
+        [
+          70,
+          78,
+          "services"
+        ]
+      ],
+      "pred": [
+        [
+          21,
+          27,
+          "seller"
+        ],
+        [
+          70,
+          78,
+          "services"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00378"
+    },
+    {
+      "gold": [
+        [
+          10,
+          21,
+          "macbook pro"
+        ],
+        [
+          82,
+          94,
+          "power button"
+        ],
+        [
+          101,
+          109,
+          "keyboard"
+        ],
+        [
+          118,
+          126,
+          "trackpad"
+        ]
+      ],
+      "pred": [
+        [
+          82,
+          94,
+          "power button"
+        ],
+        [
+          101,
+          109,
+          "keyboard"
+        ],
+        [
+          118,
+          126,
+          "trackpad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00380"
+    },
+    {
+      "gold": [
+        [
+          24,
+          30,
+          "laptop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00382"
+    },
+    {
+      "gold": [
+        [
+          31,
+          36,
+          "apple"
+        ]
+      ],
+      "pred": [
+        [
+          31,
+          36,
+          "apple"
+        ],
+        [
+          155,
+          165,
+          "apple care"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00384"
+    },
+    {
+      "gold": [
+        [
+          22,
+          30,
+          "computer"
+        ],
+        [
+          42,
+          49,
+          "macbook"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00385"
+    },
+    {
+      "gold": [
+        [
+          4,
+          29,
+          "anti - reflective coating"
+        ],
+        [
+          73,
+          91,
+          "apple ' s warranty"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          29,
+          "anti - reflective coating"
+        ],
+        [
+          73,
+          82,
+          "apple ' s"
+        ],
+        [
+          83,
+          91,
+          "warranty"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00386"
+    },
+    {
+      "gold": [
+        [
+          4,
+          15,
+          "macbook pro"
+        ]
+      ],
+      "pred": [
+        [
+          41,
+          48,
+          "machine"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00387"
+    },
+    {
+      "gold": [
+        [
+          8,
+          21,
+          "ssd drive ` `"
+        ]
+      ],
+      "pred": [
+        [
+          8,
+          17,
+          "ssd drive"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00389"
+    },
+    {
+      "gold": [
+        [
+          4,
+          11,
+          "charger"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          11,
+          "charger"
+        ],
+        [
+          54,
+          61,
+          "charger"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00390"
+    },
+    {
+      "gold": [
+        [
+          4,
+          16,
+          "battery life"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          16,
+          "battery life"
+        ],
+        [
+          99,
+          101,
+          "wi"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00393"
+    },
+    {
+      "gold": [
+        [
+          23,
+          29,
+          "amazon"
+        ],
+        [
+          58,
+          65,
+          "laptops"
+        ]
+      ],
+      "pred": [
+        [
+          23,
+          29,
+          "amazon"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00395"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          26,
+          33,
+          "booting"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00396"
+    },
+    {
+      "gold": [
+        [
+          38,
+          43,
+          "apple"
+        ]
+      ],
+      "pred": [
+        [
+          95,
+          108,
+          "functionality"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00401"
+    },
+    {
+      "gold": [
+        [
+          17,
+          25,
+          "notebook"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00402"
+    },
+    {
+      "gold": [
+        [
+          33,
+          38,
+          "1080p"
+        ]
+      ],
+      "pred": [
+        [
+          33,
+          36,
+          "108"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00406"
+    },
+    {
+      "gold": [
+        [
+          2,
+          13,
+          "touchscreen"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          13,
+          "touchscreen"
+        ],
+        [
+          39,
+          45,
+          "gaming"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00408"
+    },
+    {
+      "gold": [
+        [
+          21,
+          32,
+          "chrome apps"
+        ]
+      ],
+      "pred": [
+        [
+          21,
+          32,
+          "chrome apps"
+        ],
+        [
+          106,
+          115,
+          "chrome os"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00409"
+    },
+    {
+      "gold": [
+        [
+          23,
+          29,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          11,
+          "tablet"
+        ],
+        [
+          23,
+          29,
+          "screen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00410"
+    },
+    {
+      "gold": [
+        [
+          39,
+          50,
+          "ui elements"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          10,
+          "screen"
+        ],
+        [
+          39,
+          41,
+          "ui"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00415"
+    },
+    {
+      "gold": [
+        [
+          11,
+          14,
+          "app"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          14,
+          "app"
+        ],
+        [
+          75,
+          78,
+          "app"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00416"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          2,
+          8,
+          "volume"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00418"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          0,
+          15,
+          "transfer speeds"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00422"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          32,
+          "backlight"
+        ],
+        [
+          53,
+          66,
+          "matte texture"
+        ],
+        [
+          107,
+          113,
+          "pixels"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00423"
+    },
+    {
+      "gold": [
+        [
+          69,
+          89,
+          "power _ supply issue"
+        ]
+      ],
+      "pred": [
+        [
+          69,
+          83,
+          "power _ supply"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00425"
+    },
+    {
+      "gold": [
+        [
+          4,
+          10,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          10,
+          "laptop"
+        ],
+        [
+          37,
+          43,
+          "booted"
+        ],
+        [
+          61,
+          64,
+          "use"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00428"
+    },
+    {
+      "gold": [
+        [
+          94,
+          104,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          94,
+          110,
+          "chromebook lines"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00429"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          31,
+          "unit"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00431"
+    },
+    {
+      "gold": [
+        [
+          25,
+          34,
+          "companies"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00432"
+    },
+    {
+      "gold": [
+        [
+          31,
+          37,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          30,
+          "built"
+        ],
+        [
+          31,
+          37,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00435"
+    },
+    {
+      "gold": [
+        [
+          0,
+          4,
+          "asus"
+        ]
+      ],
+      "pred": [
+        [
+          60,
+          67,
+          "product"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00437"
+    },
+    {
+      "gold": [
+        [
+          55,
+          62,
+          "battery"
+        ]
+      ],
+      "pred": [
+        [
+          55,
+          67,
+          "battery time"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00439"
+    },
+    {
+      "gold": [
+        [
+          28,
+          39,
+          "tablet mode"
+        ]
+      ],
+      "pred": [
+        [
+          28,
+          39,
+          "tablet mode"
+        ],
+        [
+          90,
+          103,
+          "configuration"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00441"
+    },
+    {
+      "gold": [
+        [
+          26,
+          43,
+          "tablet / computer"
+        ]
+      ],
+      "pred": [
+        [
+          26,
+          32,
+          "tablet"
+        ],
+        [
+          35,
+          43,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00442"
+    },
+    {
+      "gold": [
+        [
+          2,
+          12,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          12,
+          "chromebook"
+        ],
+        [
+          47,
+          54,
+          "gaiming"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00444"
+    },
+    {
+      "gold": [
+        [
+          33,
+          41,
+          "touchpad"
+        ]
+      ],
+      "pred": [
+        [
+          15,
+          20,
+          "mouse"
+        ],
+        [
+          33,
+          41,
+          "touchpad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00448"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          35,
+          40,
+          "pixel"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00451"
+    },
+    {
+      "gold": [
+        [
+          14,
+          18,
+          "crap"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00453"
+    },
+    {
+      "gold": [
+        [
+          4,
+          20,
+          "display panel on"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          17,
+          "display panel"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00465"
+    },
+    {
+      "gold": [
+        [
+          4,
+          11,
+          "machine"
+        ],
+        [
+          33,
+          41,
+          "hardware"
+        ],
+        [
+          75,
+          84,
+          "chrome os"
+        ],
+        [
+          89,
+          107,
+          "cloud applications"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          11,
+          "machine"
+        ],
+        [
+          75,
+          84,
+          "chrome os"
+        ],
+        [
+          89,
+          107,
+          "cloud applications"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00467"
+    },
+    {
+      "gold": [
+        [
+          133,
+          142,
+          "chrome os"
+        ]
+      ],
+      "pred": [
+        [
+          65,
+          69,
+          "boot"
+        ],
+        [
+          133,
+          142,
+          "chrome os"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00468"
+    },
+    {
+      "gold": [
+        [
+          0,
+          6,
+          "google"
+        ],
+        [
+          22,
+          38,
+          "customer support"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "google"
+        ],
+        [
+          54,
+          56,
+          "os"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00472"
+    },
+    {
+      "gold": [
+        [
+          4,
+          14,
+          "microphone"
+        ],
+        [
+          42,
+          49,
+          "speaker"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          14,
+          "microphone"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00477"
+    },
+    {
+      "gold": [
+        [
+          33,
+          43,
+          "chrombooks"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00481"
+    },
+    {
+      "gold": [
+        [
+          4,
+          28,
+          "top metal monitor casing"
+        ]
+      ],
+      "pred": [
+        [
+          8,
+          28,
+          "metal monitor casing"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00483"
+    },
+    {
+      "gold": [
+        [
+          22,
+          41,
+          "metal screen casing"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00484"
+    },
+    {
+      "gold": [
+        [
+          10,
+          16,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          16,
+          "1080 screen"
+        ],
+        [
+          27,
+          32,
+          "fonts"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00487"
+    },
+    {
+      "gold": [
+        [
+          11,
+          22,
+          "chromium os"
+        ],
+        [
+          83,
+          93,
+          "windows pc"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          22,
+          "chromium os"
+        ],
+        [
+          83,
+          90,
+          "windows"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00488"
+    },
+    {
+      "gold": [
+        [
+          4,
+          12,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "keyboard"
+        ],
+        [
+          46,
+          54,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00489"
+    },
+    {
+      "gold": [
+        [
+          11,
+          19,
+          "trackpad"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          19,
+          "trackpad"
+        ],
+        [
+          47,
+          53,
+          "cursor"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00491"
+    },
+    {
+      "gold": [
+        [
+          112,
+          147,
+          "thermaltake auto laptop cooling pad"
+        ]
+      ],
+      "pred": [
+        [
+          27,
+          46,
+          "cooler boost button"
+        ],
+        [
+          112,
+          147,
+          "thermaltake auto laptop cooling pad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00495"
+    },
+    {
+      "gold": [
+        [
+          3,
+          9,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          9,
+          "laptop"
+        ],
+        [
+          28,
+          47,
+          "internet connection"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00498"
+    },
+    {
+      "gold": [
+        [
+          113,
+          121,
+          "hardware"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          47,
+          "technical support"
+        ],
+        [
+          52,
+          67,
+          "windows support"
+        ],
+        [
+          113,
+          121,
+          "hardware"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00499"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          32,
+          "works"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00501"
+    },
+    {
+      "gold": [
+        [
+          105,
+          112,
+          "display"
+        ],
+        [
+          134,
+          138,
+          "disk"
+        ],
+        [
+          156,
+          167,
+          "some driver"
+        ],
+        [
+          196,
+          202,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          105,
+          112,
+          "display"
+        ],
+        [
+          134,
+          138,
+          "disk"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00503"
+    },
+    {
+      "gold": [
+        [
+          25,
+          32,
+          "machine"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          7,
+          "hook up"
+        ],
+        [
+          12,
+          16,
+          "cat5"
+        ],
+        [
+          25,
+          32,
+          "machine"
+        ],
+        [
+          54,
+          59,
+          "speed"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00504"
+    },
+    {
+      "gold": [
+        [
+          37,
+          43,
+          "system"
+        ]
+      ],
+      "pred": [
+        [
+          37,
+          43,
+          "system"
+        ],
+        [
+          76,
+          79,
+          "msi"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00505"
+    },
+    {
+      "gold": [
+        [
+          144,
+          150,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          51,
+          58,
+          "drivers"
+        ],
+        [
+          144,
+          150,
+          "laptop"
+        ],
+        [
+          179,
+          184,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00506"
+    },
+    {
+      "gold": [
+        [
+          20,
+          23,
+          "msi"
+        ]
+      ],
+      "pred": [
+        [
+          20,
+          23,
+          "msi"
+        ],
+        [
+          34,
+          45,
+          "performance"
+        ],
+        [
+          64,
+          69,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00510"
+    },
+    {
+      "gold": [
+        [
+          33,
+          39,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          33,
+          39,
+          "laptop"
+        ],
+        [
+          53,
+          60,
+          "booting"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00512"
+    },
+    {
+      "gold": [
+        [
+          8,
+          21,
+          "second laptop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00518"
+    },
+    {
+      "gold": [
+        [
+          15,
+          36,
+          "customer tech support"
+        ],
+        [
+          41,
+          44,
+          "msi"
+        ]
+      ],
+      "pred": [
+        [
+          15,
+          40,
+          "customer tech support and"
+        ],
+        [
+          41,
+          44,
+          "msi"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00528"
+    },
+    {
+      "gold": [
+        [
+          52,
+          58,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          17,
+          24,
+          "plastic"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00530"
+    },
+    {
+      "gold": [
+        [
+          34,
+          40,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          57,
+          61,
+          "work"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00534"
+    },
+    {
+      "gold": [
+        [
+          149,
+          156,
+          "product"
+        ]
+      ],
+      "pred": [
+        [
+          57,
+          64,
+          "windows"
+        ],
+        [
+          149,
+          156,
+          "product"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00535"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          30,
+          "garbage"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00537"
+    },
+    {
+      "gold": [
+        [
+          17,
+          23,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          17,
+          23,
+          "laptop"
+        ],
+        [
+          63,
+          69,
+          "laptop"
+        ],
+        [
+          80,
+          86,
+          "screen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00538"
+    },
+    {
+      "gold": [
+        [
+          16,
+          22,
+          "bootup"
+        ],
+        [
+          37,
+          50,
+          "optane memory"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          27,
+          "bootup time"
+        ],
+        [
+          37,
+          50,
+          "optane memory"
+        ],
+        [
+          92,
+          95,
+          "ssd"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00542"
+    },
+    {
+      "gold": [
+        [
+          66,
+          76,
+          "hard drive"
+        ]
+      ],
+      "pred": [
+        [
+          52,
+          76,
+          "5400 rpm 1 tb hard drive"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00545"
+    },
+    {
+      "gold": [
+        [
+          12,
+          31,
+          "ips matte fhd panel"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          15,
+          "ips"
+        ],
+        [
+          16,
+          31,
+          "matte fhd panel"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00546"
+    },
+    {
+      "gold": [
+        [
+          11,
+          19,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          19,
+          "backlit keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00549"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          33,
+          "laptop"
+        ],
+        [
+          41,
+          51,
+          "hard drive"
+        ],
+        [
+          84,
+          90,
+          "laptop"
+        ],
+        [
+          109,
+          112,
+          "ram"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00551"
+    },
+    {
+      "gold": [
+        [
+          88,
+          94,
+          "weight"
+        ]
+      ],
+      "pred": [
+        [
+          68,
+          71,
+          "cpu"
+        ],
+        [
+          88,
+          94,
+          "weight"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00552"
+    },
+    {
+      "gold": [
+        [
+          30,
+          53,
+          "delete and power button"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          40,
+          "delete and"
+        ],
+        [
+          41,
+          53,
+          "power button"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00553"
+    },
+    {
+      "gold": [
+        [
+          9,
+          19,
+          "windows 10"
+        ],
+        [
+          28,
+          35,
+          "display"
+        ],
+        [
+          42,
+          51,
+          "card slot"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          19,
+          "windows 10"
+        ],
+        [
+          22,
+          27,
+          "sharp"
+        ],
+        [
+          28,
+          35,
+          "display"
+        ],
+        [
+          42,
+          55,
+          "card slot for"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00556"
+    },
+    {
+      "gold": [
+        [
+          14,
+          22,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          13,
+          "quality"
+        ],
+        [
+          14,
+          22,
+          "computer"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00557"
+    },
+    {
+      "gold": [
+        [
+          25,
+          30,
+          "stuff"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00560"
+    },
+    {
+      "gold": [
+        [
+          18,
+          24,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          11,
+          "value"
+        ],
+        [
+          18,
+          24,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00569"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          13,
+          20,
+          "plastic"
+        ],
+        [
+          25,
+          36,
+          "performance"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00571"
+    },
+    {
+      "gold": [
+        [
+          4,
+          12,
+          "speakers"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "speakers"
+        ],
+        [
+          55,
+          61,
+          "volume"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00573"
+    },
+    {
+      "gold": [
+        [
+          51,
+          57,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          79,
+          84,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00576"
+    },
+    {
+      "gold": [
+        [
+          51,
+          61,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          51,
+          61,
+          "chromebook"
+        ],
+        [
+          84,
+          90,
+          "weight"
+        ],
+        [
+          93,
+          97,
+          "size"
+        ],
+        [
+          104,
+          110,
+          "design"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00577"
+    },
+    {
+      "gold": [
+        [
+          0,
+          3,
+          "ssd"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          12,
+          "ssd hardware"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00581"
+    },
+    {
+      "gold": [
+        [
+          7,
+          25,
+          "support for amazon"
+        ],
+        [
+          159,
+          182,
+          "amazon customer service"
+        ]
+      ],
+      "pred": [
+        [
+          7,
+          14,
+          "support"
+        ],
+        [
+          159,
+          182,
+          "amazon customer service"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00582"
+    },
+    {
+      "gold": [
+        [
+          5,
+          13,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          13,
+          "keyboard"
+        ],
+        [
+          45,
+          49,
+          "size"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00585"
+    },
+    {
+      "gold": [
+        [
+          62,
+          74,
+          "acer product"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00586"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          38,
+          42,
+          "item"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00588"
+    },
+    {
+      "gold": [
+        [
+          23,
+          27,
+          "acer"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00592"
+    },
+    {
+      "gold": [
+        [
+          3,
+          14,
+          "acer aspire"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          19,
+          "acer aspire e 15"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00593"
+    },
+    {
+      "gold": [
+        [
+          49,
+          55,
+          "laptop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00595"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          16,
+          "performance"
+        ],
+        [
+          25,
+          30,
+          "price"
+        ],
+        [
+          55,
+          62,
+          "support"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00596"
+    },
+    {
+      "gold": [
+        [
+          33,
+          39,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          33,
+          39,
+          "laptop"
+        ],
+        [
+          82,
+          89,
+          "quality"
+        ],
+        [
+          123,
+          128,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00598"
+    },
+    {
+      "gold": [
+        [
+          21,
+          27,
+          "screen"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00600"
+    },
+    {
+      "gold": [
+        [
+          4,
+          12,
+          "computer"
+        ],
+        [
+          45,
+          54,
+          "hdmi port"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "computer"
+        ],
+        [
+          29,
+          34,
+          "price"
+        ],
+        [
+          45,
+          54,
+          "hdmi port"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00602"
+    },
+    {
+      "gold": [
+        [
+          0,
+          7,
+          "battery"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          12,
+          "battery life"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00605"
+    },
+    {
+      "gold": [
+        [
+          0,
+          18,
+          "mx150 gaphics card"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          4,
+          "mx15"
+        ],
+        [
+          6,
+          18,
+          "gaphics card"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00609"
+    },
+    {
+      "gold": [
+        [
+          33,
+          39,
+          "keypad"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "computer"
+        ],
+        [
+          13,
+          17,
+          "runs"
+        ],
+        [
+          33,
+          39,
+          "keypad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00617"
+    },
+    {
+      "gold": [
+        [
+          46,
+          53,
+          "machine"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00619"
+    },
+    {
+      "gold": [
+        [
+          20,
+          24,
+          "wifi"
+        ],
+        [
+          31,
+          37,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          27,
+          37,
+          "amd screen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00623"
+    },
+    {
+      "gold": [
+        [
+          3,
+          12,
+          "backlight"
+        ],
+        [
+          16,
+          24,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          24,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00627"
+    },
+    {
+      "gold": [
+        [
+          0,
+          3,
+          "key"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          11,
+          "key presses"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00628"
+    },
+    {
+      "gold": [
+        [
+          32,
+          36,
+          "case"
+        ],
+        [
+          41,
+          47,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          8,
+          "asus"
+        ],
+        [
+          32,
+          36,
+          "case"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00630"
+    },
+    {
+      "gold": [
+        [
+          12,
+          21,
+          "backlight"
+        ],
+        [
+          26,
+          30,
+          "keys"
+        ]
+      ],
+      "pred": [
+        [
+          26,
+          30,
+          "keys"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00631"
+    },
+    {
+      "gold": [
+        [
+          51,
+          69,
+          "fingerprint reader"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "linux"
+        ],
+        [
+          51,
+          69,
+          "fingerprint reader"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00633"
+    },
+    {
+      "gold": [
+        [
+          72,
+          92,
+          "asus vivobook f510ua"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          24,
+          "video converting process"
+        ],
+        [
+          72,
+          85,
+          "asus vivobook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00634"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          42,
+          "hardwire connection"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00636"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          20,
+          28,
+          "software"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00637"
+    },
+    {
+      "gold": [
+        [
+          47,
+          51,
+          "wifi"
+        ]
+      ],
+      "pred": [
+        [
+          26,
+          40,
+          "screen quality"
+        ],
+        [
+          47,
+          51,
+          "wifi"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00640"
+    },
+    {
+      "gold": [
+        [
+          39,
+          48,
+          "track pad"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          8,
+          "finger"
+        ],
+        [
+          39,
+          48,
+          "track pad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00643"
+    },
+    {
+      "gold": [
+        [
+          13,
+          17,
+          "asus"
+        ]
+      ],
+      "pred": [
+        [
+          13,
+          17,
+          "asus"
+        ],
+        [
+          36,
+          39,
+          "key"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00650"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          27,
+          "disk"
+        ],
+        [
+          36,
+          40,
+          "runs"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00653"
+    },
+    {
+      "gold": [
+        [
+          19,
+          23,
+          "spec"
+        ],
+        [
+          24,
+          32,
+          "hardware"
+        ],
+        [
+          78,
+          88,
+          "hard drive"
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          32,
+          "spec hardware"
+        ],
+        [
+          97,
+          101,
+          "unit"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00661"
+    },
+    {
+      "gold": [
+        [
+          38,
+          56,
+          "production quality"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          19,
+          "physical case"
+        ],
+        [
+          94,
+          99,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00663"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          54,
+          71,
+          "development stack"
+        ],
+        [
+          113,
+          118,
+          "cloud"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00665"
+    },
+    {
+      "gold": [
+        [
+          135,
+          147,
+          "android apps"
+        ]
+      ],
+      "pred": [
+        [
+          48,
+          62,
+          "password vault"
+        ],
+        [
+          118,
+          134,
+          "network scanning"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00666"
+    },
+    {
+      "gold": [
+        [
+          0,
+          5,
+          "mouse"
+        ],
+        [
+          10,
+          27,
+          "trackpad settings"
+        ],
+        [
+          104,
+          128,
+          "power management options"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "mouse"
+        ],
+        [
+          10,
+          27,
+          "trackpad settings"
+        ],
+        [
+          89,
+          93,
+          "keys"
+        ],
+        [
+          104,
+          128,
+          "power management options"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00667"
+    },
+    {
+      "gold": [
+        [
+          8,
+          25,
+          "google play store"
+        ],
+        [
+          51,
+          55,
+          "apps"
+        ]
+      ],
+      "pred": [
+        [
+          8,
+          25,
+          "google play store"
+        ],
+        [
+          51,
+          55,
+          "apps"
+        ],
+        [
+          60,
+          65,
+          "games"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00668"
+    },
+    {
+      "gold": [
+        [
+          96,
+          109,
+          "linux configs"
+        ],
+        [
+          114,
+          126,
+          "environments"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00669"
+    },
+    {
+      "gold": [
+        [
+          51,
+          58,
+          "machine"
+        ],
+        [
+          137,
+          144,
+          "machine"
+        ],
+        [
+          169,
+          177,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          51,
+          58,
+          "machine"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00670"
+    },
+    {
+      "gold": [
+        [
+          52,
+          68,
+          "screen protector"
+        ]
+      ],
+      "pred": [
+        [
+          39,
+          58,
+          "anti - glare screen"
+        ],
+        [
+          179,
+          185,
+          "screen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00671"
+    },
+    {
+      "gold": [
+        [
+          0,
+          4,
+          "apps"
+        ],
+        [
+          10,
+          24,
+          "microsoft word"
+        ],
+        [
+          27,
+          32,
+          "excel"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          4,
+          "apps"
+        ],
+        [
+          10,
+          24,
+          "microsoft word"
+        ],
+        [
+          27,
+          32,
+          "excel"
+        ],
+        [
+          39,
+          42,
+          "run"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00673"
+    },
+    {
+      "gold": [
+        [
+          2,
+          15,
+          "build quality"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          15,
+          "build quality"
+        ],
+        [
+          58,
+          65,
+          "quality"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00682"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          28,
+          "carry"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00683"
+    },
+    {
+      "gold": [
+        [
+          3,
+          12,
+          "starts up"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          12,
+          "starts up"
+        ],
+        [
+          15,
+          19,
+          "runs"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00684"
+    },
+    {
+      "gold": [
+        [
+          84,
+          90,
+          "design"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          21,
+          "core m3 processor"
+        ],
+        [
+          33,
+          37,
+          "c302"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00692"
+    },
+    {
+      "gold": [
+        [
+          11,
+          18,
+          "display"
+        ],
+        [
+          29,
+          34,
+          "touch"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          18,
+          "display"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00694"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          90,
+          97,
+          "product"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00695"
+    },
+    {
+      "gold": [
+        [
+          16,
+          22,
+          "screen"
+        ],
+        [
+          25,
+          36,
+          "touchscreen"
+        ],
+        [
+          30,
+          36,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          22,
+          "screen"
+        ],
+        [
+          25,
+          36,
+          "touchscreen"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00696"
+    },
+    {
+      "gold": [
+        [
+          41,
+          47,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          11,
+          "operational"
+        ],
+        [
+          41,
+          47,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00699"
+    },
+    {
+      "gold": [
+        [
+          6,
+          12,
+          "screen"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          17,
+          "screen size"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00703"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          77,
+          82,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00708"
+    },
+    {
+      "gold": [
+        [
+          12,
+          19,
+          "display"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          19,
+          "display"
+        ],
+        [
+          56,
+          69,
+          "pixel density"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00709"
+    },
+    {
+      "gold": [
+        [
+          91,
+          95,
+          "c302"
+        ],
+        [
+          126,
+          135,
+          "chrome os"
+        ]
+      ],
+      "pred": [
+        [
+          91,
+          95,
+          "c302"
+        ],
+        [
+          126,
+          135,
+          "chrome os"
+        ],
+        [
+          164,
+          169,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00712"
+    },
+    {
+      "gold": [
+        [
+          4,
+          9,
+          "sound"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          9,
+          "sound"
+        ],
+        [
+          71,
+          83,
+          "music system"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00716"
+    },
+    {
+      "gold": [
+        [
+          22,
+          32,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          32,
+          "chromebook"
+        ],
+        [
+          71,
+          78,
+          "utility"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00720"
+    },
+    {
+      "gold": [
+        [
+          6,
+          19,
+          "usb - c ports"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          19,
+          "usb - c ports"
+        ],
+        [
+          54,
+          75,
+          "multiple port adapter"
+        ],
+        [
+          125,
+          134,
+          "hdmi port"
+        ],
+        [
+          146,
+          158,
+          "usb - c port"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00721"
+    },
+    {
+      "gold": [
+        [
+          15,
+          23,
+          "speakers"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          7,
+          "speaker"
+        ],
+        [
+          15,
+          23,
+          "speakers"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00722"
+    },
+    {
+      "gold": [
+        [
+          38,
+          50,
+          "android apps"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          15,
+          "touchscreen"
+        ],
+        [
+          38,
+          50,
+          "android apps"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00729"
+    },
+    {
+      "gold": [
+        [
+          109,
+          127,
+          "edges of the bezel"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          31,
+          "device"
+        ],
+        [
+          109,
+          114,
+          "edges"
+        ],
+        [
+          122,
+          127,
+          "bezel"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00733"
+    },
+    {
+      "gold": [
+        [
+          5,
+          11,
+          "laptop"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          11,
+          "laptop"
+        ],
+        [
+          31,
+          35,
+          "size"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00734"
+    },
+    {
+      "gold": [
+        [
+          0,
+          2,
+          "it"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00742"
+    },
+    {
+      "gold": [
+        [
+          38,
+          46,
+          "computer"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00744"
+    },
+    {
+      "gold": [
+        [
+          9,
+          22,
+          "asus flip 302"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          18,
+          "asus flip"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00745"
+    },
+    {
+      "gold": [
+        [
+          4,
+          16,
+          "battery life"
+        ],
+        [
+          39,
+          47,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          16,
+          "battery life"
+        ],
+        [
+          39,
+          58,
+          "keyboard experience"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00746"
+    },
+    {
+      "gold": [
+        [
+          21,
+          31,
+          "headphones"
+        ]
+      ],
+      "pred": [
+        [
+          21,
+          25,
+          "head"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00748"
+    },
+    {
+      "gold": [
+        [
+          11,
+          19,
+          "keyboard"
+        ],
+        [
+          39,
+          45,
+          "tablet"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          19,
+          "keyboard"
+        ],
+        [
+          39,
+          45,
+          "tablet"
+        ],
+        [
+          67,
+          75,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00749"
+    },
+    {
+      "gold": [
+        [
+          39,
+          45,
+          "laptop"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00752"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          20,
+          26,
+          "weight"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00755"
+    },
+    {
+      "gold": [
+        [
+          0,
+          5,
+          "sound"
+        ],
+        [
+          35,
+          58,
+          "aux speaker / headphone"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "sound"
+        ],
+        [
+          35,
+          46,
+          "aux speaker"
+        ],
+        [
+          49,
+          58,
+          "headphone"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00762"
+    },
+    {
+      "gold": [
+        [
+          121,
+          129,
+          "purchase"
+        ]
+      ],
+      "pred": [],
+      "review_id": "laptop_acos:test:00766"
+    },
+    {
+      "gold": [
+        [
+          5,
+          15,
+          "chromebook"
+        ],
+        [
+          35,
+          44,
+          "computers"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          15,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00767"
+    },
+    {
+      "gold": [
+        [
+          60,
+          77,
+          "screen brightness"
+        ],
+        [
+          101,
+          119,
+          "keyboard backlight"
+        ]
+      ],
+      "pred": [
+        [
+          60,
+          77,
+          "screen brightness"
+        ],
+        [
+          101,
+          109,
+          "keyboard"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00771"
+    },
+    {
+      "gold": [
+        [
+          27,
+          37,
+          "chromebook"
+        ],
+        [
+          127,
+          135,
+          "purchase"
+        ]
+      ],
+      "pred": [
+        [
+          27,
+          37,
+          "chromebook"
+        ],
+        [
+          166,
+          171,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00772"
+    },
+    {
+      "gold": [
+        [
+          31,
+          42,
+          "touchscreen"
+        ]
+      ],
+      "pred": [
+        [
+          31,
+          42,
+          "touchscreen"
+        ],
+        [
+          109,
+          117,
+          "trackpad"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00773"
+    },
+    {
+      "gold": [
+        [
+          46,
+          54,
+          "360 flip"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          16,
+          "touch screen"
+        ],
+        [
+          46,
+          62,
+          "360 flip feature"
+        ],
+        [
+          96,
+          107,
+          "tablet mode"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00777"
+    },
+    {
+      "gold": [
+        [
+          6,
+          14,
+          "computer"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          14,
+          "computer"
+        ],
+        [
+          36,
+          41,
+          "price"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00779"
+    },
+    {
+      "gold": [
+        [
+          6,
+          13,
+          "usb - c"
+        ]
+      ],
+      "pred": [
+        [
+          6,
+          13,
+          "usb - c"
+        ],
+        [
+          18,
+          26,
+          "charging"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00780"
+    },
+    {
+      "gold": [
+        [
+          33,
+          43,
+          "chromebook"
+        ]
+      ],
+      "pred": [
+        [
+          2,
+          7,
+          "price"
+        ],
+        [
+          33,
+          43,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00781"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          19,
+          25,
+          "school"
+        ],
+        [
+          28,
+          43,
+          "surfing the web"
+        ],
+        [
+          50,
+          65,
+          "watching videos"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00782"
+    },
+    {
+      "gold": [
+        [
+          0,
+          13,
+          "c302ca - dh54"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          6,
+          "c302ca"
+        ],
+        [
+          73,
+          78,
+          "cores"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00787"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          36,
+          47,
+          "information"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00789"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          26,
+          36,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00790"
+    },
+    {
+      "gold": [
+        [
+          73,
+          89,
+          "microsoft office"
+        ]
+      ],
+      "pred": [
+        [
+          53,
+          72,
+          "android versions of"
+        ],
+        [
+          73,
+          89,
+          "microsoft office"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00791"
+    },
+    {
+      "gold": [
+        [
+          0,
+          7,
+          "speaker"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          11,
+          "speaker ' s"
+        ],
+        [
+          90,
+          94,
+          "work"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00797"
+    },
+    {
+      "gold": [
+        [
+          89,
+          100,
+          "google docs"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          33,
+          "play store apps"
+        ],
+        [
+          145,
+          152,
+          "windows"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00798"
+    },
+    {
+      "gold": [
+        [
+          83,
+          94,
+          "tablet mode"
+        ]
+      ],
+      "pred": [
+        [
+          39,
+          45,
+          "device"
+        ],
+        [
+          83,
+          94,
+          "tablet mode"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00800"
+    },
+    {
+      "gold": [
+        [
+          3,
+          14,
+          "laptop form"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          9,
+          "laptop"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00804"
+    },
+    {
+      "gold": [
+        [
+          5,
+          15,
+          "chromebook"
+        ],
+        [
+          86,
+          93,
+          "laptops"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          15,
+          "chromebook"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00805"
+    },
+    {
+      "gold": [
+        [
+          4,
+          16,
+          "battery life"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          16,
+          "battery life"
+        ],
+        [
+          41,
+          67,
+          "touchscreen / flip feature"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00806"
+    },
+    {
+      "gold": [
+        [
+          95,
+          108,
+          "usb - c ports"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          11,
+          "audio quest"
+        ],
+        [
+          52,
+          56,
+          "runs"
+        ],
+        [
+          95,
+          108,
+          "usb - c ports"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00807"
+    },
+    {
+      "gold": [
+        [
+          29,
+          35,
+          "laptop"
+        ],
+        [
+          42,
+          50,
+          "keyboard"
+        ],
+        [
+          53,
+          70,
+          "screen resolution"
+        ]
+      ],
+      "pred": [
+        [
+          29,
+          35,
+          "laptop"
+        ],
+        [
+          42,
+          50,
+          "keyboard"
+        ],
+        [
+          53,
+          70,
+          "screen resolution"
+        ],
+        [
+          77,
+          82,
+          "speed"
+        ]
+      ],
+      "review_id": "laptop_acos:test:00809"
+    },
+    {
+      "gold": [
+        [
+          28,
+          43,
+          "word processing"
+        ],
+        [
+          45,
+          57,
+          "web browsing"
+        ],
+        [
+          64,
+          70,
+          "gaming"
+        ],
+        [
+          89,
+          100,
+          "programming"
+        ]
+      ],
+      "pred": [
+        [
+          15,
+          23,
+          "computer"
+        ],
+        [
+          28,
+          43,
+          "word processing"
+        ],
+        [
+          45,
+          57,
+          "web browsing"
+        ],
+        [
+          64,
+          70,
+          "gaming"
+        ],
+        [
+          89,
+          100,
+          "programming"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:0:1"
+    },
+    {
+      "gold": [
+        [
+          11,
+          15,
+          "body"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          15,
+          "mini's body"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:0:3"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          12,
+          "speakers"
+        ],
+        [
+          91,
+          97,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1008:1"
+    },
+    {
+      "gold": [
+        [
+          15,
+          29,
+          "wireless mouse"
+        ],
+        [
+          77,
+          80,
+          "pad"
+        ],
+        [
+          123,
+          128,
+          "works"
+        ],
+        [
+          164,
+          173,
+          "key board"
+        ]
+      ],
+      "pred": [
+        [
+          77,
+          80,
+          "pad"
+        ],
+        [
+          164,
+          173,
+          "key board"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1009:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          46,
+          52,
+          "screen"
+        ],
+        [
+          57,
+          62,
+          "works"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1027:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          31,
+          35,
+          "acer"
+        ],
+        [
+          50,
+          52,
+          "v5"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1031:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          49,
+          62,
+          "acer products"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1047:1"
+    },
+    {
+      "gold": [
+        [
+          24,
+          33,
+          "mavericks"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          33,
+          "o mavericks"
+        ],
+        [
+          80,
+          88,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:104:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          18,
+          "sd card reader"
+        ],
+        [
+          61,
+          82,
+          "nail slot on the card"
+        ],
+        [
+          132,
+          136,
+          "slot"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          18,
+          "sd card reader"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1053:13"
+    },
+    {
+      "gold": [
+        [
+          85,
+          93,
+          "internet"
+        ],
+        [
+          95,
+          110,
+          "word processing"
+        ],
+        [
+          112,
+          126,
+          "graphic design"
+        ],
+        [
+          131,
+          137,
+          "gaming"
+        ]
+      ],
+      "pred": [
+        [
+          95,
+          99,
+          "word"
+        ],
+        [
+          131,
+          137,
+          "gaming"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1056:1"
+    },
+    {
+      "gold": [
+        [
+          14,
+          39,
+          "wireless keyboard / mouse"
+        ],
+        [
+          46,
+          56,
+          "hdmi cable"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          31,
+          "wireless keyboard"
+        ],
+        [
+          46,
+          56,
+          "hdmi cable"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:105:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          9,
+          "sound"
+        ],
+        [
+          47,
+          53,
+          "volume"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          9,
+          "sound"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1063:396"
+    },
+    {
+      "gold": [
+        [
+          4,
+          11,
+          "battery"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          15,
+          "battery was"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1064:1"
+    },
+    {
+      "gold": [
+        [
+          15,
+          23,
+          "features"
+        ],
+        [
+          49,
+          54,
+          "price"
+        ],
+        [
+          65,
+          72,
+          "working"
+        ]
+      ],
+      "pred": [
+        [
+          15,
+          23,
+          "features"
+        ],
+        [
+          49,
+          54,
+          "price"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1076:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          31,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1080:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          28,
+          34,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1087:1"
+    },
+    {
+      "gold": [
+        [
+          49,
+          66,
+          "compact computing"
+        ]
+      ],
+      "pred": [
+        [
+          57,
+          66,
+          "computing"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:109:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          15,
+          21,
+          "amazon"
+        ],
+        [
+          29,
+          36,
+          "bestbuy"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1105:1"
+    },
+    {
+      "gold": [
+        [
+          74,
+          80,
+          "gaming"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          20,
+          "designer"
+        ],
+        [
+          25,
+          30,
+          "coder"
+        ],
+        [
+          74,
+          80,
+          "gaming"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:112:1"
+    },
+    {
+      "gold": [
+        [
+          14,
+          20,
+          "memory"
+        ],
+        [
+          25,
+          30,
+          "speed"
+        ],
+        [
+          63,
+          74,
+          "flexibility"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          20,
+          "memory"
+        ],
+        [
+          25,
+          30,
+          "speed"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1133:1"
+    },
+    {
+      "gold": [
+        [
+          11,
+          17,
+          "design"
+        ],
+        [
+          43,
+          51,
+          "keyboard"
+        ],
+        [
+          63,
+          68,
+          "ports"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          17,
+          "design"
+        ],
+        [
+          30,
+          33,
+          "use"
+        ],
+        [
+          43,
+          51,
+          "keyboard"
+        ],
+        [
+          63,
+          68,
+          "ports"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1138:1"
+    },
+    {
+      "gold": [
+        [
+          31,
+          36,
+          "price"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          22,
+          "computer"
+        ],
+        [
+          31,
+          36,
+          "price"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1143:1"
+    },
+    {
+      "gold": [
+        [
+          73,
+          84,
+          "16gb of ram"
+        ],
+        [
+          90,
+          123,
+          "seagate momentus xt hybrid drives"
+        ],
+        [
+          131,
+          146,
+          "owc upgrade kit"
+        ],
+        [
+          169,
+          179,
+          "hard drive"
+        ]
+      ],
+      "pred": [
+        [
+          81,
+          84,
+          "ram"
+        ],
+        [
+          131,
+          146,
+          "owc upgrade kit"
+        ],
+        [
+          169,
+          179,
+          "hard drive"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:115:1"
+    },
+    {
+      "gold": [
+        [
+          36,
+          46,
+          "ac adaptor"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          19,
+          "troubleshooting"
+        ],
+        [
+          36,
+          46,
+          "ac adaptor"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:1160:2"
+    },
+    {
+      "gold": [
+        [
+          4,
+          8,
+          "case"
+        ],
+        [
+          81,
+          102,
+          "external power supply"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          8,
+          "case"
+        ],
+        [
+          81,
+          89,
+          "external"
+        ],
+        [
+          90,
+          102,
+          "power supply"
+        ],
+        [
+          135,
+          139,
+          "size"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:11:1"
+    },
+    {
+      "gold": [
+        [
+          8,
+          15,
+          "install"
+        ],
+        [
+          79,
+          111,
+          "configure for adsl cable or wifi"
+        ]
+      ],
+      "pred": [
+        [
+          8,
+          15,
+          "install"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:121:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          32,
+          36,
+          "item"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:127:1"
+    },
+    {
+      "gold": [
+        [
+          0,
+          5,
+          "works"
+        ],
+        [
+          54,
+          62,
+          "apple os"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:130:1"
+    },
+    {
+      "gold": [
+        [
+          7,
+          13,
+          "itunes"
+        ],
+        [
+          28,
+          36,
+          "security"
+        ],
+        [
+          42,
+          58,
+          "mini form factor"
+        ],
+        [
+          73,
+          87,
+          "graphics stuff"
+        ]
+      ],
+      "pred": [
+        [
+          7,
+          13,
+          "itunes"
+        ],
+        [
+          28,
+          36,
+          "security"
+        ],
+        [
+          42,
+          58,
+          "mini form factor"
+        ],
+        [
+          73,
+          81,
+          "graphics"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:146:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          29,
+          33,
+          "mini"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:152:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          39,
+          48,
+          "computers"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:155:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          14,
+          22,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:15:1"
+    },
+    {
+      "gold": [
+        [
+          42,
+          64,
+          "virtual home schooling"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          13,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:184:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          21,
+          34,
+          "apple product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:199:1"
+    },
+    {
+      "gold": [
+        [
+          57,
+          61,
+          "spec"
+        ]
+      ],
+      "pred": [
+        [
+          57,
+          61,
+          "spec"
+        ],
+        [
+          73,
+          82,
+          "27\" imacs"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:19:0"
+    },
+    {
+      "gold": [
+        [
+          18,
+          41,
+          "dvd drive firewire port"
+        ],
+        [
+          58,
+          65,
+          "adapter"
+        ],
+        [
+          79,
+          88,
+          "sdxc slot"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          41,
+          "dvd drive firewire port"
+        ],
+        [
+          79,
+          88,
+          "sdxc slot"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:19:1"
+    },
+    {
+      "gold": [
+        [
+          33,
+          41,
+          "scanning"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:1:26"
+    },
+    {
+      "gold": [
+        [
+          13,
+          33,
+          "loading the internet"
+        ]
+      ],
+      "pred": [
+        [
+          13,
+          20,
+          "loading"
+        ],
+        [
+          25,
+          33,
+          "internet"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:201:1"
+    },
+    {
+      "gold": [
+        [
+          73,
+          79,
+          "design"
+        ],
+        [
+          94,
+          121,
+          "intel 4000 graphics chipset"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "apple"
+        ],
+        [
+          73,
+          79,
+          "design"
+        ],
+        [
+          94,
+          121,
+          "intel 4000 graphics chipset"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:204:1"
+    },
+    {
+      "gold": [
+        [
+          22,
+          37,
+          "product quality"
+        ],
+        [
+          38,
+          48,
+          "aesthetics"
+        ],
+        [
+          49,
+          61,
+          "craftmanship"
+        ],
+        [
+          67,
+          83,
+          "customer service"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          5,
+          "apple"
+        ],
+        [
+          22,
+          37,
+          "product quality"
+        ],
+        [
+          38,
+          48,
+          "aesthetics"
+        ],
+        [
+          49,
+          61,
+          "craftmanship"
+        ],
+        [
+          67,
+          83,
+          "customer service"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:211:1"
+    },
+    {
+      "gold": [
+        [
+          35,
+          40,
+          "setup"
+        ],
+        [
+          45,
+          52,
+          "install"
+        ],
+        [
+          96,
+          104,
+          "tutorial"
+        ],
+        [
+          137,
+          145,
+          "features"
+        ],
+        [
+          184,
+          206,
+          "right mouse click menu"
+        ]
+      ],
+      "pred": [
+        [
+          35,
+          40,
+          "setup"
+        ],
+        [
+          45,
+          52,
+          "install"
+        ],
+        [
+          137,
+          145,
+          "features"
+        ],
+        [
+          190,
+          206,
+          "mouse click menu"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:227:1"
+    },
+    {
+      "gold": [
+        [
+          23,
+          41,
+          "os x mountain lion"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          17,
+          "mac mini"
+        ],
+        [
+          23,
+          27,
+          "os x"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:22:0"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          0,
+          5,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:230:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          35,
+          "features"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:231:1"
+    },
+    {
+      "gold": [
+        [
+          15,
+          30,
+          "streaming video"
+        ],
+        [
+          41,
+          59,
+          "entertainment uses"
+        ]
+      ],
+      "pred": [
+        [
+          15,
+          24,
+          "streaming"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:242:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          14,
+          31,
+          "windoze computers"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:246:1"
+    },
+    {
+      "gold": [
+        [
+          33,
+          42,
+          "footprint"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:25:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          54,
+          59,
+          "apple"
+        ],
+        [
+          79,
+          83,
+          "mini"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:263:4"
+    },
+    {
+      "gold": [
+        [
+          91,
+          112,
+          "quad-core 2.5 ghz cpu"
+        ],
+        [
+          146,
+          180,
+          "radeon hd 6750m 512mb graphic card"
+        ],
+        [
+          195,
+          221,
+          "integrated intel 4000 card"
+        ],
+        [
+          247,
+          280,
+          "wireless apple keyboard and mouse"
+        ],
+        [
+          316,
+          323,
+          "package"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          34,
+          "imac"
+        ],
+        [
+          109,
+          112,
+          "cpu"
+        ],
+        [
+          275,
+          280,
+          "mouse"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:267:1"
+    },
+    {
+      "gold": [
+        [
+          3,
+          11,
+          "start up"
+        ],
+        [
+          46,
+          51,
+          "itune"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:269:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          9,
+          15,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:271:10"
+    },
+    {
+      "gold": [
+        [
+          51,
+          62,
+          "rubber pads"
+        ]
+      ],
+      "pred": [
+        [
+          36,
+          42,
+          "laptop"
+        ],
+        [
+          51,
+          62,
+          "rubber pads"
+        ],
+        [
+          103,
+          107,
+          "grip"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:271:28"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          18,
+          21,
+          "len"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:271:3"
+    },
+    {
+      "gold": [
+        [
+          15,
+          25,
+          "resolution"
+        ],
+        [
+          34,
+          39,
+          "fonts"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          3,
+          "air"
+        ],
+        [
+          34,
+          39,
+          "fonts"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:272:10"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          83,
+          89,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:275:1"
+    },
+    {
+      "gold": [
+        [
+          5,
+          24,
+          "two finger clicking"
+        ],
+        [
+          50,
+          68,
+          "right click button"
+        ]
+      ],
+      "pred": [
+        [
+          50,
+          68,
+          "right click button"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:275:12"
+    },
+    {
+      "gold": [
+        [
+          60,
+          73,
+          "build quality"
+        ],
+        [
+          104,
+          124,
+          "unibody construction"
+        ]
+      ],
+      "pred": [
+        [
+          60,
+          73,
+          "build quality"
+        ],
+        [
+          112,
+          124,
+          "construction"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:275:7"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          9,
+          13,
+          "imac"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:277:1"
+    },
+    {
+      "gold": [
+        [
+          29,
+          39,
+          "components"
+        ]
+      ],
+      "pred": [
+        [
+          29,
+          42,
+          "components of"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:278:5"
+    },
+    {
+      "gold": [
+        [
+          55,
+          57,
+          "os"
+        ],
+        [
+          99,
+          112,
+          "overall build"
+        ],
+        [
+          132,
+          140,
+          "keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          55,
+          57,
+          "os"
+        ],
+        [
+          107,
+          112,
+          "build"
+        ],
+        [
+          132,
+          140,
+          "keyboard"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:281:1"
+    },
+    {
+      "gold": [
+        [
+          3,
+          26,
+          "installation disk (dvd)"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          20,
+          "installation disk"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:282:9"
+    },
+    {
+      "gold": [
+        [
+          25,
+          30,
+          "price"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          30,
+          "price"
+        ],
+        [
+          36,
+          42,
+          "amazon"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:285:1"
+    },
+    {
+      "gold": [
+        [
+          33,
+          52,
+          "magsafe accessories"
+        ],
+        [
+          85,
+          105,
+          "magsafe 2 connection"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:286:1"
+    },
+    {
+      "gold": [
+        [
+          16,
+          74,
+          "squaretrade 3-year computer accidental protection warranty"
+        ],
+        [
+          165,
+          174,
+          "applecare"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          27,
+          "squaretrade"
+        ],
+        [
+          35,
+          43,
+          "computer"
+        ],
+        [
+          165,
+          174,
+          "applecare"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:286:15"
+    },
+    {
+      "gold": [
+        [
+          22,
+          50,
+          "flexibility for connectivity"
+        ]
+      ],
+      "pred": [
+        [
+          38,
+          50,
+          "connectivity"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:286:3"
+    },
+    {
+      "gold": [
+        [
+          110,
+          116,
+          "priced"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:289:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          18,
+          23,
+          "model"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:293:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          28,
+          "2.9ghz dual-core i7 chip"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          28,
+          "dual-core i7 chip"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:293:3"
+    },
+    {
+      "gold": [
+        [
+          25,
+          38,
+          "functionality"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          38,
+          "functionality"
+        ],
+        [
+          45,
+          50,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:294:0"
+    },
+    {
+      "gold": [
+        [
+          16,
+          20,
+          "look"
+        ],
+        [
+          50,
+          61,
+          "performance"
+        ]
+      ],
+      "pred": [
+        [
+          50,
+          61,
+          "performance"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:294:1"
+    },
+    {
+      "gold": [
+        [
+          78,
+          81,
+          "use"
+        ]
+      ],
+      "pred": [
+        [
+          33,
+          41,
+          "computer"
+        ],
+        [
+          78,
+          81,
+          "use"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:295:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          47,
+          52,
+          "price"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:1"
+    },
+    {
+      "gold": [
+        [
+          28,
+          39,
+          "eat output "
+        ],
+        [
+          56,
+          65,
+          "peration."
+        ]
+      ],
+      "pred": [
+        [
+          27,
+          38,
+          "heat output"
+        ],
+        [
+          55,
+          64,
+          "operation"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:1027"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          19,
+          25,
+          "gadget"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:1053"
+    },
+    {
+      "gold": [
+        [
+          12,
+          24,
+          "\"tools\" menu"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          13,
+          "\""
+        ],
+        [
+          13,
+          24,
+          "tools\" menu"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:1175"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          38,
+          43,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:1213"
+    },
+    {
+      "gold": [
+        [
+          0,
+          17,
+          "osx mountain lion"
+        ],
+        [
+          38,
+          47,
+          "avericks."
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          17,
+          "osx mountain lion"
+        ],
+        [
+          37,
+          46,
+          "mavericks"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:226"
+    },
+    {
+      "gold": [
+        [
+          18,
+          31,
+          "external mics"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          31,
+          "external mics"
+        ],
+        [
+          42,
+          46,
+          "imac"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:312"
+    },
+    {
+      "gold": [
+        [
+          36,
+          55,
+          "bluetooth interface"
+        ],
+        [
+          73,
+          79,
+          "mac os"
+        ],
+        [
+          89,
+          94,
+          "range"
+        ]
+      ],
+      "pred": [
+        [
+          36,
+          55,
+          "bluetooth interface"
+        ],
+        [
+          89,
+          94,
+          "range"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:313"
+    },
+    {
+      "gold": [
+        [
+          19,
+          21,
+          "hd"
+        ],
+        [
+          29,
+          39,
+          "micron ssd"
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          21,
+          "hd"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:322"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          0,
+          4,
+          "mini"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:367"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          25,
+          44,
+          "computing equipment"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:396"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          43,
+          48,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:29:452"
+    },
+    {
+      "gold": [
+        [
+          71,
+          77,
+          "gaming"
+        ]
+      ],
+      "pred": [
+        [
+          93,
+          123,
+          "integrated intel 4000 graphics"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:2:1"
+    },
+    {
+      "gold": [
+        [
+          38,
+          52,
+          "graphic design"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:300:1"
+    },
+    {
+      "gold": [
+        [
+          19,
+          48,
+          "mac os x 10.8 \"mountain lion\""
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          30,
+          "mac os x 10"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:305:3"
+    },
+    {
+      "gold": [
+        [
+          26,
+          30,
+          "bass"
+        ],
+        [
+          52,
+          57,
+          "sound"
+        ]
+      ],
+      "pred": [
+        [
+          14,
+          20,
+          "laptop"
+        ],
+        [
+          26,
+          30,
+          "bass"
+        ],
+        [
+          52,
+          57,
+          "sound"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:311:18"
+    },
+    {
+      "gold": [
+        [
+          48,
+          58,
+          "delete key"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          19,
+          "apple engineers"
+        ],
+        [
+          48,
+          58,
+          "delete key"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:314:21"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          6,
+          14,
+          "products"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:314:3"
+    },
+    {
+      "gold": [
+        [
+          40,
+          52,
+          "capabilities"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          7,
+          "mbp"
+        ],
+        [
+          40,
+          52,
+          "capabilities"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:314:67"
+    },
+    {
+      "gold": [
+        [
+          4,
+          20,
+          "mountain lion os"
+        ],
+        [
+          72,
+          89,
+          "microsoft windows"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          20,
+          "mountain lion os"
+        ],
+        [
+          72,
+          81,
+          "microsoft"
+        ],
+        [
+          82,
+          89,
+          "windows"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:315:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          12,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:316:3"
+    },
+    {
+      "gold": [
+        [
+          32,
+          50,
+          "ventilation system"
+        ],
+        [
+          100,
+          115,
+          "watching videos"
+        ],
+        [
+          126,
+          145,
+          "playing steam games"
+        ]
+      ],
+      "pred": [
+        [
+          32,
+          50,
+          "ventilation system"
+        ],
+        [
+          157,
+          163,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:325:1"
+    },
+    {
+      "gold": [
+        [
+          8,
+          21,
+          "mountain lion"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:326:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          33,
+          40,
+          "gateway"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:329:2"
+    },
+    {
+      "gold": [
+        [
+          50,
+          55,
+          "games"
+        ],
+        [
+          65,
+          74,
+          "photoshop"
+        ]
+      ],
+      "pred": [
+        [
+          10,
+          19,
+          "user type"
+        ],
+        [
+          50,
+          55,
+          "games"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:32:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          13,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:333:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          12,
+          18,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:336:0"
+    },
+    {
+      "gold": [
+        [
+          4,
+          17,
+          "built quality"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          17,
+          "built quality"
+        ],
+        [
+          72,
+          79,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:339:1"
+    },
+    {
+      "gold": [
+        [
+          45,
+          53,
+          "settings"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:339:4"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          25,
+          33,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:342:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          14,
+          "ram memory"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:347:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          14,
+          "durability"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          6,
+          "du"
+        ],
+        [
+          22,
+          28,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:363:27"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          13,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:373:0"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          9,
+          16,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:375:10"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          13,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:375:4"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          25,
+          32,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:375:5"
+    },
+    {
+      "gold": [
+        [
+          19,
+          46,
+          "integrate bluetooth devices"
+        ],
+        [
+          52,
+          63,
+          "usb devices"
+        ]
+      ],
+      "pred": [
+        [
+          29,
+          46,
+          "bluetooth devices"
+        ],
+        [
+          52,
+          55,
+          "usb"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:37:1"
+    },
+    {
+      "gold": [
+        [
+          33,
+          43,
+          "brightness"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:382:15"
+    },
+    {
+      "gold": [
+        [
+          69,
+          80,
+          "performance"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          19,
+          "computer"
+        ],
+        [
+          69,
+          80,
+          "performance"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:383:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          34,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:385:11"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          11,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:386:1"
+    },
+    {
+      "gold": [
+        [
+          34,
+          38,
+          "size"
+        ]
+      ],
+      "pred": [
+        [
+          34,
+          38,
+          "size"
+        ],
+        [
+          42,
+          47,
+          "carry"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:389:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          11,
+          "battery"
+        ],
+        [
+          77,
+          92,
+          "user experience"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          11,
+          "battery"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:391:1"
+    },
+    {
+      "gold": [
+        [
+          27,
+          46,
+          "hardware (keyboard)"
+        ],
+        [
+          71,
+          82,
+          "performance"
+        ],
+        [
+          98,
+          114,
+          "battery lifetime"
+        ]
+      ],
+      "pred": [
+        [
+          27,
+          35,
+          "hardware"
+        ],
+        [
+          37,
+          45,
+          "keyboard"
+        ],
+        [
+          71,
+          82,
+          "performance"
+        ],
+        [
+          98,
+          114,
+          "battery lifetime"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:394:1"
+    },
+    {
+      "gold": [
+        [
+          67,
+          73,
+          "priced"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:3:1"
+    },
+    {
+      "gold": [
+        [
+          42,
+          59,
+          "cost of ownership"
+        ],
+        [
+          85,
+          94,
+          "price tag"
+        ]
+      ],
+      "pred": [
+        [
+          42,
+          46,
+          "cost"
+        ],
+        [
+          50,
+          59,
+          "ownership"
+        ],
+        [
+          85,
+          90,
+          "price"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:404:1"
+    },
+    {
+      "gold": [
+        [
+          10,
+          16,
+          "mac os"
+        ]
+      ],
+      "pred": [
+        [
+          10,
+          28,
+          "mac os improvement"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:414:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          47,
+          52,
+          "speed"
+        ],
+        [
+          66,
+          71,
+          "price"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:416:1"
+    },
+    {
+      "gold": [
+        [
+          63,
+          67,
+          "size"
+        ],
+        [
+          118,
+          132,
+          "retina display"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          31,
+          "laptop"
+        ],
+        [
+          63,
+          67,
+          "size"
+        ],
+        [
+          118,
+          132,
+          "retina display"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:417:1"
+    },
+    {
+      "gold": [
+        [
+          6,
+          11,
+          "cover"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:419:2"
+    },
+    {
+      "gold": [
+        [
+          12,
+          18,
+          "screen"
+        ],
+        [
+          30,
+          34,
+          "apps"
+        ],
+        [
+          48,
+          54,
+          "priced"
+        ],
+        [
+          155,
+          159,
+          "ost "
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          18,
+          "screen"
+        ],
+        [
+          30,
+          34,
+          "apps"
+        ],
+        [
+          48,
+          54,
+          "priced"
+        ],
+        [
+          84,
+          90,
+          "amazon"
+        ],
+        [
+          154,
+          158,
+          "cost"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:420:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          15,
+          23,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:421:1"
+    },
+    {
+      "gold": [
+        [
+          11,
+          23,
+          "practicality"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:429:0"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          35,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:432:2"
+    },
+    {
+      "gold": [
+        [
+          13,
+          32,
+          "log into the system"
+        ]
+      ],
+      "pred": [
+        [
+          26,
+          32,
+          "system"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:43:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          28,
+          34,
+          "design"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:441:1"
+    },
+    {
+      "gold": [
+        [
+          38,
+          73,
+          "third-generation cpu (\"ivy bridge\")"
+        ],
+        [
+          90,
+          119,
+          "fourth-generation haswell cpu"
+        ]
+      ],
+      "pred": [
+        [
+          28,
+          32,
+          "runs"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:443:1"
+    },
+    {
+      "gold": [
+        [
+          27,
+          34,
+          "storage"
+        ],
+        [
+          43,
+          49,
+          "screen"
+        ],
+        [
+          68,
+          77,
+          "photoshop"
+        ]
+      ],
+      "pred": [
+        [
+          27,
+          34,
+          "storage"
+        ],
+        [
+          43,
+          49,
+          "screen"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:447:1"
+    },
+    {
+      "gold": [
+        [
+          25,
+          36,
+          "portability"
+        ]
+      ],
+      "pred": [
+        [
+          8,
+          11,
+          "mbp"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:448:3"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          36,
+          44,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:450:0"
+    },
+    {
+      "gold": [
+        [
+          24,
+          39,
+          "legacy programs"
+        ],
+        [
+          41,
+          51,
+          "appleworks"
+        ],
+        [
+          53,
+          66,
+          "filemaker pro"
+        ],
+        [
+          68,
+          75,
+          "quicken"
+        ],
+        [
+          77,
+          86,
+          "photoshop"
+        ]
+      ],
+      "pred": [
+        [
+          41,
+          51,
+          "appleworks"
+        ],
+        [
+          53,
+          66,
+          "filemaker pro"
+        ],
+        [
+          68,
+          75,
+          "quicken"
+        ],
+        [
+          77,
+          86,
+          "photoshop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:456:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          11,
+          17,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:457:1"
+    },
+    {
+      "gold": [
+        [
+          9,
+          15,
+          "system"
+        ],
+        [
+          37,
+          47,
+          "power down"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          15,
+          "system"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:460:1"
+    },
+    {
+      "gold": [
+        [
+          18,
+          31,
+          "physical form"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          15,
+          "macbook pro"
+        ],
+        [
+          18,
+          31,
+          "physical form"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:462:6"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          3,
+          8,
+          "noise"
+        ],
+        [
+          41,
+          45,
+          "heat"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:463:26"
+    },
+    {
+      "gold": [
+        [
+          25,
+          29,
+          "idvd"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          29,
+          "idvd"
+        ],
+        [
+          65,
+          70,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:464:4"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          21,
+          29,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:468:1"
+    },
+    {
+      "gold": [
+        [
+          9,
+          14,
+          "speed"
+        ],
+        [
+          22,
+          42,
+          "multi touch gestures"
+        ],
+        [
+          48,
+          64,
+          "operating system"
+        ],
+        [
+          71,
+          78,
+          "windows"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          14,
+          "speed"
+        ],
+        [
+          22,
+          42,
+          "multi touch gestures"
+        ],
+        [
+          48,
+          64,
+          "operating system"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:469:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          28,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:473:1"
+    },
+    {
+      "gold": [
+        [
+          80,
+          88,
+          "function"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:477:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          30,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:478:2"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          48,
+          55,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:478:5"
+    },
+    {
+      "gold": [
+        [
+          39,
+          44,
+          "setup"
+        ],
+        [
+          48,
+          57,
+          "configure"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:479:1"
+    },
+    {
+      "gold": [
+        [
+          0,
+          3,
+          "fan"
+        ],
+        [
+          31,
+          45,
+          "playing a game"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          3,
+          "fan"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:47:1"
+    },
+    {
+      "gold": [
+        [
+          7,
+          12,
+          "build"
+        ],
+        [
+          45,
+          55,
+          "durability"
+        ]
+      ],
+      "pred": [
+        [
+          7,
+          12,
+          "build"
+        ],
+        [
+          45,
+          47,
+          "du"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:488:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          10,
+          "device"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:502:1"
+    },
+    {
+      "gold": [
+        [
+          40,
+          47,
+          "quality"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          22,
+          "laptop"
+        ],
+        [
+          40,
+          47,
+          "quality"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:503:1"
+    },
+    {
+      "gold": [
+        [
+          26,
+          31,
+          "looks"
+        ],
+        [
+          47,
+          50,
+          "use"
+        ],
+        [
+          84,
+          92,
+          "trackpad"
+        ]
+      ],
+      "pred": [
+        [
+          47,
+          50,
+          "use"
+        ],
+        [
+          84,
+          92,
+          "trackpad"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:515:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          7,
+          "mbp"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:517:1"
+    },
+    {
+      "gold": [
+        [
+          29,
+          38,
+          "interface"
+        ],
+        [
+          47,
+          58,
+          "portability"
+        ]
+      ],
+      "pred": [
+        [
+          29,
+          38,
+          "interface"
+        ],
+        [
+          47,
+          58,
+          "portability"
+        ],
+        [
+          67,
+          74,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:520:2"
+    },
+    {
+      "gold": [
+        [
+          34,
+          39,
+          "works"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:525:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          8,
+          15,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:532:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          30,
+          36,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:534:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          16,
+          20,
+          "tool"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:540:3"
+    },
+    {
+      "gold": [
+        [
+          47,
+          64,
+          "slim plastic case"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:547:16"
+    },
+    {
+      "gold": [
+        [
+          24,
+          32,
+          "function"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:547:17"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          0,
+          5,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:548:1"
+    },
+    {
+      "gold": [
+        [
+          36,
+          40,
+          "hdmi"
+        ],
+        [
+          68,
+          82,
+          "firmware patch"
+        ]
+      ],
+      "pred": [
+        [
+          36,
+          40,
+          "hdmi"
+        ],
+        [
+          68,
+          76,
+          "firmware"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:55:1"
+    },
+    {
+      "gold": [
+        [
+          48,
+          53,
+          "works"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          20,
+          "computer"
+        ],
+        [
+          48,
+          53,
+          "works"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:561:1"
+    },
+    {
+      "gold": [
+        [
+          22,
+          31,
+          "windows 8"
+        ],
+        [
+          36,
+          57,
+          "touchscreen functions"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          35,
+          "windows 8 and"
+        ],
+        [
+          36,
+          57,
+          "touchscreen functions"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:562:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          26,
+          33,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:564:1"
+    },
+    {
+      "gold": [
+        [
+          14,
+          36,
+          "built in virus control"
+        ]
+      ],
+      "pred": [
+        [
+          23,
+          36,
+          "virus control"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:566:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          8,
+          "item"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:572:0"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          39,
+          42,
+          "mac"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:573:1"
+    },
+    {
+      "gold": [
+        [
+          42,
+          60,
+          "regular hard drive"
+        ]
+      ],
+      "pred": [
+        [
+          50,
+          60,
+          "hard drive"
+        ],
+        [
+          128,
+          135,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:578:1"
+    },
+    {
+      "gold": [
+        [
+          41,
+          46,
+          "works"
+        ],
+        [
+          77,
+          83,
+          "set up"
+        ]
+      ],
+      "pred": [
+        [
+          77,
+          83,
+          "set up"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:57:1"
+    },
+    {
+      "gold": [
+        [
+          24,
+          29,
+          "price"
+        ],
+        [
+          37,
+          45,
+          "delivery"
+        ],
+        [
+          57,
+          64,
+          "service"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          16,
+          "product"
+        ],
+        [
+          24,
+          29,
+          "price"
+        ],
+        [
+          37,
+          45,
+          "delivery"
+        ],
+        [
+          57,
+          64,
+          "service"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:605:1"
+    },
+    {
+      "gold": [
+        [
+          45,
+          50,
+          "price"
+        ],
+        [
+          84,
+          87,
+          "osx"
+        ],
+        [
+          100,
+          117,
+          "support for games"
+        ]
+      ],
+      "pred": [
+        [
+          45,
+          50,
+          "price"
+        ],
+        [
+          84,
+          87,
+          "osx"
+        ],
+        [
+          100,
+          107,
+          "support"
+        ],
+        [
+          112,
+          117,
+          "games"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:609:1"
+    },
+    {
+      "gold": [
+        [
+          5,
+          10,
+          "touch"
+        ],
+        [
+          12,
+          29,
+          "anodized aluminum"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          10,
+          "touch"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:615:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          15,
+          21,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:624:1"
+    },
+    {
+      "gold": [
+        [
+          8,
+          13,
+          "works"
+        ],
+        [
+          56,
+          64,
+          "software"
+        ],
+        [
+          83,
+          85,
+          "os"
+        ]
+      ],
+      "pred": [
+        [
+          56,
+          64,
+          "software"
+        ],
+        [
+          83,
+          85,
+          "os"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:626:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          9,
+          12,
+          "mbp"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:630:14"
+    },
+    {
+      "gold": [
+        [
+          8,
+          25,
+          "customize setting"
+        ],
+        [
+          35,
+          60,
+          "create your own bookmarks"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          25,
+          "setting"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:633:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          15,
+          29,
+          "apple products"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:641:1"
+    },
+    {
+      "gold": [
+        [
+          11,
+          21,
+          "brightness"
+        ],
+        [
+          26,
+          37,
+          "adjustments"
+        ]
+      ],
+      "pred": [
+        [
+          11,
+          21,
+          "brightness"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:643:1"
+    },
+    {
+      "gold": [
+        [
+          46,
+          53,
+          "quality"
+        ],
+        [
+          58,
+          69,
+          "performance"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          12,
+          "receiver"
+        ],
+        [
+          46,
+          53,
+          "quality"
+        ],
+        [
+          58,
+          69,
+          "performance"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:655:1"
+    },
+    {
+      "gold": [
+        [
+          15,
+          23,
+          "dvd slot"
+        ],
+        [
+          42,
+          58,
+          "install software"
+        ]
+      ],
+      "pred": [
+        [
+          15,
+          23,
+          "dvd slot"
+        ],
+        [
+          50,
+          58,
+          "software"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:65:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          40,
+          48,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:660:1"
+    },
+    {
+      "gold": [
+        [
+          19,
+          33,
+          "graphic design"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:662:1"
+    },
+    {
+      "gold": [
+        [
+          44,
+          49,
+          "works"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:663:1"
+    },
+    {
+      "gold": [
+        [
+          30,
+          33,
+          "use"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:670:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          21,
+          30,
+          "equipment"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:673:1"
+    },
+    {
+      "gold": [
+        [
+          6,
+          11,
+          "price"
+        ],
+        [
+          17,
+          25,
+          "shipping"
+        ]
+      ],
+      "pred": [
+        [
+          17,
+          25,
+          "shipping"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:681:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          23,
+          29,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:695:1"
+    },
+    {
+      "gold": [
+        [
+          32,
+          37,
+          "works"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:705:1"
+    },
+    {
+      "gold": [
+        [
+          3,
+          8,
+          "looks"
+        ],
+        [
+          13,
+          18,
+          "feels"
+        ],
+        [
+          42,
+          48,
+          "finish"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:706:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          29,
+          37,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:713:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          49,
+          56,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:732:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          38,
+          45,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:734:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          41,
+          "acer ultrabook"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:739:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          36,
+          41,
+          "apple"
+        ],
+        [
+          63,
+          70,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:740:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          33,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:741:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          64,
+          72,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:747:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          24,
+          32,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:757:1"
+    },
+    {
+      "gold": [
+        [
+          25,
+          30,
+          "works"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:758:1"
+    },
+    {
+      "gold": [
+        [
+          30,
+          42,
+          "built-in mic"
+        ],
+        [
+          71,
+          82,
+          "mac os 10.9"
+        ],
+        [
+          99,
+          119,
+          "external microphones"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          42,
+          "built-in mic"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:75:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          44,
+          52,
+          "27\" imac"
+        ],
+        [
+          146,
+          157,
+          "reliability"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:762:1"
+    },
+    {
+      "gold": [
+        [
+          27,
+          34,
+          "looking"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:763:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          21,
+          28,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:764:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          35,
+          45,
+          "technology"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:769:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          13,
+          "track pad"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:1054"
+    },
+    {
+      "gold": [
+        [
+          25,
+          32,
+          "profile"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:786:1170"
+    },
+    {
+      "gold": [
+        [
+          11,
+          22,
+          "portability"
+        ]
+      ],
+      "pred": [
+        [
+          28,
+          34,
+          "tablet"
+        ],
+        [
+          65,
+          71,
+          "tablet"
+        ],
+        [
+          94,
+          100,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:1275"
+    },
+    {
+      "gold": [
+        [
+          73,
+          83,
+          "headphones"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          9,
+          "sound"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:1301"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          11,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:1309"
+    },
+    {
+      "gold": [
+        [
+          0,
+          7,
+          "boot-up"
+        ],
+        [
+          39,
+          54,
+          "windows updates"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          7,
+          "boot-up"
+        ],
+        [
+          39,
+          46,
+          "windows"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:1355"
+    },
+    {
+      "gold": [
+        [
+          26,
+          37,
+          "card reader"
+        ],
+        [
+          85,
+          100,
+          "remove the card"
+        ]
+      ],
+      "pred": [
+        [
+          26,
+          37,
+          "card reader"
+        ],
+        [
+          96,
+          100,
+          "card"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:1472"
+    },
+    {
+      "gold": [
+        [
+          28,
+          32,
+          "lion"
+        ],
+        [
+          57,
+          63,
+          "mac os"
+        ]
+      ],
+      "pred": [
+        [
+          28,
+          32,
+          "lion"
+        ],
+        [
+          57,
+          63,
+          "mac os"
+        ],
+        [
+          88,
+          92,
+          "imac"
+        ],
+        [
+          97,
+          103,
+          "office"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:237"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          21,
+          27,
+          "amazon"
+        ],
+        [
+          49,
+          57,
+          "dinosaur"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:42"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          36,
+          43,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:594"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          27,
+          33,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:66"
+    },
+    {
+      "gold": [
+        [
+          121,
+          130,
+          "usb ports"
+        ]
+      ],
+      "pred": [
+        [
+          70,
+          75,
+          "apple"
+        ],
+        [
+          121,
+          130,
+          "usb ports"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:713"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          11,
+          "laptop"
+        ],
+        [
+          41,
+          47,
+          "chrome"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:773"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          18,
+          24,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:786:784"
+    },
+    {
+      "gold": [
+        [
+          45,
+          53,
+          "aluminum"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:786:876"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          11,
+          "device"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:145"
+    },
+    {
+      "gold": [
+        [
+          25,
+          38,
+          "finger swipes"
+        ],
+        [
+          72,
+          77,
+          "mouse"
+        ]
+      ],
+      "pred": [
+        [
+          72,
+          77,
+          "mouse"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:193"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          8,
+          "mac"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:270"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          3,
+          9,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:429"
+    },
+    {
+      "gold": [
+        [
+          80,
+          98,
+          "portable computing"
+        ]
+      ],
+      "pred": [
+        [
+          66,
+          69,
+          "air"
+        ],
+        [
+          89,
+          98,
+          "computing"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:444"
+    },
+    {
+      "gold": [
+        [
+          0,
+          22,
+          "ms office 2011 for mac"
+        ]
+      ],
+      "pred": [
+        [
+          0,
+          14,
+          "ms office 2011"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:495"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          34,
+          39,
+          "apple"
+        ],
+        [
+          44,
+          50,
+          "amazon"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:497"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          0,
+          5,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:606"
+    },
+    {
+      "gold": [
+        [
+          9,
+          30,
+          "install mountain lion"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:787:619"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          21,
+          29,
+          "air flow"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:622"
+    },
+    {
+      "gold": [
+        [
+          44,
+          57,
+          "restore disks"
+        ],
+        [
+          156,
+          171,
+          "charging cables"
+        ],
+        [
+          199,
+          207,
+          "material"
+        ]
+      ],
+      "pred": [
+        [
+          156,
+          171,
+          "charging cables"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:628"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          32,
+          40,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:648"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          12,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:683"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          24,
+          31,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:787:773"
+    },
+    {
+      "gold": [
+        [
+          24,
+          33,
+          "aluminium"
+        ],
+        [
+          43,
+          48,
+          "glass"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:787:873"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          40,
+          47,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:790:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          11,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:804:1"
+    },
+    {
+      "gold": [
+        [
+          7,
+          22,
+          "upgrade the ram"
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          22,
+          "ram"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:805:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          19,
+          27,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:805:2"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          19,
+          26,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:806:1"
+    },
+    {
+      "gold": [
+        [
+          18,
+          21,
+          "use"
+        ],
+        [
+          29,
+          34,
+          "looks"
+        ]
+      ],
+      "pred": [
+        [
+          18,
+          21,
+          "use"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:816:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          40,
+          46,
+          "amazon"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:820:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          13,
+          20,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:828:1"
+    },
+    {
+      "gold": [
+        [
+          27,
+          39,
+          "firewire 800"
+        ],
+        [
+          81,
+          85,
+          "usb3"
+        ],
+        [
+          106,
+          110,
+          "usb3"
+        ],
+        [
+          144,
+          150,
+          "mac os"
+        ],
+        [
+          190,
+          199,
+          "windows 7"
+        ]
+      ],
+      "pred": [
+        [
+          16,
+          23,
+          "feature"
+        ],
+        [
+          27,
+          39,
+          "firewire 800"
+        ],
+        [
+          81,
+          85,
+          "usb3"
+        ],
+        [
+          144,
+          150,
+          "mac os"
+        ],
+        [
+          190,
+          199,
+          "windows 7"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:834:1"
+    },
+    {
+      "gold": [
+        [
+          15,
+          24,
+          "windows 7"
+        ],
+        [
+          52,
+          61,
+          "windows 8"
+        ]
+      ],
+      "pred": [
+        [
+          3,
+          24,
+          "laptop with windows 7"
+        ],
+        [
+          52,
+          61,
+          "windows 8"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:840:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          35,
+          41,
+          "laptop"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:842:9"
+    },
+    {
+      "gold": [
+        [
+          36,
+          62,
+          "number pad on the keyboard"
+        ]
+      ],
+      "pred": [
+        [
+          54,
+          62,
+          "keyboard"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:843:1"
+    },
+    {
+      "gold": [
+        [
+          22,
+          29,
+          "battery"
+        ],
+        [
+          73,
+          82,
+          "snow lion"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          29,
+          "battery"
+        ],
+        [
+          57,
+          64,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:857:1"
+    },
+    {
+      "gold": [
+        [
+          9,
+          17,
+          "features"
+        ],
+        [
+          22,
+          31,
+          "shortcuts"
+        ]
+      ],
+      "pred": [
+        [
+          9,
+          17,
+          "features"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:859:1"
+    },
+    {
+      "gold": [
+        [
+          0,
+          7,
+          "working"
+        ],
+        [
+          49,
+          57,
+          "features"
+        ]
+      ],
+      "pred": [
+        [
+          49,
+          57,
+          "features"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:862:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          11,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:874:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          9,
+          "speed"
+        ],
+        [
+          15,
+          25,
+          "simplicity"
+        ],
+        [
+          31,
+          37,
+          "design"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          9,
+          "speed"
+        ],
+        [
+          31,
+          37,
+          "design"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:881:4"
+    },
+    {
+      "gold": [
+        [
+          13,
+          35,
+          "apple customer support"
+        ]
+      ],
+      "pred": [
+        [
+          13,
+          38,
+          "apple customer support to"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:884:1"
+    },
+    {
+      "gold": [
+        [
+          64,
+          81,
+          "built in features"
+        ]
+      ],
+      "pred": [
+        [
+          34,
+          42,
+          "computer"
+        ],
+        [
+          64,
+          81,
+          "built in features"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:889:1"
+    },
+    {
+      "gold": [
+        [
+          47,
+          70,
+          "external 24\" lcd screen"
+        ],
+        [
+          75,
+          95,
+          "built in screen size"
+        ]
+      ],
+      "pred": [
+        [
+          56,
+          70,
+          "24\" lcd screen"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:891:1"
+    },
+    {
+      "gold": [
+        [
+          57,
+          79,
+          "intel4000 graphic chip"
+        ]
+      ],
+      "pred": [
+        [
+          57,
+          66,
+          "intel4000"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:891:8"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          90,
+          97,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:893:1"
+    },
+    {
+      "gold": [
+        [
+          19,
+          29,
+          "hard drive"
+        ],
+        [
+          36,
+          51,
+          "samsung 830 ssd"
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          29,
+          "hard drive"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:895:1"
+    },
+    {
+      "gold": [
+        [
+          3,
+          8,
+          "wakes"
+        ],
+        [
+          47,
+          50,
+          "lid"
+        ]
+      ],
+      "pred": [
+        [
+          47,
+          50,
+          "lid"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:898:3"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          13,
+          25,
+          "apple stocks"
+        ],
+        [
+          59,
+          64,
+          "sales"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:905:2"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          7,
+          12,
+          "apple"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:909:1"
+    },
+    {
+      "gold": [
+        [
+          23,
+          32,
+          "usb ports"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          11,
+          "laptop"
+        ],
+        [
+          23,
+          32,
+          "usb ports"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:910:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          4,
+          9,
+          "price"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:912:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          34,
+          38,
+          "item"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:922:1"
+    },
+    {
+      "gold": [
+        [
+          20,
+          36,
+          "content creation"
+        ],
+        [
+          38,
+          43,
+          "audio"
+        ],
+        [
+          45,
+          50,
+          "video"
+        ],
+        [
+          52,
+          65,
+          "photo editing"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:923:1"
+    },
+    {
+      "gold": [
+        [
+          22,
+          28,
+          "mac os"
+        ],
+        [
+          59,
+          74,
+          "speaker quality"
+        ]
+      ],
+      "pred": [
+        [
+          38,
+          44,
+          "laptop"
+        ],
+        [
+          59,
+          74,
+          "speaker quality"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:928:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          24,
+          38,
+          "apple products"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:930:1"
+    },
+    {
+      "gold": [
+        [
+          19,
+          35,
+          "operating system"
+        ],
+        [
+          37,
+          41,
+          "size"
+        ],
+        [
+          46,
+          52,
+          "weight"
+        ],
+        [
+          65,
+          73,
+          "mobility"
+        ],
+        [
+          85,
+          110,
+          "durability of the battery"
+        ],
+        [
+          116,
+          150,
+          "functions provided by the trackpad"
+        ]
+      ],
+      "pred": [
+        [
+          19,
+          35,
+          "operating system"
+        ],
+        [
+          37,
+          41,
+          "size"
+        ],
+        [
+          46,
+          52,
+          "weight"
+        ],
+        [
+          103,
+          110,
+          "battery"
+        ],
+        [
+          116,
+          125,
+          "functions"
+        ],
+        [
+          142,
+          150,
+          "trackpad"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:932:1"
+    },
+    {
+      "gold": [
+        [
+          30,
+          50,
+          "\"home/end\" type keys"
+        ]
+      ],
+      "pred": [
+        [
+          31,
+          50,
+          "home/end\" type keys"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:933:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          5,
+          18,
+          "apple mac fan"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:934:0"
+    },
+    {
+      "gold": [
+        [
+          55,
+          60,
+          "built"
+        ],
+        [
+          67,
+          79,
+          "battery life"
+        ]
+      ],
+      "pred": [
+        [
+          22,
+          30,
+          "computer"
+        ],
+        [
+          55,
+          60,
+          "built"
+        ],
+        [
+          67,
+          79,
+          "battery life"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:934:1"
+    },
+    {
+      "gold": [
+        [
+          42,
+          47,
+          "works"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:945:1"
+    },
+    {
+      "gold": [
+        [
+          19,
+          28,
+          "4g of ram"
+        ],
+        [
+          97,
+          106,
+          "8g of ram"
+        ],
+        [
+          150,
+          158,
+          "performs"
+        ]
+      ],
+      "pred": [
+        [
+          25,
+          28,
+          "ram"
+        ],
+        [
+          103,
+          106,
+          "ram"
+        ],
+        [
+          136,
+          144,
+          "computer"
+        ],
+        [
+          150,
+          158,
+          "performs"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:946:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          39,
+          46,
+          "product"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:947:1"
+    },
+    {
+      "gold": [
+        [
+          35,
+          40,
+          "works"
+        ],
+        [
+          61,
+          66,
+          "carry"
+        ],
+        [
+          71,
+          77,
+          "handle"
+        ]
+      ],
+      "pred": [
+        [
+          5,
+          9,
+          "item"
+        ],
+        [
+          35,
+          40,
+          "works"
+        ],
+        [
+          61,
+          66,
+          "carry"
+        ],
+        [
+          71,
+          77,
+          "handle"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:952:1"
+    },
+    {
+      "gold": [
+        [
+          30,
+          40,
+          "click pads"
+        ],
+        [
+          86,
+          103,
+          "internal speakers"
+        ],
+        [
+          203,
+          212,
+          "price tag"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          40,
+          "click pads"
+        ],
+        [
+          86,
+          103,
+          "internal speakers"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:958:1"
+    },
+    {
+      "gold": [
+        [
+          52,
+          61,
+          "performed"
+        ]
+      ],
+      "pred": [
+        [
+          21,
+          44,
+          "17\" asus gaming machine"
+        ],
+        [
+          240,
+          244,
+          "asus"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:959:1"
+    },
+    {
+      "gold": [
+        [
+          30,
+          41,
+          "usb 2 ports"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          35,
+          "usb 2"
+        ],
+        [
+          36,
+          41,
+          "ports"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:961:1"
+    },
+    {
+      "gold": [
+        [
+          23,
+          25,
+          "xp"
+        ],
+        [
+          52,
+          59,
+          "support"
+        ]
+      ],
+      "pred": [
+        [
+          30,
+          39,
+          "microsoft"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:962:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          20,
+          28,
+          "computer"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:964:1"
+    },
+    {
+      "gold": [
+        [
+          39,
+          82,
+          "performance and feature set of the hardware"
+        ]
+      ],
+      "pred": [
+        [
+          39,
+          50,
+          "performance"
+        ],
+        [
+          55,
+          66,
+          "feature set"
+        ],
+        [
+          74,
+          82,
+          "hardware"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:96:1"
+    },
+    {
+      "gold": [
+        [
+          4,
+          10,
+          "memory"
+        ]
+      ],
+      "pred": [
+        [
+          4,
+          14,
+          "memory was"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:972:1"
+    },
+    {
+      "gold": [
+        [
+          31,
+          38,
+          "storage"
+        ],
+        [
+          63,
+          68,
+          "ports"
+        ]
+      ],
+      "pred": [
+        [
+          31,
+          38,
+          "storage"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:98:1"
+    },
+    {
+      "gold": [
+        [
+          14,
+          32,
+          "recovery usb stick"
+        ]
+      ],
+      "pred": [
+        [
+          23,
+          32,
+          "usb stick"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:991:8"
+    },
+    {
+      "gold": [
+        [
+          67,
+          78,
+          "price point"
+        ]
+      ],
+      "pred": [],
+      "review_id": "semeval_2014_laptop:test:993:1"
+    },
+    {
+      "gold": [
+        [
+          27,
+          33,
+          "log on"
+        ],
+        [
+          42,
+          57,
+          "wifi connection"
+        ],
+        [
+          71,
+          83,
+          "battery life"
+        ]
+      ],
+      "pred": [
+        [
+          42,
+          57,
+          "wifi connection"
+        ],
+        [
+          71,
+          83,
+          "battery life"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:996:1"
+    },
+    {
+      "gold": [
+        [
+          16,
+          27,
+          "\"wlan\" card"
+        ],
+        [
+          56,
+          74,
+          "lan device drivers"
+        ]
+      ],
+      "pred": [
+        [
+          17,
+          27,
+          "wlan\" card"
+        ],
+        [
+          56,
+          74,
+          "lan device drivers"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:997:12"
+    },
+    {
+      "gold": [
+        [
+          41,
+          49,
+          "touchpad"
+        ]
+      ],
+      "pred": [
+        [
+          41,
+          49,
+          "touchpad"
+        ],
+        [
+          67,
+          73,
+          "device"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:998:1"
+    },
+    {
+      "gold": [
+        [
+          12,
+          16,
+          "size"
+        ]
+      ],
+      "pred": [
+        [
+          12,
+          16,
+          "size"
+        ],
+        [
+          40,
+          45,
+          "space"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:999:1"
+    },
+    {
+      "gold": [],
+      "pred": [
+        [
+          39,
+          46,
+          "machine"
+        ]
+      ],
+      "review_id": "semeval_2014_laptop:test:99:1"
+    }
+  ],
+  "exact_span": {
+    "f1": 0.7061790668348045,
+    "precision": 0.6485234510712218,
+    "recall": 0.7750865051903114
+  },
+  "span": {
+    "span_accuracy": 0.9503518525718284,
+    "span_f1": 0.6950046540490227,
+    "span_precision": 0.6295671725688589,
+    "span_recall": 0.775623268698061,
+    "token_accuracy": 0.9503518525718284,
+    "token_f1": 0.8286342809705411,
+    "token_precision": 0.8165783638939743,
+    "token_recall": 0.8451534271694755
+  },
+  "split": "test"
+}

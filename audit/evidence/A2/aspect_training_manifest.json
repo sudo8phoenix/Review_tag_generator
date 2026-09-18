@@ -1,0 +1,38 @@
+{
+  "checkpoint": {
+    "path": "/kaggle/working/review_tag_generator/models/aspect_extractor/distilbert_weighted_lr3e5/best",
+    "sha256": "43912feea208644795785b7b54a001b60be244165cf6298eb42cfa5a1bb49c3d"
+  },
+  "config": {
+    "epochs": 8,
+    "eval_batch_size": 16,
+    "learning_rate": 3e-05,
+    "max_length": 256,
+    "train_batch_size": 16
+  },
+  "dataset_hashes": {
+    "test": "2e1235eaa2cac125d5d69509a2803d338a38065063b79104594f0f4d3e7ec963",
+    "train": "d2e009403d85fadcd28afebef69c33d39bb0c0b9f5258435f80629185e0a7cf4",
+    "validation": "6b3ca2e0a2a91a5d4bbd81edebdb814d0fccc9321c482e7c0b141b0a2e01259d"
+  },
+  "manifest_version": "1.0",
+  "metrics_paths": {
+    "test": "/kaggle/working/review_tag_generator/audit/evidence/A2/aspect_test.json",
+    "validation": "/kaggle/working/review_tag_generator/audit/evidence/A2/aspect_validation.json"
+  },
+  "mode": "transformer",
+  "model": {
+    "name": "distilbert-base-uncased",
+    "revision": null,
+    "tokenizer_name": "distilbert-base-uncased",
+    "tokenizer_revision": null
+  },
+  "reason": "transformer_training_available",
+  "run_id": "aspect_distilbert_seed42",
+  "runtime": {
+    "cuda_available": true,
+    "gpu_count": 2
+  },
+  "seed": 42,
+  "task_id": "A2_aspect_extraction"
+}

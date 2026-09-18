@@ -1,0 +1,7 @@
+{"gate":"A2","review_id":"laptop_acos:test:00001","gold":[[4,8,"unit"]],"pred":[[4,8,"unit"],[9,13,"cost"]],"error_type":"false_positive"}
+{"gate":"A2","review_id":"laptop_acos:test:00002","gold":[[22,29,"acer 11"]],"pred":[[46,48,"11"]],"error_type":"missed_span_and_partial_match"}
+{"gate":"A2","review_id":"laptop_acos:test:00003","gold":[[23,32,"ssd drive"]],"pred":[[23,32,"ssd drive"],[46,50,"emmc"]],"error_type":"false_positive"}
+{"gate":"A2","review_id":"laptop_acos:test:00013","gold":[[86,90,"keys"]],"pred":[],"error_type":"false_negative"}
+{"gate":"A2","review_id":"laptop_acos:test:00017","gold":[[0,4,"hdmi"]],"pred":[[0,8,"hdmi out"]],"error_type":"boundary_mismatch"}
+{"gate":"A2","summary":{"total_error_samples":597,"source":"audit/evidence/A2/aspect_test.json"}}
+{"gate":"A3","summary":{"test_examples":1445,"macro_f1":0.7495626626471136,"confusion_matrix":[[351,47,21],[64,111,40],[34,47,730]],"source":"audit/evidence/A3/sentiment_test.json"}}

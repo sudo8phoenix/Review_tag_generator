@@ -1,0 +1,15 @@
+{
+  "epoch": 8.0,
+  "eval_loss": 0.40473657846450806,
+  "eval_runtime": 0.7352,
+  "eval_samples_per_second": 443.439,
+  "eval_span_accuracy": 0.9533246897573625,
+  "eval_span_f1": 0.7140825035561876,
+  "eval_span_precision": 0.6370558375634517,
+  "eval_span_recall": 0.8122977346278317,
+  "eval_steps_per_second": 14.963,
+  "eval_token_accuracy": 0.9533246897573625,
+  "eval_token_f1": 0.8323897350468193,
+  "eval_token_precision": 0.8041439681550514,
+  "eval_token_recall": 0.8667717394870252
+}

@@ -1,0 +1,50 @@
+# Local Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Operating-system/editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Raw, processed, and downloaded datasets
+/data/
+/data 2/
+*.jsonl
+*.tsv
+*.xml
+*.csv
+!/audit/evidence/error-samples.jsonl
+*.zip
+
+# Trained checkpoints and model binaries
+/models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+
+# Kaggle transfer archives and split pieces
+/review_tag_generator/
+*.tar.gz
+*.part-*
+
+# Local secrets and runtime configuration
+.env
+.env.*
+!.env.example
+*.log
+
+# Build and notebook runtime output
+.ipynb_checkpoints/
+dist/
+build/
+*.egg-info/
