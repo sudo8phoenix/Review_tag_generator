@@ -48,7 +48,7 @@ class NormalizationResult:
 class TagResult:
     normalized_aspect: str | None
     sentiment: Sentiment
-    tag: str
+    tag: str | None
     confidence: float
     raw_aspect: str = ""
     start_char: int = 0
@@ -63,3 +63,22 @@ class ProductAggregate:
     sentiment_distribution: dict[str, int] = field(default_factory=dict)
     aspect_frequencies: dict[str, int] = field(default_factory=dict)
     representative_reviews: list[dict[str, Any]] = field(default_factory=list)
+
+
+def tag_result_from_mention(mention: Any) -> TagResult:
+    """Project a validated API Mention onto the existing core TagResult shape.
+
+    This is intentionally lossy: callers needing probabilities, context and
+    normalization metadata must use the HTTP Mention itself. The core package
+    stays independent of Pydantic and existing positional constructors remain
+    unchanged.
+    """
+    return TagResult(
+        normalized_aspect=mention.normalized_aspect,
+        sentiment=Sentiment(mention.sentiment),
+        tag=mention.tag or "",
+        confidence=mention.confidence,
+        raw_aspect=mention.raw_aspect,
+        start_char=mention.start_char,
+        end_char=mention.end_char,
+    )

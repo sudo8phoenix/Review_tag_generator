@@ -1,0 +1,246 @@
+{
+  "alias_only": {
+    "development": {
+      "accuracy_including_unknowns": 0.62,
+      "examples": 100,
+      "false_known_unknown_count": 0,
+      "per_class": {
+        "battery": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "build_quality": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "camera": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "charging": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "customer_service": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "delivery": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "design": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "display": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "heating": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "keyboard": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "packaging": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "performance": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "ports": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "price": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "processor": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "ram": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "speakers": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "storage": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "trackpad": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "unknown": {
+          "correct": 20,
+          "recall": 1.0,
+          "total": 20
+        },
+        "value": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "weight": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        }
+      }
+    },
+    "heldout": {
+      "accuracy_including_unknowns": 0.62,
+      "examples": 100,
+      "false_known_unknown_count": 0,
+      "per_class": {
+        "battery": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "build_quality": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "camera": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "charging": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "customer_service": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "delivery": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "design": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "display": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "heating": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "keyboard": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "packaging": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "performance": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "ports": {
+          "correct": 2,
+          "recall": 0.6666666666666666,
+          "total": 3
+        },
+        "price": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "processor": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "ram": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "speakers": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "storage": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "trackpad": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "unknown": {
+          "correct": 20,
+          "recall": 1.0,
+          "total": 20
+        },
+        "value": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        },
+        "weight": {
+          "correct": 2,
+          "recall": 0.5,
+          "total": 4
+        }
+      }
+    }
+  },
+  "dataset_status": "synthetic fixtures; quality gate pending human review",
+  "development_examples": 100,
+  "heldout_examples": 100,
+  "mode": "alias-only (semantic matching explicitly disabled)",
+  "ontology_version": "electronics-aspects-v1",
+  "quality_gate": "pending human review",
+  "semantic_model": null,
+  "threshold_tuning": "not run: no local semantic model supplied"
+}

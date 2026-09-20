@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77,<83", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "review-tag-generator"
+version = "0.1.0"
+description = "Aspect-level review analysis for consumer electronics"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = []
+
+[project.optional-dependencies]
+model = ["torch==2.14.0", "transformers==5.17.0", "safetensors==0.8.0"]
+backend = [
+  "fastapi>=0.116,<1",
+  "pydantic>=2,<3",
+  "pydantic-settings>=2,<3",
+  "sqlalchemy>=2,<3",
+  "alembic>=1,<2",
+  "psycopg[binary]>=3,<4",
+  "python-multipart>=0.0.20,<1",
+  "uvicorn>=0.35,<1",
+]
+test = ["pytest>=8,<10", "httpx>=0.28,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+review_tag_generator = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "model: requires locally verified trained checkpoints",
+  "integration: requires disposable PostgreSQL or running application",
+]

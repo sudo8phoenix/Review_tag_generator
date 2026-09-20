@@ -1,0 +1,33 @@
+{
+  "algorithms": {
+    "a2_review_list_sha256": "SHA-256 of UTF-8 json.dumps(list of notebook Review.model_dump(mode='json'), sort_keys=True)",
+    "a3_deduplicated_pair_list_sha256": "SHA-256 of UTF-8 json.dumps(notebook build_sentiment_pairs result, sort_keys=True)",
+    "file_sha256": "SHA-256 over JSONL file bytes"
+  },
+  "splits": {
+    "test": {
+      "a2_review_list_sha256": "2e1235eaa2cac125d5d69509a2803d338a38065063b79104594f0f4d3e7ec963",
+      "a3_deduplicated_pair_list_sha256": "69f3b25ae7fe60b83f155c9b0dc513c985c2dad9e427fc8ffaad0327e90fc0b3",
+      "file_sha256": "7e79f4061460dafe990a08ed38a481b3c785f76d742f9ec80727560540cb634b",
+      "matches_kaggle_manifests": true,
+      "review_count": 1616,
+      "sentiment_pair_count": 1445
+    },
+    "train": {
+      "a2_review_list_sha256": "d2e009403d85fadcd28afebef69c33d39bb0c0b9f5258435f80629185e0a7cf4",
+      "a3_deduplicated_pair_list_sha256": "ebcbb21435c4039155a07a7618269e020bf1e38b7da2c0ed8f0297baf2583eca",
+      "file_sha256": "a8311fb0df8dd3b7c3bf1d953b92625f5d4e2915dd4aa76bfa64bf592fc2153f",
+      "matches_kaggle_manifests": true,
+      "review_count": 5936,
+      "sentiment_pair_count": 5107
+    },
+    "validation": {
+      "a2_review_list_sha256": "6b3ca2e0a2a91a5d4bbd81edebdb814d0fccc9321c482e7c0b141b0a2e01259d",
+      "a3_deduplicated_pair_list_sha256": "2d36c1faec0b5fbd2a5f6ffcb78a6d812ff8a3858a15318b42d7f062f4a664d6",
+      "file_sha256": "6f4dbd5ee183f59fdfc2ecb105a0ceabb7596b906b8fbc180459cf20b3a25b11",
+      "matches_kaggle_manifests": true,
+      "review_count": 326,
+      "sentiment_pair_count": 309
+    }
+  }
+}

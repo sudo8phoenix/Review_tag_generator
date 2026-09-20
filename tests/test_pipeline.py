@@ -1,14 +1,10 @@
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
-
 from review_tag_generator import Review, ReviewAnalyzer
 from review_tag_generator.ontology import normalize_aspect
 
 
 def test_requested_review_end_to_end():
     review = Review("r1", "p1", "Amazing display but terrible battery.")
-    result = ReviewAnalyzer().analyze(review)
+    result = ReviewAnalyzer(use_transformer=False).analyze(review)
     assert [(x["normalized_aspect"], x["sentiment"], x["tag"]) for x in result["tags"]] == [
         ("Display", "positive", "Great Display"),
         ("Battery", "negative", "Poor Battery"),
@@ -23,7 +19,7 @@ def test_normalization_aliases_and_unknowns():
 
 
 def test_product_aggregation():
-    analyzer = ReviewAnalyzer()
+    analyzer = ReviewAnalyzer(use_transformer=False)
     reviews = [Review("r1", "p1", "Amazing display but terrible battery."), Review("r2", "p1", "Good screen and good battery.")]
     product = analyzer.aggregate(reviews)["p1"]
     assert product["aspect_frequencies"] == {"Display": 2, "Battery": 2}

@@ -8,21 +8,23 @@ from .ontology import normalize_aspect
 from .schemas import Review, TagResult
 from .sentiment import predict_sentiment
 from .tags import generate_tag
+from .artifacts import verify_checkpoint
 
 
 class ReviewAnalyzer:
-    def __init__(self, use_transformer: bool | str = "auto", aspect_model_path: str | None = None, sentiment_model_path: str | None = None):
+    def __init__(self, use_transformer: bool | str = "auto", aspect_model_path: str | None = None, sentiment_model_path: str | None = None, device: str = "cpu", context_policy: str = "local_clause"):
         default_root = Path(__file__).resolve().parents[2]
         aspect_path = Path(aspect_model_path or default_root / "models/aspect_extractor/distilbert_weighted_lr3e5/best")
         sentiment_path = Path(sentiment_model_path or default_root / "models/sentiment_classifier/distilbert/best")
+        if use_transformer not in (True, False, "auto"):
+            raise ValueError("use_transformer must be True, False, or 'auto'")
         self.models = None
-        if use_transformer is not False and aspect_path.exists() and sentiment_path.exists():
-            try:
-                from .transformer_models import TransformerModels
-                self.models = TransformerModels(aspect_path, sentiment_path)
-            except (ImportError, RuntimeError):
-                if use_transformer is True:
-                    raise
+        self.backend = "heuristic" if use_transformer is False else "transformer"
+        if use_transformer is not False:
+            verify_checkpoint(aspect_path, default_root / "audit/evidence/A2/aspect_training_manifest.json", "aspect")
+            verify_checkpoint(sentiment_path, default_root / "audit/evidence/A3/sentiment_training_manifest.json", "sentiment")
+            from .transformer_models import TransformerModels
+            self.models = TransformerModels(aspect_path, sentiment_path, device=device, context_policy=context_policy)
 
     def analyze_review(self, review: Review) -> list[TagResult]:
         results = []
@@ -35,7 +37,7 @@ class ReviewAnalyzer:
 
     def analyze(self, review: Review) -> dict:
         tags = self.analyze_review(review)
-        return {"review": asdict(review), "tags": [asdict(t) for t in tags]}
+        return {"review": asdict(review), "tags": [asdict(t) for t in tags], "backend": self.backend}
 
     def aggregate(self, reviews: list[Review]):
         grouped = {}

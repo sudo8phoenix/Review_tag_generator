@@ -1,0 +1,11 @@
+{
+  "reason": "Only eligible policy",
+  "selected": "full_review",
+  "settings": {
+    "device": "cpu",
+    "extraction_stride": 64,
+    "max_length": 256,
+    "max_review_tokens": 4096
+  },
+  "validation_file_sha256": "cb90113dce786716d2280f0ae69f03dc11303083b4a35819db7b62580c76e34b"
+}

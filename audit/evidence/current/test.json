@@ -1,0 +1,171 @@
+{
+  "aspect_extraction": {
+    "exact_span": {
+      "f1": 0.7061790668348045,
+      "fn": 325,
+      "fp": 607,
+      "precision": 0.6485234510712218,
+      "recall": 0.7750865051903114,
+      "tp": 1120
+    },
+    "protocol": "current_windowed_extraction_exact_offsets_and_lowercase_text",
+    "review_count": 1616,
+    "review_error_count": 597
+  },
+  "gates": {
+    "a2_above_historical_rule_baseline": true,
+    "a2_exact_span_f1_at_least_0_70": true,
+    "a3_above_historical_tfidf_baseline": true,
+    "a3_all_class_recall_at_least_0_50": true,
+    "a3_macro_f1_at_least_0_65": true
+  },
+  "held_out_evaluations": 1,
+  "historical_baselines_reported_not_retrained": {
+    "a2_rule_exact_span_f1": 0.36719286204529855,
+    "a3_tfidf_macro_f1": 0.6173789003975411
+  },
+  "historical_parity": {
+    "confusion_matrix_equal": true,
+    "historical_macro_f1": 0.7495626626471136,
+    "reproduced_macro_f1": 0.7495626626471136
+  },
+  "policy_frozen_before_test": {
+    "reason": "Only eligible policy",
+    "selected": "full_review",
+    "settings": {
+      "device": "cpu",
+      "extraction_stride": 64,
+      "max_length": 256,
+      "max_review_tokens": 4096
+    },
+    "validation_file_sha256": "cb90113dce786716d2280f0ae69f03dc11303083b4a35819db7b62580c76e34b"
+  },
+  "protocols": {
+    "full_review": {
+      "accuracy": 0.8249134948096886,
+      "confusion_matrix": [
+        [
+          351,
+          47,
+          21
+        ],
+        [
+          64,
+          111,
+          40
+        ],
+        [
+          34,
+          47,
+          730
+        ]
+      ],
+      "error_categories": {
+        "negative_to_neutral": 47,
+        "negative_to_positive": 21,
+        "neutral_to_negative": 64,
+        "neutral_to_positive": 40,
+        "positive_to_negative": 34,
+        "positive_to_neutral": 47
+      },
+      "error_count": 253,
+      "labels": [
+        "negative",
+        "neutral",
+        "positive"
+      ],
+      "macro_f1": 0.7495626626471136,
+      "macro_precision": 0.7486943452350907,
+      "macro_recall": 0.7513704016262123,
+      "n": 1445,
+      "per_class": {
+        "negative": {
+          "f1": 0.8087557603686636,
+          "precision": 0.7817371937639198,
+          "recall": 0.837708830548926,
+          "support": 419
+        },
+        "neutral": {
+          "f1": 0.5285714285714286,
+          "precision": 0.5414634146341464,
+          "recall": 0.5162790697674419,
+          "support": 215
+        },
+        "positive": {
+          "f1": 0.9113607990012484,
+          "precision": 0.922882427307206,
+          "recall": 0.9001233045622689,
+          "support": 811
+        }
+      }
+    },
+    "notebook_full_review": {
+      "accuracy": 0.8249134948096886,
+      "confusion_matrix": [
+        [
+          351,
+          47,
+          21
+        ],
+        [
+          64,
+          111,
+          40
+        ],
+        [
+          34,
+          47,
+          730
+        ]
+      ],
+      "error_categories": {
+        "negative_to_neutral": 47,
+        "negative_to_positive": 21,
+        "neutral_to_negative": 64,
+        "neutral_to_positive": 40,
+        "positive_to_negative": 34,
+        "positive_to_neutral": 47
+      },
+      "error_count": 253,
+      "labels": [
+        "negative",
+        "neutral",
+        "positive"
+      ],
+      "macro_f1": 0.7495626626471136,
+      "macro_precision": 0.7486943452350907,
+      "macro_recall": 0.7513704016262123,
+      "n": 1445,
+      "per_class": {
+        "negative": {
+          "f1": 0.8087557603686636,
+          "precision": 0.7817371937639198,
+          "recall": 0.837708830548926,
+          "support": 419
+        },
+        "neutral": {
+          "f1": 0.5285714285714286,
+          "precision": 0.5414634146341464,
+          "recall": 0.5162790697674419,
+          "support": 215
+        },
+        "positive": {
+          "f1": 0.9113607990012484,
+          "precision": 0.922882427307206,
+          "recall": 0.9001233045622689,
+          "support": 811
+        }
+      }
+    }
+  },
+  "split": "test",
+  "split_hashes": {
+    "a2_review_list_sha256": "2e1235eaa2cac125d5d69509a2803d338a38065063b79104594f0f4d3e7ec963",
+    "a3_deduplicated_pair_list_sha256": "69f3b25ae7fe60b83f155c9b0dc513c985c2dad9e427fc8ffaad0327e90fc0b3",
+    "file_sha256": "7e79f4061460dafe990a08ed38a481b3c785f76d742f9ec80727560540cb634b",
+    "matches_kaggle_manifests": true,
+    "review_count": 1616,
+    "sentiment_pair_count": 1445
+  },
+  "status": "PASS"
+}

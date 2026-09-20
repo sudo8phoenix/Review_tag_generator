@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "McAuley Lab Amazon Reviews 2023",
+    "card": "https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023",
+    "usage_statement": "https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/discussions/1",
+    "category": "Electronics",
+    "metadata_url": "https://mcauleylab.ucsd.edu/public_datasets/data/amazon_2023/raw/meta_categories/meta_Electronics.jsonl.gz",
+    "reviews_url": "https://mcauleylab.ucsd.edu/public_datasets/data/amazon_2023/raw/review_categories/Electronics.jsonl.gz",
+    "revision": "unversioned upstream files; ETag/Last-Modified captured below",
+    "metadata_response": {
+      "rows_read": 145060,
+      "etag": "\"4e41454b-62bda3bbc47f3\"",
+      "last_modified": "Thu, 16 Jan 2025 22:22:45 GMT",
+      "stop_reason": "compressed_byte_limit",
+      "compressed_bytes_read": 134217728
+    },
+    "reviews_response": {
+      "rows_read": 812756,
+      "etag": "\"181e817db-62bdb26aa07c6\"",
+      "last_modified": "Thu, 16 Jan 2025 23:28:26 GMT",
+      "stop_reason": "compressed_byte_limit",
+      "compressed_bytes_read": 134217728
+    }
+  },
+  "retrieved_at_utc": "2026-09-18T10:39:54.636984+00:00",
+  "selection": {
+    "seed": 42,
+    "rank": "SHA-256(seed:parent_asin), ascending",
+    "candidate_pool": 250,
+    "rule": "lowest-hash eligible metadata candidates; prefer >=3 valid reviews; then seeded hash order; first valid reviews in source order",
+    "metadata_row_limit": 500000,
+    "review_row_limit": 1000000,
+    "compressed_byte_limit_per_stream": 134217728,
+    "max_products": 50,
+    "max_reviews_per_product": 100,
+    "max_total_reviews": 5000
+  },
+  "counts": {
+    "candidate_products": 250,
+    "eligible_metadata_rows": 3480,
+    "metadata_non_laptop": 141580,
+    "metadata_rows_scanned": 145060,
+    "review_rows_scanned": 812756,
+    "reviews_outside_candidate_pool": 812702,
+    "selected_products": 31,
+    "selected_products_with_three_reviews": 5,
+    "selected_reviews": 54
+  },
+  "selected_parent_asins": [
+    "B0C6JXQCF5",
+    "B0764HW117",
+    "B0BZ742WS3",
+    "B01HAOLL4W",
+    "B09YVTK8LN",
+    "B004KNVK84",
+    "B08HYFM21Q",
+    "B07G3WVR5C",
+    "B07R74YZMN",
+    "B07GDDSJNH",
+    "B0786TPWBP",
+    "B0002PQM2I",
+    "B07GCRLHHY",
+    "B078WSX4QL",
+    "B0174X43LM",
+    "B00V7CAKKK",
+    "B0C33LYJ78",
+    "B0084C2ZSG",
+    "B0B712CJR3",
+    "B005289376",
+    "B000VZ3TKM",
+    "B07QLK2XG1",
+    "B00S63RQGE",
+    "B01BKXES0I",
+    "B08FVXVKWX",
+    "B01CCOGDI4",
+    "B004RCSDY2",
+    "B01KU1L66A",
+    "B0013FPYRK",
+    "B07QPW4CWS",
+    "B007Z92SJU"
+  ],
+  "output": {
+    "path": "data/amazon/laptop_reviews.jsonl",
+    "sha256": "3ebde306697f407c36ea8d2954a7e491713ad262d99998e2e4fac7166abc2974",
+    "bytes": 62248,
+    "fields": [
+      "review_id",
+      "parent_asin",
+      "product_name",
+      "category",
+      "brand",
+      "text",
+      "rating",
+      "helpful_votes",
+      "timestamp"
+    ],
+    "review_id_method": "source review_id if present; otherwise SHA-256 of parent_asin + NUL + original timestamp + NUL + original text"
+  },
+  "limitations": [
+    "Category/title heuristic may miss laptops with absent or unusual metadata.",
+    "Sample is an unlabelled convenience subset, not representative of Amazon.",
+    "Star ratings are metadata, not gold aspect sentiment labels."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "electronics-aspects-v1",
+  "aspects": [
+    {"id":"battery","label":"Battery","aliases":["battery","batteries","battery life","battery backup","battery duration","battery runtime"]},
+    {"id":"display","label":"Display","aliases":["screen","screens","display","displays","monitor","monitors","panel","screen quality"]},
+    {"id":"performance","label":"Performance","aliases":["performance","overall performance","system performance","responsiveness","system speed"]},
+    {"id":"processor","label":"Processor","aliases":["processor","processors","cpu","cpus","chipset","chip"]},
+    {"id":"keyboard","label":"Keyboard","aliases":["keyboard","keyboards","keys","key travel","keypad"]},
+    {"id":"trackpad","label":"Trackpad","aliases":["trackpad","trackpads","touchpad","touchpads"]},
+    {"id":"camera","label":"Camera","aliases":["camera","cameras","webcam","webcams"]},
+    {"id":"speakers","label":"Speakers","aliases":["speaker","speakers","audio","sound quality"]},
+    {"id":"storage","label":"Storage","aliases":["storage","ssd","ssds","hard drive","hard drives","disk space","drive capacity"]},
+    {"id":"ram","label":"RAM","aliases":["ram","random access memory"]},
+    {"id":"build_quality","label":"Build Quality","aliases":["build","build quality","construction quality","chassis quality"]},
+    {"id":"weight","label":"Weight","aliases":["weight","heaviness","portability weight"]},
+    {"id":"design","label":"Design","aliases":["design","appearance","looks","styling"]},
+    {"id":"price","label":"Price","aliases":["price","pricing","cost","purchase price"]},
+    {"id":"value","label":"Value","aliases":["value","value for money","price to performance","cost effectiveness"]},
+    {"id":"heating","label":"Heating","aliases":["heating","heat","overheating","thermal performance","temperature"]},
+    {"id":"charging","label":"Charging","aliases":["charging","charger","chargers","charging speed","charging time","power adapter"]},
+    {"id":"ports","label":"Ports","aliases":["port","ports","usb port","usb ports","connector","connectors"]},
+    {"id":"delivery","label":"Delivery","aliases":["delivery","shipping","shipment","arrival time"]},
+    {"id":"packaging","label":"Packaging","aliases":["packaging","package","box","unboxing"]},
+    {"id":"customer_service","label":"Customer Service","aliases":["customer service","customer support","technical support","support experience","after sales service"]}
+  ]
+}
