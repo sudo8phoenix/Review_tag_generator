@@ -25,3 +25,24 @@ result = ReviewAnalyzer().analyze(Review("r1", "p1", "Amazing display but terrib
 print(result["tags"])
 PY
 ```
+
+## Faculty demo
+
+With the local `.venv` and frontend dependencies installed, start both services:
+
+```bash
+./scripts/start_demo.sh
+```
+
+Open http://127.0.0.1:5173. Select **Demo laptop**, choose **Analyze review**,
+and submit `Amazing display but terrible battery.` The backend uses the verified
+local DistilBERT checkpoints and stores reviews in `.demo/reviews.sqlite3`.
+Product insights summarize saved evidence; aggregate tags need three supporting
+reviews. Imports accept pasted lines or a `.txt` file with one review per line.
+
+API documentation: http://127.0.0.1:8000/docs. This is a local demo API under
+`/api/demo`, independent of the planned PostgreSQL/job API. It has no authentication
+and should remain bound to localhost. Checkpoints are local and ignored by Git.
+If checkpoints are unavailable, explicitly run
+`DEMO_MODEL_BACKEND=heuristic ./scripts/start_demo.sh`; the UI labels this mode.
+There is no automatic substitution for trained inference.
