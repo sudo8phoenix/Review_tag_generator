@@ -1,0 +1,2 @@
+models/**/best/model.safetensors filter=lfs diff=lfs merge=lfs -text
+models/**/best/training_args.bin filter=lfs diff=lfs merge=lfs -text

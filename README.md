@@ -12,7 +12,7 @@ Use the library with `PYTHONPATH=src`. The main entry point is `ReviewAnalyzer`;
 
 The deterministic fallback is intended for local pipeline validation. The winning DistilBERT checkpoints, gate results, and dataset hashes are recorded in [audit/evidence/winning-run.json](audit/evidence/winning-run.json). Held-out error samples still need to be exported into the local evidence file.
 
-The trained checkpoints are now present under `models/`. Install the optional inference dependencies with Python 3.10+ and run `ReviewAnalyzer(use_transformer=True)` to force real DistilBERT inference. With `use_transformer="auto"` (the default), the analyzer loads the checkpoints when dependencies are available and otherwise uses the deterministic fallback.
+The trained checkpoints are now present under `models/`. Install the optional inference dependencies with Python 3.11 and run `ReviewAnalyzer(use_transformer=True)` to force real DistilBERT inference. With `use_transformer="auto"` (the default), the analyzer loads the checkpoints when dependencies are available and otherwise uses the deterministic fallback.
 
 At inference time, sentiment receives the conjunction-separated clause containing the aspect. This prevents a negative opinion about the battery from changing the sentiment of a positively described display in the same review.
 
@@ -42,7 +42,28 @@ reviews. Imports accept pasted lines or a `.txt` file with one review per line.
 
 API documentation: http://127.0.0.1:8000/docs. This is a local demo API under
 `/api/demo`, independent of the planned PostgreSQL/job API. It has no authentication
-and should remain bound to localhost. Checkpoints are local and ignored by Git.
+and should remain bound to localhost. Checkpoints are included through Git LFS.
 If checkpoints are unavailable, explicitly run
 `DEMO_MODEL_BACKEND=heuristic ./scripts/start_demo.sh`; the UI labels this mode.
 There is no automatic substitution for trained inference.
+
+## Install from a fresh clone
+
+Install Git LFS before cloning. The two trained checkpoints require approximately
+508 MB of downloads; raw training datasets are not required for inference.
+
+```bash
+git lfs install
+git clone https://github.com/sudo8phoenix/Review_tag_generator.git
+cd Review_tag_generator
+git lfs pull
+python3.11 -m venv .venv
+.venv/bin/python -m pip install -e '.[model,backend,test]'
+PYTHONPATH=src .venv/bin/python scripts/verify_artifacts.py
+npm --prefix frontend ci
+./scripts/start_demo.sh
+```
+
+The tokenizer files, model configurations, verification manifests, ontology,
+and dependency files are included in Git. Keep the complete checkpoint
+directories intact so their hashes match the recorded training manifests.

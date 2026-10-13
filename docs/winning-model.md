@@ -22,4 +22,4 @@ The winning run was produced in Kaggle. The checkpoint and processed split hashe
 }
 ```
 
-Do not commit checkpoints, raw datasets, credentials, or generated caches. Keep the model files in private storage and use the recorded hashes to verify any transfer.
+The two winning checkpoint directories are versioned in this repository. Model weights and training arguments use Git LFS; tokenizer and configuration files use ordinary Git. Run `git lfs pull` after cloning, then `PYTHONPATH=src python scripts/verify_artifacts.py` to check the complete directories against the recorded hashes. Training arguments are retained for hash verification and are not loaded during inference. Keep raw datasets, credentials, generated caches, and other training checkpoints out of Git.

@@ -25,13 +25,27 @@ __pycache__/
 *.zip
 
 # Trained checkpoints and model binaries
-/models/
+/models/*
+!/models/aspect_extractor/
+/models/aspect_extractor/*
+!/models/aspect_extractor/distilbert_weighted_lr3e5/
+/models/aspect_extractor/distilbert_weighted_lr3e5/*
+!/models/aspect_extractor/distilbert_weighted_lr3e5/best/
+!/models/sentiment_classifier/
+/models/sentiment_classifier/*
+!/models/sentiment_classifier/distilbert/
+/models/sentiment_classifier/distilbert/*
+!/models/sentiment_classifier/distilbert/best/
 /.demo/
 *.safetensors
 *.bin
 *.pt
 *.pth
 *.ckpt
+!/models/aspect_extractor/distilbert_weighted_lr3e5/best/model.safetensors
+!/models/aspect_extractor/distilbert_weighted_lr3e5/best/training_args.bin
+!/models/sentiment_classifier/distilbert/best/model.safetensors
+!/models/sentiment_classifier/distilbert/best/training_args.bin
 
 # Kaggle transfer archives and split pieces
 /review_tag_generator/
