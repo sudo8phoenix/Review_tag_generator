@@ -90,6 +90,7 @@ def test_groq_schema_auth_and_response(monkeypatch):
     monkeypatch.setenv('GROQ_API_KEY', 'test-groq-secret')
     def request(req, **kwargs):
         assert req.full_url == 'https://api.groq.com/openai/v1/chat/completions'
+        assert req.get_header('User-agent') == 'ReviewTagGenerator/0.1'
         assert req.get_header('Authorization') == 'Bearer test-groq-secret'
         body = json.loads(req.data)
         assert body['response_format']['json_schema']['strict']

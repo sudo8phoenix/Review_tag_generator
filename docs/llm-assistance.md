@@ -131,10 +131,18 @@ the test harness to check controls, citation rendering, source span rendering an
 disabled configuration. These checks do not establish model suggestion accuracy.
 
 A live Gemini request during implementation returned HTTP 503 with a high-demand
-message. The selected Groq connection needs the user's key before live inference
-can be verified. No successful cloud inference is claimed from those unit tests.
+message. The configured Groq connection subsequently passed live smoke checks for mapping
+“speed” to Performance and answering a battery question with exact quotes from
+two synthetic reviews. These checks verify connectivity and citation handling,
+not suggestion accuracy on a representative dataset. Unit tests remain injected
+and do not themselves establish live cloud inference.
 
 Provider request formats were checked against the official documentation:
 [Groq structured outputs](https://console.groq.com/docs/structured-outputs),
 [Gemini generateContent](https://ai.google.dev/api/generate-content), and
 [Ollama chat](https://docs.ollama.com/api/chat).
+
+
+The HTTP client identifies itself with `User-Agent: ReviewTagGenerator/0.1`.
+Groq initially returned HTTP 403 / edge error 1010 for the default Python client;
+the explicit application identity resolved that rejection in the live check.

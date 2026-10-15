@@ -99,10 +99,17 @@ outputs and server-side source validation. Groq, Gemini and Ollama are configura
 secrets stay in ignored server configuration. See [LLM assistance](llm-assistance.md).
 The full Python suite passes with 254 tests and 2 PostgreSQL skips. Provider transport,
 evidence rejection, and no-write behavior are verified using injected test responses.
-Live Groq verification remains pending the user's API key. A live Gemini request
+Live Groq smoke verification now passes with server-side credentials. A live Gemini request
 returned provider HTTP 503 due to high demand.
 
 The full 12-test browser suite passes after the assistance integration, using an
 isolated heuristic API plus explicitly injected provider responses for assistant
 UI tests. Frontend lint, production build, and unit tests pass. The non-model
 Python command passes with 247 tests, 2 PostgreSQL skips and 7 model deselections.
+
+
+Groq live follow-up: synthetic unknown-aspect mapping and two-review Q&A both
+succeeded, with source quote validation. Added an application User-Agent header
+after the provider edge rejected the default Python client with error 1010.
+All 11 provider transport regression tests pass. These smoke checks do not
+establish statistical accuracy for the optional assistance layer.

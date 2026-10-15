@@ -57,7 +57,7 @@ def generate_structured(system, payload, schema):
         body = json.dumps({'model': status['model'], 'stream': False, 'format': schema,
             'messages': [{'role': 'system', 'content': system}, {'role': 'user', 'content': json.dumps(payload)}],
             'options': {'temperature': 0, 'num_predict': 1200, 'num_ctx': 8192}}).encode()
-        headers = {'Content-Type': 'application/json'}
+        headers = {'Content-Type': 'application/json', 'User-Agent': 'ReviewTagGenerator/0.1'}
         endpoint = base_url + '/api/chat'
         if status['provider'] == 'gemini':
             if not re.fullmatch(r'[a-zA-Z0-9_.-]+', status['model']):
