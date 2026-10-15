@@ -9,6 +9,7 @@ explicitly supplied. No downloads are performed.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -102,17 +103,18 @@ def metrics(rows: list[dict], normalizer: AspectNormalizer) -> dict:
     }
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-path", type=Path, help="local all-MiniLM-L6-v2 snapshot; never downloaded")
     parser.add_argument("--revision", default=MINILM_REVISION)
     parser.add_argument("--examples-jsonl", type=Path, help="200 human-reviewed rows, dev first then held-out")
     parser.add_argument("--output", type=Path, help="write JSON report (default stdout)")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.examples_jsonl:
         dev, heldout = load_human_jsonl(args.examples_jsonl)
-        data_status = "human-labelled; reviewer provenance must be recorded by the caller"
+        input_sha256 = hashlib.sha256(args.examples_jsonl.read_bytes()).hexdigest()
+        data_status = "caller-supplied human-labelled rows; reviewer provenance is unverified"
     else:
         dev, heldout = build_synthetic_examples()
         data_status = "synthetic fixtures; quality gate pending human review"
@@ -122,9 +124,14 @@ def main() -> int:
         "dataset_status": data_status,
         "development_examples": len(dev),
         "heldout_examples": len(heldout),
-        "quality_gate": "pending human review" if not args.examples_jsonl else "eligible for review, not automatically passed",
+        "quality_gate": "pending independent human review" if args.examples_jsonl else "pending human review",
         "semantic_model": None,
     }
+    if args.examples_jsonl:
+        report["human_review_input"] = {
+            "sha256": input_sha256,
+            "reviewer_provenance": "unverified; record reviewer and adjudication process outside this report",
+        }
     if args.model_path is None:
         alias_only = AspectNormalizer()
         report["mode"] = "alias-only (semantic matching explicitly disabled)"
@@ -155,8 +162,10 @@ def main() -> int:
         report["threshold_tuning"] = {"candidates": candidates, "selected": threshold, "tie_policy": "accuracy, fewer false-known unknowns, higher threshold"}
         report["development"] = dev_metrics
         report["heldout"] = metrics(heldout, normalizer)
-        if not args.examples_jsonl:
-            report["quality_gate"] = "pending human review; synthetic held-out score is not a gold claim"
+        report["quality_gate"] = (
+            "pending human review; synthetic held-out score is not a gold claim"
+            if not args.examples_jsonl else "pending independent human review"
+        )
 
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"
     if args.output:

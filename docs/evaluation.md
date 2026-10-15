@@ -1,6 +1,6 @@
 # M04 evaluation: saved DistilBERT checkpoints
 
-The current checkpoint and processed data reproduce the Kaggle measurements under the original protocol. The product inference policy is **`full_review`**, selected on validation before the held-out test run. This applies to gold aspect–sentiment pairs; it is not an end-to-end tag-quality estimate on arbitrary product reviews.
+The current checkpoint and processed data reproduce the Kaggle measurements under the original protocol. The product inference policy is **`full_review`**, selected on validation before the held-out test run and used as the default by the analyzer and transformer wrapper. This applies to gold aspect–sentiment pairs; it is not an end-to-end tag-quality estimate on arbitrary product reviews.
 
 ## Inputs and verification
 
@@ -23,6 +23,13 @@ Validation comparison on 309 gold pairs:
 
 The predeclared rule chooses the highest Macro F1 among policies with every class recall at least 0.50; a difference within 0.001 favors `full_review`. The [validation report](../audit/evidence/current/validation.json) and [frozen policy](../audit/evidence/current/policy.json) were written before the test command ran. The policy record pins the validation report hash and inference settings.
 
+`full_review` is a dataset-level policy choice, not a guarantee of aspect-local
+polarity on contrastive sentences. For example, the same whole-review context
+can cause sentiment around “Amazing display but terrible battery” to reflect
+the dominant review sentiment instead of the display clause. `local_clause`
+remains available for contrast-sensitive use, but did not meet the frozen
+validation recall gate and is not the default.
+
 ## Held-out test, run once after the freeze
 
 | Measurement | Current result | Historical reference | Comparison |
@@ -41,6 +48,13 @@ The original `A3/sentiment_confusion_matrix.json` says `positive, neutral, negat
 
 No review text or identifiable error examples appear in the new tracked evidence. Error categories and counts are aggregate only. This evaluation uses gold aspects for A3 and should not be presented as end-to-end performance after extraction, normalization and tag generation.
 
+The processed validation annotations do not support a complete canonical-tag
+score: only 77 of 309 `normalized_aspect` values map through the current
+electronics ontology. The remainder include product/device terms and aspect
+labels outside this ontology. Scoring only the mapped subset would select an
+unrepresentative slice, so the tracked evidence retains separate extraction and
+gold-pair sentiment results and leaves end-to-end tag quality unclaimed.
+
 ## Commands
 
 From the repository root, with the local `.venv` and downloaded ignored checkpoints/data:
@@ -53,3 +67,15 @@ From the repository root, with the local `.venv` and downloaded ignored checkpoi
 ```
 
 The first three commands use validation only. The `test` command requires the frozen policy and rejects an existing test report to prevent accidental repeat or tuning. For this run, validation and test returned exit code 0. The test report records `PASS` for the stated M04 gates; it does not certify deployment behavior or unrelated pipeline components.
+
+After the one-time test report exists, `export-errors` can reproduce the frozen
+policy predictions and write every extraction and sentiment error to a separate
+directory without changing `validation.json`, `policy.json`, or `test.json`:
+
+```bash
+.venv/bin/python scripts/evaluate_pipeline.py export-errors
+```
+
+It verifies the validation hash and selected policy first. The two JSONL exports
+contain review IDs, spans, labels and probabilities, but omit review text. The
+export directory is write-once; choose `--error-export-dir` for another path.

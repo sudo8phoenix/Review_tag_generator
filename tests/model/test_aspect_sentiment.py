@@ -4,8 +4,8 @@ from review_tag_generator import ReviewAnalyzer
 
 
 @pytest.mark.model
-def test_real_model_contrast_and_reverse_contrast():
-    model = ReviewAnalyzer(use_transformer=True).models
+def test_local_clause_model_contrast_and_reverse_contrast():
+    model = ReviewAnalyzer(use_transformer=True, context_policy="local_clause").models
     for text, expected in [
         ("Amazing display but terrible battery.", ("positive", "negative")),
         ("Terrible display but amazing battery.", ("negative", "positive")),
@@ -18,6 +18,17 @@ def test_real_model_contrast_and_reverse_contrast():
         )
         assert tuple(result.label.value for result in actual) == expected
         assert all(abs(sum(result.probabilities.values()) - 1) < 1e-5 for result in actual)
+
+
+@pytest.mark.model
+def test_default_analyzer_matches_explicit_full_review_policy():
+    from review_tag_generator import Review
+
+    review = Review("policy-default", "demo", "Amazing display but terrible battery.")
+    default = ReviewAnalyzer(use_transformer=True)
+    explicit = ReviewAnalyzer(use_transformer=True, context_policy="full_review")
+    assert default.models.context_policy == "full_review"
+    assert default.analyze(review) == explicit.analyze(review)
 
 
 @pytest.mark.model

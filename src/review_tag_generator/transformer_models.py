@@ -14,7 +14,7 @@ class ReviewTooLongError(ValueError):
 class TransformerModels:
     """Thin inference wrapper around the two trained DistilBERT checkpoints."""
 
-    def __init__(self, aspect_path: str | Path, sentiment_path: str | Path, max_length: int = 256, device: str = "cpu", extraction_stride: int = 64, max_review_tokens: int = 4096, context_policy: str = "local_clause"):
+    def __init__(self, aspect_path: str | Path, sentiment_path: str | Path, max_length: int = 256, device: str = "cpu", extraction_stride: int = 64, max_review_tokens: int = 4096, context_policy: str = "full_review"):
         try:
             import torch
             from transformers import AutoModelForSequenceClassification, AutoModelForTokenClassification, AutoTokenizer

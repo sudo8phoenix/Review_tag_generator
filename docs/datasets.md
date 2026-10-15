@@ -77,3 +77,33 @@ loader. It accepts public HTTPS URLs and local files. Re-run only when a fresh
 sample is desired; the manifest and output are replaced together after a
 successful scan. Verify them with the manifest's `output.sha256` and exact
 `counts.selected_reviews` value.
+
+## Import into the demo API
+
+Start the API, create or select a destination product, then import a sample in
+restartable batches:
+
+```bash
+python3 scripts/import_amazon.py \
+  --input data/amazon/laptop_reviews.jsonl \
+  --product-id <existing-product-id> \
+  --asin <parent_asin>
+```
+
+Omit `--asin` to import every product in the sample, or repeat it to include
+several ASINs. The importer stores an atomic state file beside the input, checks
+the source SHA-256 on resume, and retries a pending batch with the same content
+and idempotency key. Per-batch row errors are written under the matching
+`.errors/` directory. A batch with errors stops progress; after reviewing the
+export, `--skip-failed-batch` explicitly advances past it.
+
+To copy the old local demo's reviews into an existing product in the current
+API, use the read-only SQLite migration helper:
+
+```bash
+python3 scripts/migrate_legacy_demo.py --product-id <existing-product-id>
+```
+
+It requires the legacy database to contain one product unless
+`--legacy-product-id` is supplied. A durable JSONL snapshot and importer state
+are kept beside `.demo/reviews.sqlite3`; the legacy database is opened read-only.

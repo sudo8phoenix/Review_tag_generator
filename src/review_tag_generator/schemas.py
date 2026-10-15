@@ -53,6 +53,14 @@ class TagResult:
     raw_aspect: str = ""
     start_char: int = 0
     end_char: int = 0
+    normalized_aspect_id: str | None = None
+    normalization_method: str = "unknown"
+    normalization_similarity: float | None = None
+    aspect_confidence: float | None = None
+    sentiment_confidence: float | None = None
+    probabilities: dict[str, float] | None = None
+    context_start_char: int = 0
+    context_end_char: int = 0
 
 
 @dataclass

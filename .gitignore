@@ -22,6 +22,7 @@ __pycache__/
 *.xml
 *.csv
 !/audit/evidence/error-samples.jsonl
+!/audit/evidence/current/error-exports/test/*.jsonl
 *.zip
 
 # Trained checkpoints and model binaries
@@ -56,6 +57,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
+!.env.release.example
 *.log
 
 # Build and notebook runtime output

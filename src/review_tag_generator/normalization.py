@@ -246,7 +246,14 @@ class AspectNormalizer:
         if not self.semantic_enabled:
             return NormalizationResult(raw, None, None, "unknown", None, True)
 
-        query = _normalize_text(f"{raw} {context or ''}")
+        # Keep the aspect mention prominent while giving the encoder its review
+        # evidence. A structured prompt avoids letting long review text swamp a
+        # short ambiguous mention such as "charge".
+        normalized_context = _normalize_text(context or "")
+        query = _normalize_text(
+            f"aspect mention: {raw}. review context: {normalized_context}" if normalized_context
+            else f"aspect mention: {raw}"
+        )
         self._cache_embeddings([query])
         vector = self._embedding_cache[query]
         scores: list[tuple[float, str]] = []

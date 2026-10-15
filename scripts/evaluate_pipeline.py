@@ -10,8 +10,10 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -203,6 +205,106 @@ def evaluate_aspects(models: TransformerModels, reviews: list[dict]) -> dict:
             "review_count": len(reviews), "review_error_count": review_errors, "exact_span": span_metrics(tp, fp, fn)}
 
 
+def collect_error_exports(models: TransformerModels, reviews: list[dict], pairs: list[dict], policy: str) -> tuple[list[dict], list[dict]]:
+    """Return every review-level extraction mismatch and sentiment misclassification."""
+    aspect_errors = []
+    for review in reviews:
+        gold = sorted((a["start_char"], a["end_char"], a["aspect"]) for a in review["annotations"])
+        predicted = sorted((p.start_char, p.end_char, p.aspect) for p in models.extract_aspects(review["review_text"]))
+        gold_keys = {(start, end, text.lower()) for start, end, text in gold}
+        predicted_keys = {(start, end, text.lower()) for start, end, text in predicted}
+        if gold_keys != predicted_keys:
+            missing = gold_keys - predicted_keys
+            extra = predicted_keys - gold_keys
+            error_types = []
+            if missing:
+                error_types.append("false_negative")
+            if extra:
+                error_types.append("false_positive")
+            if missing and extra:
+                error_types.append("span_or_text_mismatch")
+            aspect_errors.append({
+                "review_id": review["review_id"],
+                "error_types": error_types,
+                "gold_spans": [{"start_char": start, "end_char": end, "aspect": text} for start, end, text in gold],
+                "predicted_spans": [{"start_char": start, "end_char": end, "aspect": text} for start, end, text in predicted],
+            })
+
+    sentiment_errors = []
+    models.context_policy = policy
+    for pair in pairs:
+        prediction = models.predict_sentiment(pair["review_text"], pair["aspect_text"],
+                                              pair["start_char"], pair["end_char"])
+        predicted_label = prediction.label.value
+        if predicted_label != pair["label"]:
+            sentiment_errors.append({
+                "review_id": pair["review_id"],
+                "start_char": pair["start_char"],
+                "end_char": pair["end_char"],
+                "aspect_text": pair["aspect_text"],
+                "gold": pair["label"],
+                "predicted": predicted_label,
+                "probabilities": prediction.probabilities,
+                "policy": policy,
+            })
+    return aspect_errors, sentiment_errors
+
+
+def write_jsonl(path: Path, rows: list[dict]) -> None:
+    path.write_text("".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in rows),
+                    encoding="utf-8")
+
+
+def export_frozen_test_errors(output_dir: Path) -> dict:
+    """Export all frozen-policy test errors without changing metric evidence."""
+    policy_path = CURRENT / "policy.json"
+    validation_path = CURRENT / "validation.json"
+    test_path = CURRENT / "test.json"
+    if not policy_path.exists() or not validation_path.exists() or not test_path.exists():
+        raise RuntimeError("frozen validation policy and held-out test report are required before exporting errors")
+    frozen = json.loads(policy_path.read_text(encoding="utf-8"))
+    if sha256_file(validation_path) != frozen["validation_file_sha256"]:
+        raise RuntimeError("Validation report changed after policy freeze")
+    test_report = json.loads(test_path.read_text(encoding="utf-8"))
+    if test_report.get("policy_frozen_before_test", {}).get("selected") != frozen.get("selected"):
+        raise RuntimeError("Held-out test report does not match the frozen policy")
+    if output_dir.exists():
+        raise RuntimeError(f"error export directory already exists: {output_dir}")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+
+    reviews = load_reviews("test")
+    pairs = build_pairs(reviews)
+    if split_hashes("test", reviews, pairs) != test_report['split_hashes']:
+        raise RuntimeError("Held-out data differs from the frozen test report")
+    models = load_models(frozen["selected"])
+    aspect_errors, sentiment_errors = collect_error_exports(models, reviews, pairs, frozen["selected"])
+    if (len(aspect_errors) != test_report['aspect_extraction']['review_error_count'] or
+            len(sentiment_errors) != test_report['protocols'][frozen['selected']]['error_count']):
+        raise RuntimeError("Error counts differ from the frozen test report; refusing to publish a matching-run claim")
+    with tempfile.TemporaryDirectory(prefix=f".{output_dir.name}.", dir=output_dir.parent) as temporary:
+        staging = Path(temporary)
+        write_jsonl(staging / "aspect-extraction-errors.jsonl", aspect_errors)
+        write_jsonl(staging / "sentiment-errors.jsonl", sentiment_errors)
+        write_json(staging / "manifest.json", {
+            "split": "test",
+            "policy": frozen["selected"],
+            "policy_sha256": sha256_file(policy_path),
+            "validation_sha256": frozen["validation_file_sha256"],
+            "test_report_sha256": sha256_file(test_path),
+            "split_hashes": test_report['split_hashes'],
+            "exports_sha256": {name: sha256_file(staging / name) for name in
+                ['aspect-extraction-errors.jsonl', 'sentiment-errors.jsonl']},
+            "review_count": len(reviews),
+            "sentiment_pair_count": len(pairs),
+            "aspect_error_reviews": len(aspect_errors),
+            "sentiment_errors": len(sentiment_errors),
+            "review_text_included": False,
+        })
+        os.replace(staging, output_dir)
+    return {"aspect_error_reviews": len(aspect_errors), "sentiment_errors": len(sentiment_errors),
+            "output": str(output_dir)}
+
+
 def historical_derivative() -> dict:
     path = EVIDENCE / "A3/sentiment_confusion_matrix.json"
     original = json.loads(path.read_text())
@@ -232,7 +334,9 @@ def hash_inventory() -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=("validation", "test", "repeat-validation"))
+    parser.add_argument("phase", choices=("validation", "test", "repeat-validation", "export-errors"))
+    parser.add_argument("--error-export-dir", type=Path,
+                        default=CURRENT / "error-exports/test")
     args = parser.parse_args(argv)
     # Check the held-out freeze boundary before touching any evidence. In
     # particular, a refused second test invocation must be a read-only no-op.
@@ -240,6 +344,10 @@ def main(argv: list[str] | None = None) -> int:
         raise RuntimeError("Test report exists; validation decision is frozen")
     if args.phase == "test" and (CURRENT / "test.json").exists():
         raise RuntimeError("Held-out test was already evaluated; refusing to overwrite")
+    if args.phase == "export-errors":
+        result = export_frozen_test_errors(args.error_export_dir)
+        print(json.dumps(result, sort_keys=True))
+        return 0
     CURRENT.mkdir(parents=True, exist_ok=True)
     inventory = hash_inventory()
     write_json(CURRENT / "split_hashes.json", inventory)

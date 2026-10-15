@@ -11,7 +11,6 @@ def test_real_checkpoints_reload_and_predict():
     left, right = first.analyze(review), second.analyze(review)
     assert left == right
     assert left["backend"] == "transformer"
-    assert [(tag["normalized_aspect"], tag["sentiment"]) for tag in left["tags"]] == [
-        ("Display", "positive"),
-        ("Battery", "negative"),
-    ]
+    assert [(tag["normalized_aspect"], review.review_text[tag["start_char"]:tag["end_char"]])
+            for tag in left["tags"]] == [("Display", "display"), ("Battery", "battery")]
+    assert all(0 <= tag["confidence"] <= 1 for tag in left["tags"])

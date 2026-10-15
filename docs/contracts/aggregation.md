@@ -66,3 +66,16 @@ the opposing source mentions rather than presenting them as purely neutral.
 The legacy `aggregate()` function remains available for the original prototype
 pipeline. New persistence and API integration should use the typed saved-analysis
 API above and serialize its snapshot with `dataclasses.asdict`.
+
+
+## Published evidence and sensitivity report
+
+New stored snapshots include internal `_review_ids` membership; the HTTP insights
+object omits this internal field. Product detail returns analyses only for the
+published membership and pipeline version, and reports the snapshot's revision
+and aggregate version. Pending reviews affect the stale/status indicators, not
+the published evidence set. Legacy snapshots use an analysis creation-time cutoff.
+
+`GET /api/demo/products/{product_id}/evidence-audit` derives single-review-removal
+sensitivity from that same snapshot. It reuses `classify_votes`, the classification
+policy used by aggregation. See [the report contract and examples](../evidence-robustness.md).

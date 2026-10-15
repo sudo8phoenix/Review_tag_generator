@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import pytest
+import json
 
+import scripts.evaluate_normalization as evaluator
 from review_tag_generator.normalization import (
     AspectNormalizer,
     OntologyCollisionError,
@@ -85,8 +87,8 @@ def test_semantic_threshold_boundary_and_deterministic_tie_policy():
     vectors = {
         "display": [1.0, 0.0], "screen": [1.0, 0.0],
         "battery": [0.0, 1.0], "battery life": [0.0, 1.0],
-        "novel screenish phrase": [0.8, 0.6],
-        "tie phrase": [2 ** -0.5, 2 ** -0.5],
+        "aspect mention novel screenish phrase": [0.8, 0.6],
+        "aspect mention tie phrase": [2 ** -0.5, 2 ** -0.5],
     }
 
     def encoder(texts):
@@ -120,7 +122,43 @@ def test_semantic_embeddings_are_cached_for_aliases_and_repeated_queries():
     assert len(calls) == after_first
 
 
+def test_context_is_used_for_ambiguous_semantic_mentions():
+    ontology = build_ontology({"version": "test-v1", "aspects": [
+        {"id": "battery", "label": "Battery", "aliases": ["battery life"]},
+        {"id": "charging", "label": "Charging", "aliases": ["charging"]},
+    ]})
+    query_texts = []
+    vectors = {
+        "battery": [1.0, 0.0], "battery life": [1.0, 0.0],
+        "charging": [0.0, 1.0],
+        "aspect mention charge": [0.0, 1.0],
+        "aspect mention charge review context charging cable works": [0.0, 1.0],
+    }
+
+    def encoder(texts):
+        query_texts.extend(texts)
+        return [vectors.get(text, [1.0, 0.0]) for text in texts]
+
+    normalizer = AspectNormalizer(ontology=ontology, encoder=encoder, threshold=0.9)
+    assert normalizer.normalize("charge").is_unknown
+    result = normalizer.normalize("charge", context="charging cable works")
+    assert result.normalized_aspect_id == "charging"
+    assert result.method == "semantic"
+    assert "aspect mention charge review context charging cable works" in query_texts
+
+
 def test_legacy_normalizer_keeps_old_result_shape_and_no_implicit_fuzzy_guess():
     assert normalize_aspect("screen").normalized_aspect == "Display"
     assert normalize_aspect("hinge").is_unknown
     assert normalize_aspect("fast").is_unknown
+
+
+def test_human_rows_report_pending_independent_review_with_input_fingerprint(tmp_path):
+    source = tmp_path / "rows.jsonl"
+    source.write_text("".join(json.dumps({"text": "hinge", "label": None}) + "\n" for _ in range(200)))
+    output = tmp_path / "report.json"
+    assert evaluator.main(["--examples-jsonl", str(source), "--output", str(output)]) == 0
+    report = json.loads(output.read_text())
+    assert report["quality_gate"] == "pending independent human review"
+    assert report["human_review_input"]["sha256"]
+    assert report["human_review_input"]["reviewer_provenance"].startswith("unverified")

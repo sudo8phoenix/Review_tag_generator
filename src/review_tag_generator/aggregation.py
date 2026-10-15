@@ -17,6 +17,24 @@ from .schemas import ProductAggregate, Review, Sentiment, TagResult
 from .tags import generate_tag
 
 
+def classify_votes(counts: dict[str, int]) -> str:
+    """Apply the product classification policy to distinct review-aspect votes."""
+    total = sum(counts.values())
+    if total < 3:
+        return "insufficient_evidence"
+    if counts["positive"] == counts["negative"] == 0:
+        return "neutral"
+    if counts["positive"] / total >= .80:
+        return "excellent"
+    if counts["positive"] / total >= .60:
+        return "good"
+    if counts["negative"] / total >= .70:
+        return "poor"
+    if counts["negative"] / total >= .50:
+        return "weak"
+    return "mixed"
+
+
 def aggregate(product_id: str, rows: list[tuple[Review, list[TagResult]]]) -> ProductAggregate:
     aspect_counts, sentiments = Counter(), Counter()
     grouped = defaultdict(list)
@@ -228,27 +246,12 @@ def aggregate_saved_analyses(
         average_confidence = math.fsum(v["confidence"] for v in votes) / review_count
         score = math.log1p(review_count) * average_confidence * abs(positive_ratio - negative_ratio)
 
-        if review_count < 3:
-            classification = "insufficient_evidence"
-            bucket = "insufficient_evidence"
-        elif counts[Sentiment.POSITIVE.value] == 0 and counts[Sentiment.NEGATIVE.value] == 0:
-            classification = "neutral"
-            bucket = "neutral"
-        elif positive_ratio >= 0.80:
-            classification = "excellent"
-            bucket = "strengths"
-        elif positive_ratio >= 0.60:
-            classification = "good"
-            bucket = "strengths"
-        elif negative_ratio >= 0.70:
-            classification = "poor"
-            bucket = "weaknesses"
-        elif negative_ratio >= 0.50:
-            classification = "weak"
-            bucket = "weaknesses"
-        else:
-            classification = "mixed"
-            bucket = "mixed"
+        classification = classify_votes(counts)
+        bucket = {
+            "excellent": "strengths", "good": "strengths", "poor": "weaknesses",
+            "weak": "weaknesses", "neutral": "neutral", "mixed": "mixed",
+            "insufficient_evidence": "insufficient_evidence",
+        }[classification]
         if classification in ("excellent", "good"):
             aggregate_tag = generate_tag(aspect_id, Sentiment.POSITIVE)
         elif classification in ("poor", "weak"):

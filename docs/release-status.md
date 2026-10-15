@@ -1,0 +1,80 @@
+# Release status
+
+The application now uses the same frozen `full_review` policy for trained inference
+as the recorded evaluation. Startup verifies the frozen validation hash. The
+explicit heuristic demo uses `local_clause` and is reported separately.
+
+## Implemented
+
+- Snapshot-consistent review evidence, totals and published revision during imports.
+- Live previews serviced between bulk rows with the bulk lease renewed.
+- API startup without model loading when a separate worker is configured.
+- [Evidence robustness audit](evidence-robustness.md) API with single-review-removal
+  sensitivity, tag stability, and separate within-review contradiction counts.
+- [ML implementation guide](ml-explained.md) covering models, training, inference,
+  evaluation, application rules, and limitations.
+- One SQLAlchemy repository for PostgreSQL deployment and SQLite local use.
+- Durable jobs and item progress, transactional duplicate prevention, idempotent
+  requests, bounded automatic retries, manual failed-row retries, expiring leases,
+  worker heartbeats, restart recovery, and immutable versioned aggregate snapshots.
+- Expiring, unsaved previews processed by workers; separate saving; browser draft
+  and job recovery; preserved input after partial failures.
+- Aspect highlighting, evidence drawers with normalization and sentiment evidence,
+  searchable/sortable insights, sentiment charts, representative reviews, and
+  recorded evaluation scores with provenance.
+- Validated TXT, CSV, JSON, JSONL and NDJSON imports, background progress, complete
+  row-error downloads, resumable Amazon batch import, and a read-only legacy demo
+  migration helper. See [dataset instructions](datasets.md).
+- Complete extraction and sentiment error exports from the frozen test run:
+  [manifest](../audit/evidence/current/error-exports/test/manifest.json).
+- API/storage/worker tests, trained inference integration tests, PostgreSQL-specific
+  integration tests, browser workflow checks, CI, and a Compose deployment stack.
+
+## Verification on this workspace
+
+The full Python suite passes (219 passed, 2 PostgreSQL suites skipped), including
+trained checkpoint tests and the complete
+HTTP → worker → database → snapshot path. PostgreSQL migration and repository
+integration tests require `POSTGRES_TEST_URL`; they are configured to run against
+an isolated PostgreSQL service in CI. The generated PostgreSQL migration SQL was
+checked locally. Frontend lint, production build, and unit tests pass; all 9
+Playwright browser tests pass, including the complete preview/save flow and draft
+recovery. Layouts were checked at 320, 768, and 1440 pixels without console or page
+errors. Compose configuration validation succeeds.
+
+The local environment has no accessible PostgreSQL server or Docker daemon, so
+live PostgreSQL tests and container builds have not been executed here. The
+checked-in Python lock records a macOS ARM64 resolution; Linux container
+installation still needs verification. CI configuration is provided, but no
+remote CI run or deployment has been triggered by this task.
+
+## Quality gates still requiring real evidence
+
+Semantic matching is implemented and can be configured with `SEMANTIC_MODEL_PATH`,
+`SEMANTIC_MODEL_REVISION`, and `NORMALIZATION_THRESHOLD` for both API and worker.
+The API and worker must receive the same settings. Alias matching remains the
+default until a pinned local MiniLM snapshot and a reviewed threshold are supplied.
+There is no approved human-reviewed calibration artifact. Synthetic fixture
+accuracy is development evidence only. See [normalization](normalization.md).
+
+End-to-end canonical tag accuracy cannot be claimed from the current annotations:
+only 77 of 309 validation normalization labels map to this ontology. A representative,
+human-reviewed set with aspect spans, canonical IDs (including unknowns), and
+sentiment is needed. Reviewers must settle ambiguous labels, document adjudication,
+select a threshold using development rows, and review the untouched held-out gate.
+The application does not display an invented release-quality score.
+
+The frozen `full_review` policy meets the recorded dataset-level gates but has a
+known contrastive-sentence limitation, documented in [evaluation](evaluation.md).
+
+## Recent verification update
+
+The Python suite was rerun after the scheduling, snapshot, external-worker startup,
+and evidence-audit changes. Regression checks cover intermediate import state,
+previews arriving during bulk inference, API startup without model construction,
+and robustness threshold boundaries. These backend changes do not constitute a
+new browser or live PostgreSQL verification run.
+
+New snapshots record exact review membership. For snapshots created before this
+change, evidence selection uses the snapshot creation timestamp as a compatibility
+fallback. Reprocessing saved reviews publishes a snapshot with explicit membership.

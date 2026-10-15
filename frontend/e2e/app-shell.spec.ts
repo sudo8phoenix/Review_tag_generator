@@ -14,6 +14,7 @@ test('primary navigation reaches metrics and returns to products', async ({ page
   await page.getByRole('link', { name: 'Model metrics' }).click()
   await expect(page).toHaveURL(/\/models$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Model metrics' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Aspect extraction · held-out test' })).toBeVisible()
   await page.getByRole('link', { name: 'Products' }).click()
   await expect(page).toHaveURL(/\/products$/)
 })

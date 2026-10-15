@@ -1,0 +1,15 @@
+.git
+.github
+.venv
+frontend/node_modules
+frontend/dist
+__pycache__
+*.py[cod]
+.pytest_cache
+.demo
+data
+distilbert_review_generator.ipynb
+*.log
+.env
+.env.*
+!.env.release.example
