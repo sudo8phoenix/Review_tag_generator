@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { api, type Analysis, type Detail, type ImportValidation, type Job, type ModelMetrics, type PreviewPoll, type Product } from '../api'
 import { Button } from '../components/Button'
@@ -8,6 +8,8 @@ import { PageHeader } from '../components/PageHeader'
 import { SentimentBadge } from '../components/SentimentBadge'
 import { StatusBadge } from '../components/StatusBadge'
 import { Dialog } from '../components/Dialog'
+import { SavedDataControls } from '../components/SavedDataControls'
+import { SavedImportsPanel } from '../components/SavedImportsPanel'
 import { UnknownAspectAssist, ProductReviewAssistant } from '../components/ReviewAssistant'
 import { EvidenceRobustnessPanel } from '../components/EvidenceRobustnessPanel'
 import { ReviewQualityPanel } from '../components/ReviewQualityPanel'
@@ -83,12 +85,29 @@ function AspectEvidenceDrawer({ evidence, onClose }: { evidence: { review: Analy
   </Dialog>
 }
 
+function discardRemovedProductDrafts(products: Product[]) {
+  const existing = new Set(products.map(product => product.id))
+  if (existing.has('00000000-0000-4000-8000-000000000001')) existing.add('demo-laptop')
+  try {
+    const keys = Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index))
+    for (const key of keys) {
+      const match = key?.match(/^review-tag-(?:draft|job):([^:]+):(?:review|import)$/)
+      const productId = match?.[1]
+      if (key && productId && !existing.has(productId)) localStorage.removeItem(key)
+    }
+  } catch { /* Keep the product list usable when browser storage is unavailable. */ }
+}
+
 export function ProductsPage() {
   const [products, setProducts] = useState<Product[] | null>(null)
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
-  useEffect(() => { let active = true; api<Product[]>('/demo/products').then(value => { if (active) setProducts(value) }).catch(reason => { if (active) setError(reason.message) }); return () => { active = false } }, [])
+  useEffect(() => { let active = true; api<Product[]>('/demo/products').then(value => { if (active) { discardRemovedProductDrafts(value); setProducts(value) } }).catch(reason => { if (active) setError(reason.message) }); return () => { active = false } }, [])
+  async function refreshProducts() {
+    try { const value = await api<Product[]>('/demo/products'); discardRemovedProductDrafts(value); setProducts(value); setError('') }
+    catch (reason) { setError((reason as Error).message) }
+  }
   async function create(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError('')
     try { await api('/demo/products', { name }); setProducts(await api<Product[]>('/demo/products')); setName('') } catch (reason) { setError((reason as Error).message) } finally { setBusy(false) }
@@ -101,13 +120,14 @@ export function ProductsPage() {
     </form>
     <div className="demo-stack">{products === null && !error && <p role="status">Connecting to backend and loading products…</p>}
       {products?.map(product => <section className="content-section" key={product.id}><div className="section-heading"><div><h2>{product.name}</h2><p>{product.review_count} saved reviews</p></div><StatusBadge tone="success">Ready to analyze</StatusBadge></div>
-        <div className="demo-actions"><Link className="button button-primary" to={`/products/${product.id}`}>View insights</Link><Link className="button button-secondary" to={`/products/${product.id}/review`}>Analyze review</Link><Link className="text-link" to={`/products/${product.id}/upload`}>Import reviews</Link></div></section>)}
+        <div className="demo-actions"><Link className="button button-primary" to={`/products/${product.id}`}>View insights</Link><Link className="button button-secondary" to={`/products/${product.id}/review`}>Analyze review</Link><Link className="text-link" to={`/products/${product.id}/upload`}>Import reviews</Link></div><SavedDataControls productId={product.id} productName={product.name} onCleared={() => void refreshProducts()} onDeleted={() => void refreshProducts()} /></section>)}
       {products?.length === 0 && <EmptyState title="No products yet">Create a product above to start analyzing reviews.</EmptyState>}
     </div>
   </>
 }
 
 export function ProductDetailPage() {
+  const navigate = useNavigate()
   const { id } = useParams(); const { data, error, refresh } = useDetail(id)
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState<'support' | 'name' | 'sentiment'>('support')
@@ -159,9 +179,11 @@ export function ProductDetailPage() {
     {!data && !error && <p role="status">Loading insights…</p>}
     {data && <><div className="demo-actions"><Link className="button button-primary" to={`/products/${id}/review`}>Analyze a review</Link><Link className="button button-secondary" to={`/products/${id}/upload`}>Import reviews</Link><StatusBadge>{data.backend === 'transformer' ? 'Trained DistilBERT' : 'Heuristic demo'}</StatusBadge></div>
       {data.stale && <section className="alert alert-warning stale-insights"><div><strong>Showing the last published analysis</strong><p>These insights may use an earlier analysis version or exclude recent reviews. Refresh analyses to include saved feedback.</p></div><Button variant="secondary" onClick={() => void regenerate()} disabled={regenerationBusy || regenerationActive}>{regenerationActive ? 'Refresh in progress…' : 'Refresh analyses'}</Button>{regeneration && <p role="status">Refresh job {regeneration.status.replaceAll('_', ' ')} · {regeneration.completed_rows} of {regeneration.total_rows} reviews analyzed</p>}{regenerationError && <p role="alert">{regenerationError}</p>}</section>}
+      <SavedDataControls productId={data.product.id} productName={data.product.name} onCleared={refresh} onDeleted={() => navigate('/products')} />
+      <SavedImportsPanel key={`imports:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} onRemoved={refresh} />
       <div className="demo-stats"><section><strong>{data.insights.review_count}</strong><span>Saved reviews</span></section>{['positive', 'neutral', 'negative'].map(sentiment => <section key={sentiment}><strong>{data.insights.sentiment_distribution[sentiment] ?? 0}</strong><span>{sentiment} aspect votes</span></section>)}</div>
       <section className="content-section"><div className="section-heading"><div><h2>Sentiment by aspect</h2><p>Review votes grouped by detected product feature.</p></div></div>
-        {data.insights.aspects.length ? <div className="sentiment-chart" role="img" aria-label="Stacked chart showing positive, neutral, and negative votes by aspect"><ResponsiveContainer width="100%" height={Math.max(220, data.insights.aspects.length * 42)}><BarChart data={aspects} layout="vertical" margin={{ left: 20, right: 18, top: 8, bottom: 8 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} /><XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="aspect" width={95} tick={{ fontSize: 11 }} /><Tooltip /><Bar dataKey="counts.positive" name="Positive" stackId="votes" fill="#177451" /><Bar dataKey="counts.neutral" name="Neutral" stackId="votes" fill="#a5b0aa" /><Bar dataKey="counts.negative" name="Negative" stackId="votes" fill="#b54742" /></BarChart></ResponsiveContainer></div> : <p className="field-hint">No aspect votes to chart yet.</p>}
+        {data.insights.aspects.length ? <div className="sentiment-chart" role="img" aria-label="Stacked chart showing positive, neutral, and negative votes by aspect"><ResponsiveContainer width="100%" height={Math.max(220, data.insights.aspects.length * 42)}><BarChart data={aspects} layout="vertical" margin={{ left: 20, right: 18, top: 8, bottom: 8 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} /><XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="aspect" width={95} tick={{ fontSize: 11 }} /><Tooltip /><Bar isAnimationActive={false} dataKey="counts.positive" name="Positive" stackId="votes" fill="#177451" /><Bar isAnimationActive={false} dataKey="counts.neutral" name="Neutral" stackId="votes" fill="#a5b0aa" /><Bar isAnimationActive={false} dataKey="counts.negative" name="Negative" stackId="votes" fill="#b54742" /></BarChart></ResponsiveContainer></div> : <p className="field-hint">No aspect votes to chart yet.</p>}
       </section>
       <section className="content-section"><h2>Supported product tags</h2><p className="field-hint">Tags require at least three supporting reviews. Add more feedback to establish recurring themes.</p><div className="demo-actions">{data.insights.top_tags.map(tag => <StatusBadge key={tag.aspect_id}>{tag.aggregate_tag ?? tag.aspect}</StatusBadge>)}{!data.insights.top_tags.length && <p>No tags have enough evidence yet.</p>}</div></section>
       {!!data.insights.aspects.length && <section className="content-section demo-spaced"><div className="section-heading"><div><h2>Aspect summary</h2><p>Search and sort to inspect support and sentiment.</p></div></div><div className="insight-controls"><label>Search aspects<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Display, battery…" /></label><label>Sort by<select value={sort} onChange={event => setSort(event.target.value as typeof sort)}><option value="support">Review support</option><option value="name">Aspect name</option><option value="sentiment">Positive share</option></select></label></div><div className="table-scroll"><table><thead><tr><th>Aspect</th><th>Review support</th><th>Positive</th><th>Neutral</th><th>Negative</th><th>Classification</th></tr></thead><tbody>{aspects.map(aspect => <tr key={aspect.aspect_id}><td>{aspect.aspect}</td><td>{aspect.review_count}</td><td>{aspect.counts?.positive ?? '—'}</td><td>{aspect.counts?.neutral ?? '—'}</td><td>{aspect.counts?.negative ?? '—'}</td><td>{aspect.classification.replaceAll('_', ' ')}</td></tr>)}</tbody></table>{!aspects.length && <p className="field-hint">No aspects match that search.</p>}</div></section>}

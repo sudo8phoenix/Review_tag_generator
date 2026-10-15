@@ -139,6 +139,26 @@ def detail(product_id: str):
         raise HTTPException(404, 'Product not found') from exc
 
 
+@app.delete('/api/demo/products/{product_id}/saved-data')
+def clear_product_saved_data(product_id: str):
+    return app.state.repository.remove_product_data(product_id, app.state.version)
+
+
+@app.delete('/api/demo/products/{product_id}')
+def delete_saved_product(product_id: str):
+    return app.state.repository.remove_product_data(product_id, app.state.version, delete_product=True)
+
+
+@app.get('/api/demo/products/{product_id}/imports')
+def saved_product_imports(product_id: str):
+    return app.state.repository.saved_imports(product_id)
+
+
+@app.delete('/api/demo/products/{product_id}/imports/{job_id}')
+def delete_saved_import(product_id: str, job_id: UUID):
+    return app.state.repository.remove_import(product_id, str(job_id), app.state.version)
+
+
 class AspectAssistInput(BaseModel):
     review_text: str = Field(min_length=1, max_length=10000)
     raw_aspect: str = Field(min_length=1, max_length=500)
@@ -216,11 +236,10 @@ def compare_product_feedback(product_id: str, other_product_id: str):
 @app.post('/api/demo/products/{product_id}/preview')
 def preview(product_id: str, body: ReviewsInput):
     repository = app.state.repository
-    with repository.transaction() as db:
-        product = repository.require_product(db, product_id)
-        pid = product.id
     ids = []
     with repository.transaction() as db:
+        product = repository.require_product(db, product_id, lock=True)
+        pid = product.id
         count = db.scalar(select(func.count()).select_from(AnalysisPreview).where(AnalysisPreview.status.in_(['queued', 'running']), AnalysisPreview.expires_at > utcnow()))
         if count + len(body.reviews) > int(os.environ.get('QUEUE_CAPACITY', '100')):
             raise HTTPException(429, 'Preview queue is full; try again after current previews finish')
@@ -246,11 +265,11 @@ def get_preview(preview_id: UUID):
         return {'id': str(item.id), 'status': item.status, 'analysis': item.analysis, 'expires_at': expiry, 'error_summary': item.analysis.get('error') if item.status == 'failed' and item.analysis else None}
 
 
-def enqueue(product_id, rows, errors, key):
+def enqueue(product_id, rows, errors, key, filename=None):
     if key and (len(key) > 64 or not key.strip()):
         raise HTTPException(422, 'Idempotency-Key must contain 1–64 characters')
     try:
-        job_id = app.state.repository.enqueue(product_id, rows, app.state.version, key, errors)
+        job_id = app.state.repository.enqueue(product_id, rows, app.state.version, key, errors, import_filename=filename)
     except ValueError as exc:
         if isinstance(exc, Conflict):
             raise
@@ -282,7 +301,7 @@ def import_reviews(product_id: str, body: ImportInput, idempotency_key: str | No
         rows, errors = parse_import(body.filename, body.content)
     except (ValueError, csv.Error) as exc:
         raise HTTPException(422, str(exc)) from exc
-    return enqueue(product_id, rows, errors, idempotency_key)
+    return enqueue(product_id, rows, errors, idempotency_key, filename=body.filename)
 
 
 @app.post('/api/demo/products/{product_id}/regenerate', status_code=202)

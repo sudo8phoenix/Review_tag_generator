@@ -8,10 +8,10 @@ import os
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from sqlalchemy import create_engine, event, func, select, or_
+from sqlalchemy import create_engine, event, func, select, or_, delete, update, inspect as inspect_schema, and_
 from sqlalchemy.orm import sessionmaker
 
-from backend.app.db.models import (Base, Product, ReviewRecord, AnalysisRun, AspectMention,
+from backend.app.db.models import (Base, ApplicationSetting, Product, ReviewRecord, AnalysisRun, AspectMention,
     ProductSnapshot, ProcessingJob, JobItem, IdempotencyRequest, AnalysisPreview, WorkerStatus, utcnow)
 from review_tag_generator import Review
 from review_tag_generator.aggregation import SavedReviewAnalysis, aggregate_saved_analyses
@@ -75,6 +75,11 @@ class Repository:
             def begin(connection):
                 connection.exec_driver_sql('BEGIN IMMEDIATE')
             Base.metadata.create_all(self.engine)
+            # create_all does not add columns to pre-existing local databases.
+            with self.engine.begin() as connection:
+                columns = inspect_schema(connection).get_columns('processing_jobs')
+                if not any(column['name'] == 'input_filename' for column in columns):
+                    connection.exec_driver_sql('ALTER TABLE processing_jobs ADD COLUMN input_filename VARCHAR(255)')
         self.factory = sessionmaker(self.engine, expire_on_commit=False)
 
     @contextmanager
@@ -84,8 +89,11 @@ class Repository:
 
     def initialize(self):
         with self.transaction() as db:
-            if not db.get(Product, DEMO_ID):
-                db.add(Product(id=DEMO_ID, source='manual', name='Demo laptop', category='electronics'))
+            setting = db.get(ApplicationSetting, 'demo_seeded')
+            if not setting:
+                if not db.get(Product, DEMO_ID):
+                    db.add(Product(id=DEMO_ID, source='manual', name='Demo laptop', category='electronics'))
+                db.add(ApplicationSetting(key='demo_seeded', value='true'))
 
     def require_product(self, db, value, lock=False):
         query = select(Product).where(Product.id == product_uuid(value))
@@ -150,9 +158,12 @@ class Repository:
                 'stale': bool(counts.get('pending', 0) or counts.get('running', 0) or (snapshot and (snapshot.pipeline_version != version or snapshot.data_revision != p.data_revision))),
                 'review_counts': counts}
 
-    def enqueue(self, value, rows, version, key=None, rejected=None):
+    def enqueue(self, value, rows, version, key=None, rejected=None, import_filename=None):
         rejected = rejected or []
-        request_hash = sha256(json.dumps([rows, rejected], sort_keys=True).encode()).hexdigest()
+        request_body = [rows, rejected]
+        if import_filename is not None:
+            request_body.append(import_filename)
+        request_hash = sha256(json.dumps(request_body, sort_keys=True).encode()).hexdigest()
         scope = f'product:{product_uuid(value)}'
         with self.transaction() as db:
             p = self.require_product(db, value, lock=True)
@@ -165,7 +176,8 @@ class Repository:
             active = db.scalar(select(func.count()).select_from(ProcessingJob).where(ProcessingJob.status.in_(['queued', 'running'])))
             if active >= int(os.environ.get('QUEUE_CAPACITY', '100')):
                 raise QueueFull('Processing queue is full; try again after current jobs finish')
-            job = ProcessingJob(id=uuid4(), product_id=p.id, type='import', status='queued', stage='queued', pipeline_version=version,
+            job = ProcessingJob(id=uuid4(), product_id=p.id, type='import' if import_filename is not None else 'review_submission',
+                input_filename=import_filename, status='queued', stage='queued', pipeline_version=version,
                 total_rows=len(rows) + len(rejected), accepted_rows=0, rejected_rows=len(rejected), duplicate_rows=0)
             db.add(job)
             db.flush()
@@ -357,3 +369,120 @@ class Repository:
                 review.analysis_status = 'pending'
                 db.add(JobItem(job_id=job.id, item_key=str(number), review_id=review.id, status='pending'))
             return str(job.id)
+
+    def remove_product_data(self, value, version, delete_product=False):
+        """Remove one product's saved evidence, preserving the product unless requested."""
+        with self.transaction() as db:
+            product = self.require_product(db, value, lock=True)
+
+            # Do not lock work rows here: workers lock a job before they lock its
+            # product, so taking those locks in reverse order can deadlock.
+            active_jobs = db.scalar(select(func.count()).select_from(ProcessingJob).where(
+                ProcessingJob.product_id == product.id,
+                ProcessingJob.status.in_(['queued', 'running']),
+            )) or 0
+            active_previews = db.scalar(select(func.count()).select_from(AnalysisPreview).where(
+                AnalysisPreview.product_id == product.id,
+                or_(
+                    and_(AnalysisPreview.status == 'queued', AnalysisPreview.expires_at > utcnow()),
+                    and_(AnalysisPreview.status == 'running', AnalysisPreview.lease_expires_at > utcnow()),
+                ),
+            )) or 0
+            if active_jobs or active_previews:
+                raise Conflict('Product has active jobs or previews; wait for them to finish before removing saved data')
+
+            review_count = db.scalar(select(func.count()).select_from(ReviewRecord).where(
+                ReviewRecord.product_id == product.id)) or 0
+            job_ids = select(ProcessingJob.id).where(ProcessingJob.product_id == product.id)
+
+            # Break references before deleting jobs, including children owned by
+            # another product, and remove idempotency records tied to these jobs.
+            db.execute(delete(IdempotencyRequest).where(IdempotencyRequest.job_id.in_(job_ids)))
+            db.execute(update(ProcessingJob).where(ProcessingJob.parent_job_id.in_(job_ids)).values(parent_job_id=None))
+            db.execute(delete(JobItem).where(JobItem.job_id.in_(job_ids)))
+            db.execute(delete(ProcessingJob).where(ProcessingJob.product_id == product.id))
+            db.execute(delete(AnalysisPreview).where(AnalysisPreview.product_id == product.id))
+            db.execute(update(JobItem).where(JobItem.review_id.in_(
+                select(ReviewRecord.id).where(ReviewRecord.product_id == product.id)
+            )).values(review_id=None, status='removed'))
+
+            product.current_snapshot_id = None
+            db.flush()
+            db.execute(delete(ProductSnapshot).where(ProductSnapshot.product_id == product.id))
+            db.execute(delete(ReviewRecord).where(ReviewRecord.product_id == product.id))
+
+            if delete_product:
+                if product.id == DEMO_ID and not db.get(ApplicationSetting, 'demo_seeded'):
+                    db.add(ApplicationSetting(key='demo_seeded', value='true'))
+                db.delete(product)
+                cleared = False
+            else:
+                product.data_revision += 1
+                db.flush()
+                self.snapshot(db, product, version)
+                cleared = True
+
+            return {'product_id': str(product.id), 'reviews_removed': review_count,
+                'deleted': bool(delete_product), 'cleared': cleared}
+
+    def saved_imports(self, value):
+        with self.transaction() as db:
+            product = self.require_product(db, value)
+            jobs = db.scalars(select(ProcessingJob).where(
+                ProcessingJob.product_id == product.id,
+                ProcessingJob.type == 'import',
+            ).order_by(ProcessingJob.created_at.desc()))
+            return [{'id': str(job.id), 'filename': job.input_filename, 'status': job.status,
+                'total_rows': job.total_rows, 'accepted_rows': job.accepted_rows,
+                'completed_rows': job.completed_rows, 'created_at': job.created_at}
+                for job in jobs]
+
+    def remove_import(self, value, job_id, version):
+        with self.transaction() as db:
+            product = self.require_product(db, value, lock=True)
+            job = db.get(ProcessingJob, UUID(job_id))
+            if not job or job.product_id != product.id or job.type != 'import':
+                raise LookupError('Import not found')
+
+            active_jobs = db.scalar(select(func.count()).select_from(ProcessingJob).where(
+                ProcessingJob.product_id == product.id,
+                ProcessingJob.status.in_(['queued', 'running']),
+            )) or 0
+            active_previews = db.scalar(select(func.count()).select_from(AnalysisPreview).where(
+                AnalysisPreview.product_id == product.id,
+                or_(
+                    and_(AnalysisPreview.status == 'queued', AnalysisPreview.expires_at > utcnow()),
+                    and_(AnalysisPreview.status == 'running', AnalysisPreview.lease_expires_at > utcnow()),
+                ),
+            )) or 0
+            if active_jobs or active_previews:
+                raise Conflict('Product has active jobs or previews; wait for them to finish before removing an import')
+
+            review_ids = list(db.scalars(select(JobItem.review_id).where(
+                JobItem.job_id == job.id, JobItem.review_id.is_not(None)
+            )))
+            owned_review_ids = list(db.scalars(select(ReviewRecord.id).where(
+                ReviewRecord.product_id == product.id, ReviewRecord.id.in_(review_ids)
+            ))) if review_ids else []
+            removed_count = db.scalar(select(func.count()).select_from(ReviewRecord).where(
+                ReviewRecord.product_id == product.id, ReviewRecord.id.in_(owned_review_ids)
+            )) or 0
+
+            db.execute(delete(IdempotencyRequest).where(IdempotencyRequest.job_id == job.id))
+            db.execute(update(ProcessingJob).where(ProcessingJob.parent_job_id == job.id).values(parent_job_id=None))
+            if owned_review_ids:
+                db.execute(update(JobItem).where(JobItem.review_id.in_(owned_review_ids)).values(
+                    review_id=None, status='removed'))
+            db.execute(delete(JobItem).where(JobItem.job_id == job.id))
+            db.execute(delete(ProcessingJob).where(ProcessingJob.id == job.id))
+            product.current_snapshot_id = None
+            db.flush()
+            db.execute(delete(ProductSnapshot).where(ProductSnapshot.product_id == product.id))
+            if owned_review_ids:
+                db.execute(delete(ReviewRecord).where(ReviewRecord.id.in_(owned_review_ids)))
+            product.data_revision += 1
+            db.flush()
+            self.snapshot(db, product, version)
+
+            return {'product_id': str(product.id), 'import_id': str(job.id),
+                'reviews_removed': removed_count}

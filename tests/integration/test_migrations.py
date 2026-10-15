@@ -31,6 +31,7 @@ REQUIRED_TABLES = {
     "idempotency_requests",
     "analysis_previews",
     "worker_status",
+    "application_settings",
 }
 
 
@@ -63,6 +64,7 @@ def test_migration_upgrade_downgrade_upgrade_and_constraints() -> None:
     try:
         inspector = inspect(engine)
         assert REQUIRED_TABLES <= set(inspector.get_table_names())
+        assert "input_filename" in {column["name"] for column in inspector.get_columns("processing_jobs")}
         assert "current_snapshot_id" in {column["name"] for column in inspector.get_columns("products")}
         assert "uq_reviews_product_dedup" in {item["name"] for item in inspector.get_unique_constraints("reviews")}
         assert "ix_jobs_claim" in {item["name"] for item in inspector.get_indexes("processing_jobs")}

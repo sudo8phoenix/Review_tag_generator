@@ -9,6 +9,7 @@ async function assistantFixture(page: import('@playwright/test').Page, enabled =
     const bodies: Record<string, unknown> = {
       '/api/assist/status': { enabled, provider: 'groq', model: 'openai/gpt-oss-20b', reason: enabled ? 'Configured' : 'Set GROQ_API_KEY on the server to enable Groq.' },
       '/api/demo/products/assistant-fixture': { product: { id: 'assistant-fixture', name: 'Assistant test product' }, snapshot_id: 'snapshot-1', backend: 'transformer', reviews: [review], insights: { review_count: 1, sentiment_distribution: { positive: 0, neutral: 0, negative: 0 }, aspects: [], top_tags: [] } },
+      '/api/demo/products/assistant-fixture/imports': [],
       '/api/demo/products/assistant-fixture/evidence-audit': { snapshot_id: 'snapshot-1', aspects: [] },
       '/api/demo/products/assistant-fixture/quality-queue': { snapshot_id: 'snapshot-1', items: [], summary: { queued_reviews: 0, reason_counts: {} } },
       '/api/demo/products': [],

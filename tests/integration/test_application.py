@@ -294,3 +294,33 @@ def test_assistant_endpoints_validate_evidence_and_do_not_change_snapshot(client
     assert client.post('/api/demo/products/demo-laptop/ask', json={'question': 'battery'}).status_code == 502
     assert client.post('/api/demo/products/demo-laptop/ask', json={'question': '   '}).status_code == 422
     assert client.post('/api/demo/products/missing/ask', json={'question': 'battery'}).status_code == 404
+
+
+def test_saved_import_and_product_removal_routes(client):
+    product = client.post('/api/demo/products', json={'name': 'Removal test'}).json()['id']
+    first = client.post(f'/api/demo/products/{product}/imports', json={'filename': 'first.txt', 'content': 'Great display.\nPoor battery.'}).json()
+    second = client.post(f'/api/demo/products/{product}/imports', json={'filename': 'second.txt', 'content': 'Great display.\nExcellent keyboard.'}).json()
+    assert client.delete(f'/api/demo/products/{product}/saved-data').status_code == 409
+    finish(client)
+    imports = client.get(f'/api/demo/products/{product}/imports').json()
+    assert {item['filename'] for item in imports} == {'first.txt', 'second.txt'}
+    assert client.delete(f'/api/demo/products/demo-laptop/imports/{first["id"]}').status_code == 404
+    removed = client.delete(f'/api/demo/products/{product}/imports/{first["id"]}').json()
+    assert removed['reviews_removed'] == 2
+    detail = client.get(f'/api/demo/products/{product}').json()
+    assert detail['insights']['review_count'] == 1
+    assert detail['reviews'][0]['review']['review_text'] == 'Excellent keyboard.'
+    assert len(client.get(f'/api/demo/products/{product}/imports').json()) == 1
+    assert client.delete(f'/api/demo/products/{product}/saved-data').json()['cleared']
+    assert client.get(f'/api/demo/products/{product}').json()['insights']['review_count'] == 0
+    assert client.get(f'/api/demo/products/{product}/imports').json() == []
+    assert client.delete(f'/api/demo/products/{product}').json()['deleted']
+    assert client.get(f'/api/demo/products/{product}').status_code == 404
+    assert client.delete(f'/api/demo/products/{product}').status_code == 404
+
+
+def test_demo_deletion_survives_repository_reinitialization(client):
+    repository = app.state.repository
+    assert client.delete('/api/demo/products/demo-laptop').status_code == 200
+    repository.initialize()
+    assert client.get('/api/demo/products').json() == []

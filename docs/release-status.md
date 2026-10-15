@@ -32,12 +32,12 @@ explicit heuristic demo uses `local_clause` and is reported separately.
 
 ## Verification on this workspace
 
-The full Python suite passes (254 passed, 2 PostgreSQL suites skipped), including
+The full Python suite passes (262 passed, 2 PostgreSQL suites skipped), including
 trained checkpoint tests and the complete
 HTTP → worker → database → snapshot path. PostgreSQL migration and repository
 integration tests require `POSTGRES_TEST_URL`; they are configured to run against
 an isolated PostgreSQL service in CI. The generated PostgreSQL migration SQL was
-checked locally. Frontend lint, production build, and unit tests pass; all 12
+checked locally. Frontend lint, production build, and unit tests pass; all 14
 Playwright browser tests pass, including the complete preview/save flow and draft
 recovery. Layouts were checked at 320, 768, and 1440 pixels without console or page
 errors. Compose configuration validation succeeds.
@@ -113,3 +113,22 @@ succeeded, with source quote validation. Added an application User-Agent header
 after the provider edge rejected the default Python client with error 1010.
 All 11 provider transport regression tests pass. These smoke checks do not
 establish statistical accuracy for the optional assistance layer.
+
+
+## Saved-data and portfolio follow-up
+
+The app now supports clearing a product's saved reviews/insights, deleting a
+product, listing named imported batches, and removing one batch's inserted reviews.
+Transactions clean related analyses, snapshots and job references, reject active
+work, and preserve other products. Demo seeding is one-time so deletion persists
+across restarts. See [saved-data behavior](saved-data.md).
+
+Latest verification: 262 Python tests passed with 2 live PostgreSQL checks skipped;
+all 14 browser tests passed. PostgreSQL upgrade SQL generates through migration
+0003. Frontend lint, build, and unit tests pass.
+
+Added [portfolio material](portfolio-guide.md), [architecture](architecture.md),
+[performance evidence](performance.md), and [labeled screenshot assets](assets/portfolio/README.md).
+A ten-sample warm local transformer preview smoke run on Apple M4 recorded
+566.45 ms median completion, including queue/worker scheduling and 50 ms polling.
+This is not a production throughput or model-only latency claim.

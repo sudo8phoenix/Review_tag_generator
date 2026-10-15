@@ -21,6 +21,12 @@ class Base(DeclarativeBase):
     pass
 
 
+class ApplicationSetting(Base):
+    __tablename__ = "application_settings"
+    key: Mapped[str] = mapped_column(String(80), primary_key=True)
+    value: Mapped[str] = mapped_column(String(80), nullable=False)
+
+
 class Product(Base):
     __tablename__ = "products"
     __table_args__ = (
@@ -149,6 +155,7 @@ class ProcessingJob(Base):
     completed_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     failed_rows: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     attempt: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    input_filename: Mapped[str | None] = mapped_column(String(255))
     parent_job_id: Mapped[UUID | None] = mapped_column(Uuid(as_uuid=True), ForeignKey("processing_jobs.id"))
     leased_by: Mapped[str | None] = mapped_column(String(100))
     lease_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

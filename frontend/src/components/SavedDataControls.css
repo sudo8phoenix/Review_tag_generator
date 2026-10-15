@@ -1,0 +1,39 @@
+.saved-data-controls {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #78837d;
+  font-size: 12px;
+}
+
+.saved-data-link {
+  padding: 3px 0;
+  color: var(--accent-dark);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.saved-data-link:hover { color: var(--ink); }
+.saved-data-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.saved-data-link--delete { color: #6d4a43; }
+.saved-data-link--delete:hover { color: #56352e; }
+.saved-data-separator { color: #a7b0aa; }
+
+.saved-data-dialog { display: grid; gap: 12px; }
+.saved-data-dialog p { margin: 0; line-height: 1.6; }
+.saved-data-file-note { color: #66736c; font-size: 12px; }
+.saved-data-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; margin-top: 5px; }
+.saved-data-confirm--delete { background: #80564c; }
+.saved-data-confirm--delete:hover:not(:disabled) { background: #69443b; }
+.saved-data-message { padding: 10px 12px; border-radius: 5px; font-size: 13px; }
+.saved-data-message--success { color: #175b49; background: #edf5f0; border: 1px solid #c9dfd2; }
+.saved-data-message--error { color: #773b30; background: #fbf1ee; border: 1px solid #e8cbc3; }
+
+@media (max-width: 480px) {
+  .saved-data-controls { flex-wrap: wrap; }
+  .saved-data-actions > button { flex: 1 1 auto; }
+}

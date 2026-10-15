@@ -1,0 +1,88 @@
+{
+  "measured_at": "2026-10-15T10:47:51.554057+00:00",
+  "method": "Sequential HTTP enqueue-to-completed-preview timing, 50ms polling, one excluded warm-up.",
+  "scope": "Local smoke measurement on short synthetic reviews; includes queue, worker scheduling, inference and polling. Not throughput, model-only latency or production p95.",
+  "source_tree_sha256": "80db743efc5498ea9bf5f55caeccde6a0c6ce367b36fced669ef827613bae803",
+  "sample_count": 10,
+  "warmup_count": 1,
+  "environment": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M4",
+    "python": "3.11.15",
+    "backend": "transformer",
+    "storage": "local SQLite",
+    "context_policy": "full_review"
+  },
+  "pipeline_version": "8d440837e82758091e959f0f2bcc1e358ddd496e45ce79215c2f6644f0f1cf95",
+  "summary_ms": {
+    "min": 515.455,
+    "median": 566.45,
+    "mean": 562.5705,
+    "p95_nearest_rank": 599.485,
+    "max": 599.485
+  },
+  "samples": [
+    {
+      "fixture_id": 1,
+      "review_characters": 31,
+      "completion_ms": 589.286,
+      "mentions": 1
+    },
+    {
+      "fixture_id": 2,
+      "review_characters": 39,
+      "completion_ms": 515.455,
+      "mentions": 1
+    },
+    {
+      "fixture_id": 3,
+      "review_characters": 24,
+      "completion_ms": 534.941,
+      "mentions": 1
+    },
+    {
+      "fixture_id": 4,
+      "review_characters": 38,
+      "completion_ms": 599.485,
+      "mentions": 2
+    },
+    {
+      "fixture_id": 5,
+      "review_characters": 26,
+      "completion_ms": 534.385,
+      "mentions": 1
+    },
+    {
+      "fixture_id": 6,
+      "review_characters": 45,
+      "completion_ms": 583.69,
+      "mentions": 1
+    },
+    {
+      "fixture_id": 7,
+      "review_characters": 49,
+      "completion_ms": 542.765,
+      "mentions": 2
+    },
+    {
+      "fixture_id": 8,
+      "review_characters": 32,
+      "completion_ms": 586.212,
+      "mentions": 1
+    },
+    {
+      "fixture_id": 9,
+      "review_characters": 44,
+      "completion_ms": 549.21,
+      "mentions": 2
+    },
+    {
+      "fixture_id": 0,
+      "review_characters": 32,
+      "completion_ms": 590.276,
+      "mentions": 1
+    }
+  ],
+  "temporary_product_removed": true
+}

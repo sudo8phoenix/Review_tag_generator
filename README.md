@@ -10,6 +10,19 @@ See [release status and remaining evidence gates](docs/release-status.md).
 For a complete explanation of the models, training, inference, and measured
 limitations, read [the ML guide](docs/ml-explained.md).
 
+## Portfolio and technical documentation
+
+- [Portfolio guide](docs/portfolio-guide.md): project pitch, case study, benefits,
+  distinctive engineering, feature descriptions and interview answers.
+- [Performance and evidence](docs/performance.md): measured ML results, local
+  preview latency, verification and portfolio-safe metric wording.
+- [System architecture](docs/architecture.md): browser, API, worker, database,
+  snapshot consistency and optional LLM flow.
+- [Screenshot assets](docs/assets/portfolio/README.md): actual UI captures with
+  explicit synthetic-data and test-provider provenance.
+- [Saved-data management](docs/saved-data.md): clear reviews, remove imported
+  batches, delete products and storage behavior.
+
 ## Optional LLM assistance
 
 Unknown aspect evidence drawers now offer **Suggest mapping**, and product pages
