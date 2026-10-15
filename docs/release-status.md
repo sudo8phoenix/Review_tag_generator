@@ -32,12 +32,12 @@ explicit heuristic demo uses `local_clause` and is reported separately.
 
 ## Verification on this workspace
 
-The full Python suite passes (233 passed, 2 PostgreSQL suites skipped), including
+The full Python suite passes (254 passed, 2 PostgreSQL suites skipped), including
 trained checkpoint tests and the complete
 HTTP → worker → database → snapshot path. PostgreSQL migration and repository
 integration tests require `POSTGRES_TEST_URL`; they are configured to run against
 an isolated PostgreSQL service in CI. The generated PostgreSQL migration SQL was
-checked locally. Frontend lint, production build, and unit tests pass; all 10
+checked locally. Frontend lint, production build, and unit tests pass; all 12
 Playwright browser tests pass, including the complete preview/save flow and draft
 recovery. Layouts were checked at 320, 768, and 1440 pixels without console or page
 errors. Compose configuration validation succeeds.
@@ -91,3 +91,18 @@ The GitHub non-model collection failure was fixed by moving the optional PyTorch
 import into the model test that uses it. The non-model suite was checked locally
 with both `torch` and `transformers` imports blocked. This follow-up does not
 constitute evidence of a completed remote GitHub Actions run.
+
+## Optional assistance follow-up
+
+Unknown-aspect suggestions and product-review Q&A are implemented with structured
+outputs and server-side source validation. Groq, Gemini and Ollama are configurable;
+secrets stay in ignored server configuration. See [LLM assistance](llm-assistance.md).
+The full Python suite passes with 254 tests and 2 PostgreSQL skips. Provider transport,
+evidence rejection, and no-write behavior are verified using injected test responses.
+Live Groq verification remains pending the user's API key. A live Gemini request
+returned provider HTTP 503 due to high demand.
+
+The full 12-test browser suite passes after the assistance integration, using an
+isolated heuristic API plus explicitly injected provider responses for assistant
+UI tests. Frontend lint, production build, and unit tests pass. The non-model
+Python command passes with 247 tests, 2 PostgreSQL skips and 7 model deselections.

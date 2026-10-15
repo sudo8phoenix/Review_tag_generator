@@ -139,6 +139,55 @@ def detail(product_id: str):
         raise HTTPException(404, 'Product not found') from exc
 
 
+class AspectAssistInput(BaseModel):
+    review_text: str = Field(min_length=1, max_length=10000)
+    raw_aspect: str = Field(min_length=1, max_length=500)
+    start_char: int = Field(ge=0)
+    end_char: int = Field(ge=1)
+
+
+class ProductQuestionInput(BaseModel):
+    question: str = Field(min_length=1, max_length=500)
+
+
+def call_assistant(operation):
+    from backend.app.llm_provider import assistant_status, AssistanceUnavailable, AssistanceBusy
+    try:
+        return {**operation(), **{key: assistant_status()[key] for key in ('provider', 'model')}}
+    except AssistanceBusy as exc:
+        raise HTTPException(429, str(exc)) from exc
+    except AssistanceUnavailable as exc:
+        raise HTTPException(503, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(502, 'The assistant response did not pass evidence validation. Try again.') from exc
+
+
+@app.get('/api/assist/status')
+def get_assistant_status():
+    from backend.app.llm_provider import assistant_status
+    return assistant_status()
+
+
+@app.post('/api/assist/normalize')
+def assist_unknown_aspect(body: AspectAssistInput):
+    from backend.app.llm_assistance import suggest_unknown_aspect
+    from backend.app.llm_provider import generate_structured
+    if body.end_char <= body.start_char or body.review_text[body.start_char:body.end_char] != body.raw_aspect:
+        raise HTTPException(422, 'Aspect offsets must identify the exact phrase in the original review.')
+    return call_assistant(lambda: suggest_unknown_aspect(body.review_text, body.raw_aspect,
+        body.start_char, body.end_char, generate_structured))
+
+
+@app.post('/api/demo/products/{product_id}/ask')
+def ask_product_reviews(product_id: str, body: ProductQuestionInput):
+    from backend.app.llm_assistance import answer_product_question
+    from backend.app.llm_provider import generate_structured
+    if not body.question.strip():
+        raise HTTPException(422, 'Enter a question about this product’s reviews.')
+    published = app.state.repository.detail(product_id, app.state.version, app.state.backend)
+    return call_assistant(lambda: answer_product_question(published, body.question, generate_structured))
+
+
 @app.get('/api/demo/products/{product_id}/evidence-audit')
 def evidence_audit(product_id: str):
     from review_tag_generator.evidence_audit import audit_evidence

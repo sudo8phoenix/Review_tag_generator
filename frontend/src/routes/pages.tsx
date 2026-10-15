@@ -8,6 +8,7 @@ import { PageHeader } from '../components/PageHeader'
 import { SentimentBadge } from '../components/SentimentBadge'
 import { StatusBadge } from '../components/StatusBadge'
 import { Dialog } from '../components/Dialog'
+import { UnknownAspectAssist, ProductReviewAssistant } from '../components/ReviewAssistant'
 import { EvidenceRobustnessPanel } from '../components/EvidenceRobustnessPanel'
 import { ReviewQualityPanel } from '../components/ReviewQualityPanel'
 import { ProductComparisonPanel } from '../components/ProductComparisonPanel'
@@ -78,6 +79,7 @@ function AspectEvidenceDrawer({ evidence, onClose }: { evidence: { review: Analy
     <p className="field-hint">The highlighted phrase was classified using this context window.</p>
     <p className="review-quote evidence-context">“{context.slice(0, relativeStart).join('')}<mark>{context.slice(relativeStart, relativeEnd).join('')}</mark>{context.slice(relativeEnd).join('')}”</p>
     <dl className="evidence-details"><dt>Matched phrase</dt><dd>{tag.raw_aspect}</dd><dt>Normalized aspect</dt><dd>{tag.normalized_aspect ?? 'Unknown'}</dd><dt>Normalization</dt><dd>{tag.normalization_method ?? 'Not reported'}{tag.normalization_similarity != null ? ` · similarity ${(tag.normalization_similarity * 100).toFixed(1)}%` : ''}</dd><dt>Context policy</dt><dd>{review.context_policy ?? 'Not reported'}</dd><dt>Sentiment</dt><dd><SentimentBadge sentiment={tag.sentiment} /></dd><dt>Sentiment confidence</dt><dd>{tag.sentiment_confidence == null ? 'Not reported' : `${(tag.sentiment_confidence * 100).toFixed(1)}%`}</dd><dt>Aspect confidence</dt><dd>{tag.aspect_confidence == null ? 'Not reported' : `${(tag.aspect_confidence * 100).toFixed(1)}%`}</dd><dt>Tag</dt><dd>{tag.tag ?? 'No canonical tag'}</dd><dt>Summary score</dt><dd>{(tag.confidence * 100).toFixed(1)}%</dd>{tag.probabilities && <><dt>Sentiment probabilities</dt><dd>{(['negative', 'neutral', 'positive'] as const).map(label => `${label} ${((tag.probabilities?.[label] ?? 0) * 100).toFixed(1)}%`).join(' · ')}</dd></>}</dl>
+    {tag.normalized_aspect === null && <UnknownAspectAssist key={`${review.review.review_id}:${tag.start_char}`} review={review} tag={tag} />}
   </Dialog>
 }
 
@@ -163,6 +165,7 @@ export function ProductDetailPage() {
       </section>
       <section className="content-section"><h2>Supported product tags</h2><p className="field-hint">Tags require at least three supporting reviews. Add more feedback to establish recurring themes.</p><div className="demo-actions">{data.insights.top_tags.map(tag => <StatusBadge key={tag.aspect_id}>{tag.aggregate_tag ?? tag.aspect}</StatusBadge>)}{!data.insights.top_tags.length && <p>No tags have enough evidence yet.</p>}</div></section>
       {!!data.insights.aspects.length && <section className="content-section demo-spaced"><div className="section-heading"><div><h2>Aspect summary</h2><p>Search and sort to inspect support and sentiment.</p></div></div><div className="insight-controls"><label>Search aspects<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Display, battery…" /></label><label>Sort by<select value={sort} onChange={event => setSort(event.target.value as typeof sort)}><option value="support">Review support</option><option value="name">Aspect name</option><option value="sentiment">Positive share</option></select></label></div><div className="table-scroll"><table><thead><tr><th>Aspect</th><th>Review support</th><th>Positive</th><th>Neutral</th><th>Negative</th><th>Classification</th></tr></thead><tbody>{aspects.map(aspect => <tr key={aspect.aspect_id}><td>{aspect.aspect}</td><td>{aspect.review_count}</td><td>{aspect.counts?.positive ?? '—'}</td><td>{aspect.counts?.neutral ?? '—'}</td><td>{aspect.counts?.negative ?? '—'}</td><td>{aspect.classification.replaceAll('_', ' ')}</td></tr>)}</tbody></table>{!aspects.length && <p className="field-hint">No aspects match that search.</p>}</div></section>}
+      <ProductReviewAssistant key={`ask:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
       <EvidenceRobustnessPanel key={`robustness:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
       <ReviewQualityPanel key={`quality:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
       <ProductComparisonPanel key={`comparison:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} />

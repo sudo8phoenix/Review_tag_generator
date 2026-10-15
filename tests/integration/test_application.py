@@ -264,3 +264,33 @@ def test_quality_queue_and_comparison_follow_saved_evidence(client):
     assert pending['items'] == queue['items']
     assert client.get('/api/demo/products/missing/quality-queue').status_code == 404
     assert client.get('/api/demo/products/demo-laptop/compare/missing').status_code == 404
+
+
+def test_assistant_endpoints_validate_evidence_and_do_not_change_snapshot(client, monkeypatch):
+    from backend.app import llm_provider
+    monkeypatch.setenv('LLM_PROVIDER', 'gemini')
+    monkeypatch.setenv('LLM_MODEL', 'test-model')
+    monkeypatch.setenv('GEMINI_API_KEY', 'test-key')
+    assert client.get('/api/assist/status').json()['enabled']
+    monkeypatch.setattr(llm_provider, 'generate_structured', lambda *args: {
+        'canonical_aspect_id': 'performance', 'proposed_aspect_label': None, 'explanation': 'Speed describes system performance.'})
+    response = client.post('/api/assist/normalize', json={'review_text': 'Great speed.', 'raw_aspect': 'speed', 'start_char': 6, 'end_char': 11})
+    assert response.status_code == 200
+    assert response.json()['canonical_aspect_label'] == 'Performance'
+    assert response.json()['applied'] is False
+    assert client.post('/api/assist/normalize', json={'review_text': 'Great speed.', 'raw_aspect': 'speed', 'start_char': 0, 'end_char': 5}).status_code == 422
+    client.post('/api/demo/products/demo-laptop/jobs', json={'reviews': ['Great battery.']})
+    finish(client)
+    before = client.get('/api/demo/products/demo-laptop').json()
+    rid = before['reviews'][0]['review']['review_id']
+    monkeypatch.setattr(llm_provider, 'generate_structured', lambda *args: {
+        'claims': [{'text': 'A reviewer likes the battery.', 'citations': [{'review_id': rid, 'quote': 'Great battery.'}]}]})
+    answer = client.post('/api/demo/products/demo-laptop/ask', json={'question': 'How is the battery?'}).json()
+    assert answer['status'] == 'answered'
+    assert answer['snapshot_id'] == before['snapshot_id']
+    assert client.get('/api/demo/products/demo-laptop').json() == before
+    monkeypatch.setattr(llm_provider, 'generate_structured', lambda *args: {
+        'claims': [{'text': 'Invented.', 'citations': [{'review_id': rid, 'quote': 'Never said this'}]}]})
+    assert client.post('/api/demo/products/demo-laptop/ask', json={'question': 'battery'}).status_code == 502
+    assert client.post('/api/demo/products/demo-laptop/ask', json={'question': '   '}).status_code == 422
+    assert client.post('/api/demo/products/missing/ask', json={'question': 'battery'}).status_code == 404

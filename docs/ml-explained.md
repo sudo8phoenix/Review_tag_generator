@@ -138,7 +138,7 @@ similarity is a matching score, not a probability. See
 [normalization details](normalization.md).
 
 Tag generation uses aspect-specific templates. It does not call an external LLM
-or train a text generator. This makes the wording repeatable and traceable to the
+or train a text generator. Optional user-triggered assistance is a separate path. This makes the wording repeatable and traceable to the
 predicted feature and sentiment. Mention summary confidence is the minimum of
 extraction and sentiment confidence; it is an uncalibrated summary score.
 
@@ -207,3 +207,13 @@ aspects across products and suppresses directional results for thin evidence or
 mismatched pipeline versions. These are downstream analysis features; they do not
 change the trained checkpoints or improve the recorded model scores by themselves.
 See [the demonstration guide](faculty-demo.md) for a repeatable walkthrough.
+
+
+## 11. Optional language-model assistance
+
+The [LLM assistance layer](llm-assistance.md) can suggest mappings for unknown
+phrases, propose missing feature categories, and answer questions with retrieved
+review quotations. It is separate from the evaluated DistilBERT pipeline. Suggestions
+are not automatically applied, and cited answer text is validated against saved
+review excerpts. Quote existence does not prove semantic correctness. These features
+need separate human evaluation before any accuracy claims can be made.

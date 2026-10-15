@@ -5,6 +5,12 @@ if [ ! -x .venv/bin/python ] || [ ! -d frontend/node_modules ]; then
   echo 'Install Python dependencies in .venv and run npm install in frontend first.'
   exit 1
 fi
+# Optional server-only credentials. This file is ignored by Git.
+if [ -f .env.llm ]; then
+  set -a
+  . ./.env.llm
+  set +a
+fi
 PYTHONPATH=src .venv/bin/python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 &
 demo_backend_pid=$!
 trap 'kill "$demo_backend_pid" 2>/dev/null || true' EXIT INT TERM

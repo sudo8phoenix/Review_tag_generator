@@ -97,3 +97,16 @@ with import hooks that explicitly block both `torch` and `transformers`.
 
 Live PostgreSQL and remote GitHub CI results require their own execution evidence;
 a local collection fix is not a claim that every remote release check has passed.
+
+
+## Optional LLM demonstration
+
+With a server-side key configured, open an unknown aspect and request a suggested
+mapping. Explain why an ontology mapping can be missing even when extraction and
+sentiment confidence are high. Show that a new feature proposal is distinct from
+an accepted canonical mapping and does not silently change product totals.
+
+On the product page, ask a specific question about an observed feature and inspect
+the cited quotes. This combines retrieval, structured generation, source validation,
+and snapshot provenance. It does not establish that an LLM answer is always correct.
+See [LLM setup and verification limits](llm-assistance.md).

@@ -10,6 +10,13 @@ See [release status and remaining evidence gates](docs/release-status.md).
 For a complete explanation of the models, training, inference, and measured
 limitations, read [the ML guide](docs/ml-explained.md).
 
+## Optional LLM assistance
+
+Unknown aspect evidence drawers now offer **Suggest mapping**, and product pages
+include **Ask about these reviews** with source citations. Groq, Gemini, and local
+Ollama are supported. Calls run only on request; suggestions do not overwrite the
+trained pipeline or product totals. See [setup, usage, and validation](docs/llm-assistance.md).
+
 ## Project demonstration tools
 
 The product insights page now includes an interactive robustness audit, a
