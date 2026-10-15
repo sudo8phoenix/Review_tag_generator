@@ -65,3 +65,9 @@ and recorded evaluation scores.
 The project contribution is the integration of this check with deduplicated
 aspect votes, explicit within-review contradiction counts, and immutable published
 snapshot provenance. Do not describe leave-one-out analysis itself as novel research.
+
+## Reviewer decisions
+
+This report uses original saved model predictions. Separate
+[corrections](review-corrections.md) and [full-review annotations](review-annotations.md)
+do not alter its votes or certify the correctness of a stable tag.

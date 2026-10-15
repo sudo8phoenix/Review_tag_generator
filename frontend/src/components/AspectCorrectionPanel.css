@@ -1,0 +1,17 @@
+.aspect-correction { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.aspect-correction h3 { margin: 0 0 8px; font-size: 16px; }
+.aspect-correction form { margin-top: 18px; }
+.aspect-correction fieldset { display: grid; gap: 13px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.aspect-correction legend { margin-bottom: 12px; font-size: 14px; font-weight: 700; }
+.aspect-correction label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+.aspect-correction input:not([type='checkbox']), .aspect-correction select, .aspect-correction textarea { width: 100%; min-width: 0; padding: 10px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 5px; font: inherit; }
+.aspect-correction textarea { resize: vertical; }
+.aspect-correction .aspect-correction__check { display: flex; align-items: center; gap: 9px; min-height: 42px; }
+.aspect-correction__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.aspect-correction__history { margin-top: 20px; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.aspect-correction__history h4 { margin-bottom: 10px; font-size: 14px; }
+.aspect-correction__history ol { display: grid; gap: 12px; padding-left: 20px; }
+.aspect-correction__history li { padding-left: 3px; font-size: 12px; line-height: 1.55; }
+.aspect-correction__history span { display: block; color: var(--muted); }
+.aspect-correction__history p { margin: 5px 0 0; }
+.aspect-correction fieldset:disabled { opacity: .7; }

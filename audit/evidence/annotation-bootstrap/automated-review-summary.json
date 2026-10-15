@@ -1,0 +1,29 @@
+{
+  "approved": 0,
+  "decisions_sha256": "12aac6b079c4c206f2bcf8bd260ebaea452d15075e4efe5048b90d81f4ddabfb",
+  "flag_counts": {
+    "ambiguous_boundary": 19,
+    "ambiguous_sentiment": 16,
+    "comparison_or_accessory": 5,
+    "implicit_aspect": 41,
+    "missing_feature": 4,
+    "non_product_review": 2,
+    "source_artifact": 3
+  },
+  "heldout_sha256": "caa060a70f692f790bab54aaaaf0139c67f87313a47da69d657921fb9f555436",
+  "pending": 100,
+  "policy": "Explicit feature targets only; retain contextual sentiment, distinguish external/comparison products, and flag unresolved ambiguity.",
+  "proposals_sha256": "dda7f15311cd0172ba777acaa171af84a212e1496ad340c5094f2b36a0000215",
+  "proposed_known_mentions": 86,
+  "proposed_mentions": 204,
+  "proposed_unknown_mentions": 118,
+  "quality_gate": "pending independent human review",
+  "review_method": "automated",
+  "reviewed_at": "2026-10-15T12:33:00.017366+00:00",
+  "reviewer": "Codex",
+  "reviews_with_flags": 74,
+  "reviews_without_explicit_mentions": 27,
+  "scope": "Development source-text review only. No held-out inference or new accuracy claim.",
+  "source_tasks_sha256": "07186c57ae066636db30358249b67069cf9f7324244def7fe9f5eb476ff58b14",
+  "tasks": 100
+}

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import pytest
 from alembic import command
@@ -25,6 +25,8 @@ from backend.app.db.models import (
     ReviewRecord,
 )
 from backend.app.repository import Conflict, Repository
+from backend.app.corrections import CorrectionInput, Corrections, MentionReference
+from backend.app.annotations import AnnotationInput, Annotations, ReviewReference
 from backend.app.worker import Worker
 from review_tag_generator import ReviewAnalyzer
 
@@ -129,6 +131,29 @@ def test_postgres_enqueue_dedupe_skip_locked_and_worker_snapshot() -> None:
         assert detail["review_counts"]["completed"] == 2
         assert detail["insights"]["review_count"] == 2
         assert len(detail["reviews"]) == 2
+        review = detail['reviews'][0]
+        tag = review['tags'][0]
+        reference = {'snapshot_id': detail['snapshot_id'], 'review_id': review['review']['review_id'],
+                     'start_char': tag['start_char'], 'end_char': tag['end_char']}
+        service = Corrections(repository)
+        decision = CorrectionInput(**reference, request_id=uuid4(), decision='edited', reviewer='PostgreSQL test reviewer',
+            reason='Exercise durable reviewer decision JSON and UUID columns.',
+            canonical_id=tag['normalized_aspect_id'], sentiment='neutral')
+        recorded = service.save(str(product_id), decision)
+        assert service.save(str(product_id), decision)['id'] == recorded['id']
+        assert service.history(str(product_id), MentionReference(**reference))['latest_id'] == recorded['id']
+        assert service.export(str(product_id))['items'][0]['resolution']['sentiment'] == 'neutral'
+        annotations = Annotations(repository)
+        annotation_reference = ReviewReference(snapshot_id=reference['snapshot_id'], review_id=reference['review_id'])
+        draft = annotations.detail(str(product_id), annotation_reference)
+        annotation_request = AnnotationInput(**annotation_reference.model_dump(), request_id=uuid4(),
+            expected_correction_id=draft['correction_revision'], status='reviewed', reviewer='PostgreSQL test reviewer',
+            reason='Verify full-review annotation persistence.', mentions=draft['mentions'])
+        annotated = annotations.save(str(product_id), annotation_request)
+        assert annotations.save(str(product_id), annotation_request)['id'] == annotated['id']
+        assert annotations.worklist(str(product_id))['summary']['reviewed'] == 1
+        assert annotations.export(str(product_id), UUID(detail['snapshot_id']))['items'][0]['id'] == annotated['id']
+        assert repository.detail(str(product_id), worker.version, analyzer.backend) == detail
     finally:
         if product_id is not None:
             _cleanup(repository, product_id)

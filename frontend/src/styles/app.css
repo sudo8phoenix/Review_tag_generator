@@ -102,6 +102,7 @@ th { color: #5c6963; background: #f7f9f7; font-size: 11px; font-weight: 700; }
 .dialog-content { padding: 20px; }
 .app-drawer { width: min(520px, calc(100% - 18px)); height: 100vh; max-height: none; margin: 0 0 0 auto; border-radius: 0; }
 .app-drawer[open] { animation: drawer-in 180ms ease-out; }
+.app-drawer .dialog-heading { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 @keyframes drawer-in { from { transform: translateX(24px); opacity: .65; } to { transform: translateX(0); opacity: 1; } }
 
 @media (max-width: 760px) {

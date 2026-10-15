@@ -1,0 +1,39 @@
+.annotation-workspace { margin: 22px 0; }
+.annotation-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.annotation-heading h2 { margin-top: 0; }
+.annotation-heading .button { flex-shrink: 0; }
+.annotation-progress { margin: 20px 0 16px; }
+.annotation-progress label { display: grid; gap: 8px; font-size: 12px; font-weight: 600; }
+.annotation-progress progress { width: 100%; height: 10px; accent-color: var(--accent); }
+.annotation-progress p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.annotation-filter, .annotation-field { display: grid; gap: 6px; font-size: 12px; font-weight: 600; }
+.annotation-filter { max-width: 260px; }
+.annotation-filter select, .annotation-field input, .annotation-field select, .annotation-field textarea { width: 100%; min-width: 0; padding: 10px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 5px; font: inherit; }
+.annotation-field textarea { resize: vertical; line-height: 1.6; font-size: 13px; }
+.annotation-field textarea[readonly] { background: var(--surface-soft); font-weight: 400; }
+.annotation-worklist { display: grid; gap: 0; margin: 16px 0; padding: 0; list-style: none; }
+.annotation-worklist > li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+.annotation-worklist > li > div { min-width: 0; }
+.annotation-worklist p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 8px 0 5px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.annotation-worklist small { color: var(--muted); font-size: 11px; }
+.annotation-worklist .button { flex-shrink: 0; }
+.annotation-status { font-size: 11px; font-weight: 700; color: var(--muted); }
+.annotation-status--reviewed { color: var(--positive); }
+.annotation-status--needs_adjudication { color: var(--warning); }
+.annotation-editor { display: grid; gap: 16px; }
+.annotation-selection { display: grid; gap: 10px; overflow-wrap: anywhere; }
+.annotation-selection span { font-size: 12px; color: var(--muted); }
+.annotation-selection .button { justify-self: start; }
+.annotation-fields { display: grid; gap: 14px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.annotation-fields > legend { margin-bottom: 12px; font-size: 15px; font-weight: 700; }
+.annotation-mention { display: grid; gap: 12px; min-width: 0; margin: 0; padding: 14px 0; border: 0; border-top: 1px solid var(--line); }
+.annotation-mention legend { max-width: 100%; padding: 0 6px 0 0; font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+.annotation-mention__actions, .annotation-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.annotation-span { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.annotation-empty { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.annotation-checkbox { display: flex; align-items: flex-start; gap: 9px; padding: 8px 0; font-size: 13px; line-height: 1.6; }
+.annotation-checkbox input { flex-shrink: 0; margin-top: 5px; }
+.annotation-original { border-top: 1px solid var(--line); padding-top: 14px; font-size: 12px; overflow-wrap: anywhere; }
+.annotation-original summary { cursor: pointer; font-weight: 600; }
+.annotation-original li { margin-top: 10px; line-height: 1.6; }
+@media (max-width: 560px) { .annotation-heading, .annotation-worklist > li { flex-direction: column; align-items: flex-start; } }

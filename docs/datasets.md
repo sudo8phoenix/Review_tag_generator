@@ -1,10 +1,17 @@
-# Amazon Reviews 2023 demonstration sample
+# Datasets
+
+For the newly downloaded, separately audited electronics annotation sample, see
+[the annotation workset and correction workflow](annotation-workset.md). It includes
+100 development and 100 held-out tasks from the Virtual Assistant Devices Dataset;
+exact spans, canonical IDs and per-mention sentiment still require human review.
+
+## Amazon Reviews 2023 demonstration sample
 
 `scripts/sample_amazon.py` prepares an **unlabelled, bounded laptop review sample** for
 the later batch demo. It does not train the A2/A3 models. Star ratings remain optional
 metadata; they are not gold labels for aspect sentiment.
 
-## Official source and use
+### Official source and use
 
 The source is McAuley Lab's [Amazon Reviews 2023 project](https://amazon-reviews-2023.github.io/)
 and its [dataset card](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023).
@@ -23,7 +30,7 @@ public files. Do not treat this as a grant for commercial use or redistribution.
 Assess the intended use before publishing any real review text or product demo.
 Keep all sampled review text in the ignored `data/amazon/` directory.
 
-## Run
+### Run
 
 From the repository root, with Python 3.11:
 
@@ -78,7 +85,7 @@ sample is desired; the manifest and output are replaced together after a
 successful scan. Verify them with the manifest's `output.sha256` and exact
 `counts.selected_reviews` value.
 
-## Import into the demo API
+### Import into the demo API
 
 Start the API, create or select a destination product, then import a sample in
 restartable batches:

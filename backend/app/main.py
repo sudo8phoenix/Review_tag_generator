@@ -18,6 +18,9 @@ from backend.app.db.models import AnalysisPreview, WorkerStatus, utcnow
 from backend.app.imports import parse_import, validate_rows
 from backend.app.repository import Repository, Conflict, QueueFull, pipeline_version
 from backend.app.worker import Worker, make_analyzer, runtime_metadata
+from backend.app.corrections import CorrectionInput, Corrections, InvalidCorrection, MentionReference
+from backend.app.annotations import AnnotationInput, Annotations, ReviewReference
+from typing import Literal
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -101,6 +104,12 @@ async def not_found(request, exc):
 async def conflict(request, exc):
     from fastapi.responses import JSONResponse
     return JSONResponse(status_code=409, content={'detail': str(exc)})
+
+
+@app.exception_handler(InvalidCorrection)
+async def invalid_correction(request, exc):
+    from fastapi.responses import JSONResponse
+    return JSONResponse(status_code=422, content={'detail': str(exc)})
 
 
 @app.get('/api/health')
@@ -224,6 +233,46 @@ def quality_queue(product_id: str):
         **{key: published[key] for key in ('snapshot_id', 'pipeline_version', 'aggregate_version', 'data_revision', 'stale')}}
 
 
+@app.get('/api/corrections/options')
+def correction_options():
+    from review_tag_generator.normalization import get_ontology
+    ontology = get_ontology()
+    return {'ontology_version': ontology.version,
+            'aspects': [{'id': aspect.id, 'label': aspect.display_label} for aspect in ontology.aspects]}
+
+
+@app.get('/api/demo/products/{product_id}/corrections/history')
+def correction_history(product_id: str, snapshot_id: UUID, review_id: UUID, start_char: int, end_char: int):
+    if start_char < 0 or end_char <= start_char:
+        raise HTTPException(422, 'Select a valid saved aspect span')
+    reference = MentionReference(snapshot_id=snapshot_id, review_id=review_id, start_char=start_char, end_char=end_char)
+    return Corrections(app.state.repository).history(product_id, reference)
+
+
+@app.get('/api/demo/products/{product_id}/corrections')
+def export_corrections(product_id: str):
+    return Corrections(app.state.repository).export(product_id)
+
+
+@app.post('/api/demo/products/{product_id}/corrections', status_code=201)
+def record_correction(product_id: str, body: CorrectionInput):
+    return Corrections(app.state.repository).save(product_id, body)
+
+
+@app.post('/api/demo/products/{product_id}/corrections/suggest')
+def suggest_saved_correction(product_id: str, body: MentionReference):
+    from backend.app.llm_assistance import suggest_unknown_aspect
+    from backend.app.llm_provider import generate_structured
+    service = Corrections(app.state.repository)
+    context = service.context(product_id, body)
+    tag = context['original']
+    if tag.get('normalized_aspect_id') is not None:
+        raise InvalidCorrection('Mapping assistance is for unknown aspects')
+    suggestion = call_assistant(lambda: suggest_unknown_aspect(context['review_text'], tag['raw_aspect'],
+        body.start_char, body.end_char, generate_structured))
+    return service.save_suggestion(product_id, body, suggestion)
+
+
 @app.get('/api/demo/products/{product_id}/compare/{other_product_id}')
 def compare_product_feedback(product_id: str, other_product_id: str):
     from review_tag_generator.comparison import compare_products
@@ -231,6 +280,27 @@ def compare_product_feedback(product_id: str, other_product_id: str):
     left = repository.detail(product_id, app.state.version, app.state.backend)
     right = repository.detail(other_product_id, app.state.version, app.state.backend)
     return compare_products(left, right)
+
+
+@app.get('/api/demo/products/{product_id}/annotations')
+def annotation_worklist(product_id: str, snapshot_id: UUID | None = None,
+                        status: Literal['all', 'needs_review', 'reviewed', 'needs_adjudication'] = 'all'):
+    return Annotations(app.state.repository).worklist(product_id, snapshot_id, status)
+
+
+@app.post('/api/demo/products/{product_id}/annotations', status_code=201)
+def save_review_annotation(product_id: str, body: AnnotationInput):
+    return Annotations(app.state.repository).save(product_id, body)
+
+
+@app.get('/api/demo/products/{product_id}/annotations/export')
+def export_review_annotations(product_id: str, snapshot_id: UUID):
+    return Annotations(app.state.repository).export(product_id, snapshot_id)
+
+
+@app.get('/api/demo/products/{product_id}/annotations/{review_id}')
+def review_annotation_detail(product_id: str, review_id: UUID, snapshot_id: UUID):
+    return Annotations(app.state.repository).detail(product_id, ReviewReference(snapshot_id=snapshot_id, review_id=review_id))
 
 
 @app.post('/api/demo/products/{product_id}/preview')

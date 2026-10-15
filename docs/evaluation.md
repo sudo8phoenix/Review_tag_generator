@@ -6,7 +6,7 @@ The current checkpoint and processed data reproduce the Kaggle measurements unde
 
 - Notebook: `distilbert_review_generator.ipynb`, training/evaluation cells 9 and 11.
 - Data: ignored `data/processed/distilbert/{train,validation,test}.jsonl`.
-- Checkpoints: ignored `models/aspect_extractor/distilbert_weighted_lr3e5/best` and `models/sentiment_classifier/distilbert/best`; verified against original Kaggle directory hashes before inference.
+- Checkpoints: Git LFS-versioned `models/aspect_extractor/distilbert_weighted_lr3e5/best` and `models/sentiment_classifier/distilbert/best`; verified against original Kaggle directory hashes before inference.
 - Split counts: train 5,936 reviews / 5,107 deduplicated sentiment pairs; validation 326 / 309; test 1,616 / 1,445.
 - [Split hash evidence](../audit/evidence/current/split_hashes.json) records both raw JSONL file SHA-256 and the notebook's SHA-256 of UTF-8 `json.dumps(..., sort_keys=True)` for its serialized review lists and deduplicated sentiment-pair lists. All six representation hashes match the unchanged A2/A3 manifests. A raw file hash is not interchangeable with a representation hash.
 
@@ -57,7 +57,7 @@ gold-pair sentiment results and leaves end-to-end tag quality unclaimed.
 
 ## Commands
 
-From the repository root, with the local `.venv` and downloaded ignored checkpoints/data:
+From the repository root, with the local `.venv` and Git LFS checkpoints and ignored processed data:
 
 ```bash
 .venv/bin/python -m pytest tests/unit/test_metrics.py -q
@@ -79,3 +79,9 @@ directory without changing `validation.json`, `policy.json`, or `test.json`:
 It verifies the validation hash and selected policy first. The two JSONL exports
 contain review IDs, spans, labels and probabilities, but omit review text. The
 export directory is write-once; choose `--error-export-dir` for another path.
+
+## Additional annotation work
+
+The [external workset](annotation-workset.md) and [browser annotation workspace](review-annotations.md)
+support future review and evaluation. Automated proposals remain pending human
+review; these tools do not create a new accuracy score or modify this frozen test.

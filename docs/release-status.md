@@ -1,134 +1,109 @@
 # Release status
 
-The application now uses the same frozen `full_review` policy for trained inference
-as the recorded evaluation. Startup verifies the frozen validation hash. The
-explicit heuristic demo uses `local_clause` and is reported separately.
+Last reconciled: **2026-10-15**. This page records the current implementation and
+local verification. It does not claim a public deployment or a successful remote
+CI run. [Documentation index](README.md) · [Verification commands](verification.md)
 
-## Implemented
+## Current verification
 
-- Snapshot-consistent review evidence, totals and published revision during imports.
-- Live previews serviced between bulk rows with the bulk lease renewed.
-- API startup without model loading when a separate worker is configured.
-- [Evidence robustness audit](evidence-robustness.md) API with single-review-removal
-  sensitivity, tag stability, and separate within-review contradiction counts.
-- [ML implementation guide](ml-explained.md) covering models, training, inference,
-  evaluation, application rules, and limitations.
-- One SQLAlchemy repository for PostgreSQL deployment and SQLite local use.
-- Durable jobs and item progress, transactional duplicate prevention, idempotent
-  requests, bounded automatic retries, manual failed-row retries, expiring leases,
-  worker heartbeats, restart recovery, and immutable versioned aggregate snapshots.
-- Expiring, unsaved previews processed by workers; separate saving; browser draft
-  and job recovery; preserved input after partial failures.
-- Aspect highlighting, evidence drawers with normalization and sentiment evidence,
-  searchable/sortable insights, sentiment charts, representative reviews, and
-  recorded evaluation scores with provenance.
-- Validated TXT, CSV, JSON, JSONL and NDJSON imports, background progress, complete
-  row-error downloads, resumable Amazon batch import, and a read-only legacy demo
-  migration helper. See [dataset instructions](datasets.md).
-- Complete extraction and sentiment error exports from the frozen test run:
-  [manifest](../audit/evidence/current/error-exports/test/manifest.json).
-- API/storage/worker tests, trained inference integration tests, PostgreSQL-specific
-  integration tests, browser workflow checks, CI, and a Compose deployment stack.
+| Check | Latest local evidence | Remaining boundary |
+|---|---|---|
+| Full Python suite | **326 passed, 2 skipped** | PostgreSQL migration/repository suites require `POSTGRES_TEST_URL` |
+| Browser workflows | **20 passed** | Isolated heuristic API; provider responses injected for LLM UI checks |
+| Frontend unit tests | **5 passed** | Includes Unicode and CRLF selection-offset checks |
+| Frontend lint and build | Passed | Vite reports a bundle-size advisory; build succeeds |
+| Responsive layout | Inspected at **320, 768, 1440 px** | Local Chromium checks |
+| PostgreSQL migration SQL | Generated through **0005_review_annotations** | No live PostgreSQL execution on this host |
+| Trained application smoke | Preview, correction, annotation, reload, and export passed | Temporary synthetic products; no accuracy estimate |
+| Docker/Compose | Configuration previously validated | Container build/start and Linux dependency installation remain unverified here |
+| Remote CI | Workflow configured | Check GitHub Actions separately for the pushed commit |
 
-## Verification on this workspace
+The full Python run includes verified trained-checkpoint tests and the HTTP →
+worker → database → published-snapshot path. The non-model collection fix also
+allows CI to collect tests without installed PyTorch/Transformers. Local results
+do not certify the remote environment.
 
-The full Python suite passes (262 passed, 2 PostgreSQL suites skipped), including
-trained checkpoint tests and the complete
-HTTP → worker → database → snapshot path. PostgreSQL migration and repository
-integration tests require `POSTGRES_TEST_URL`; they are configured to run against
-an isolated PostgreSQL service in CI. The generated PostgreSQL migration SQL was
-checked locally. Frontend lint, production build, and unit tests pass; all 14
-Playwright browser tests pass, including the complete preview/save flow and draft
-recovery. Layouts were checked at 320, 768, and 1440 pixels without console or page
-errors. Compose configuration validation succeeds.
+## Implemented workflows
 
-The local environment has no accessible PostgreSQL server or Docker daemon, so
-live PostgreSQL tests and container builds have not been executed here. The
-checked-in Python lock records a macOS ARM64 resolution; Linux container
-installation still needs verification. CI configuration is provided, but no
-remote CI run or deployment has been triggered by this task.
+| Area | Current behavior | Details |
+|---|---|---|
+| Trained analysis | Verified DistilBERT artifacts, frozen `full_review` policy, exact source evidence | [ML guide](ml-explained.md) |
+| Durable processing | Transactional deduplication, idempotent submissions, leases, heartbeats, retries, restart recovery | [Architecture](architecture.md) |
+| Published insights | Immutable versioned snapshots; evidence, totals, and revision remain consistent during processing | [Aggregation policy](contracts/aggregation.md) |
+| Preview/import | Expiring unsaved previews, explicit save, bounded multi-format imports, row errors, draft/job recovery | [Getting started](getting-started.md) |
+| Evidence tools | Robustness, quality queue, product comparison, snapshot/model-version checks | [Faculty demo](faculty-demo.md) |
+| Optional LLM | User-requested suggestions and cited Q&A through Groq, Gemini, or Ollama | [LLM assistance](llm-assistance.md) |
+| Corrections | Server-recorded suggestions; append-only accept/edit/reject decisions with provenance and export | [Review corrections](review-corrections.md) |
+| Full-review annotation | Missing aspects, boundary edits, drafts, review status, next-item navigation, history, export | [Annotation workspace](review-annotations.md) |
+| Data controls | Named imports, batch removal, clear reviews, product deletion, persistent one-time seeding | [Saved data](saved-data.md) |
+| Dataset preparation | Versioned smart-device source, hash verification, overlap audit, development/held-out tasks | [Annotation workset](annotation-workset.md) |
 
-## Quality gates still requiring real evidence
+Corrections and annotations remain separate from model outputs, aggregate totals,
+ontology aliases, and training. New per-aspect decisions reopen completed reviews.
+Reviewer names and completion are self-reported, not independently adjudicated
+gold labels. The UI preserves failed/conflicting drafts until explicitly reloaded.
 
-Semantic matching is implemented and can be configured with `SEMANTIC_MODEL_PATH`,
-`SEMANTIC_MODEL_REVISION`, and `NORMALIZATION_THRESHOLD` for both API and worker.
-The API and worker must receive the same settings. Alias matching remains the
-default until a pinned local MiniLM snapshot and a reviewed threshold are supplied.
-There is no approved human-reviewed calibration artifact. Synthetic fixture
-accuracy is development evidence only. See [normalization](normalization.md).
+## Measured ML evidence
 
-End-to-end canonical tag accuracy cannot be claimed from the current annotations:
-only 77 of 309 validation normalization labels map to this ontology. A representative,
-human-reviewed set with aspect spans, canonical IDs (including unknowns), and
-sentiment is needed. Reviewers must settle ambiguous labels, document adjudication,
-select a threshold using development rows, and review the untouched held-out gate.
-The application does not display an invented release-quality score.
+| Measurement | Recorded value |
+|---|---:|
+| Exact-span extraction F1 | 70.62% |
+| Sentiment Macro F1, gold aspects | 74.96% |
+| Sentiment accuracy, gold aspects | 82.49% |
+| Neutral sentiment recall | 51.63% |
 
-The frozen `full_review` policy meets the recorded dataset-level gates but has a
-known contrastive-sentence limitation, documented in [evaluation](evaluation.md).
+The trained `full_review` policy was selected on validation before the frozen
+test evaluation. The explicit heuristic demo uses `local_clause` and is labeled
+separately. The trained policy has a documented contrastive-sentence limitation.
+See [evaluation](evaluation.md) and [performance](performance.md) for protocols,
+split hashes, baseline limits, and raw evidence. No new ML accuracy is inferred
+from the correction or annotation features.
 
-## Recent verification update
+## Dataset and review evidence
 
-The Python suite was rerun after the scheduling, snapshot, external-worker startup,
-and evidence-audit changes. Regression checks cover intermediate import state,
-previews arriving during bulk inference, API startup without model construction,
-and robustness threshold boundaries. These backend changes do not constitute a
-new browser or live PostgreSQL verification run.
+The downloaded Virtual Assistant Devices workbook contains **2,370 reviews**.
+After grouping duplicates and excluding one normalized training-text overlap,
+**2,338 groups** are eligible. Preparation produced 100 development and 100
+held-out tasks. The development transformer run produced 180 mentions, including
+156 unknown mappings; these are diagnostic counts, not error rates.
 
-New snapshots record exact review membership. For snapshots created before this
-change, evidence selection uses the snapshot creation timestamp as a compatibility
-fallback. Reprocessing saved reviews publishes a snapshot with explicit membership.
+An automated source-text review produced 204 proposed explicit mentions across
+the development tasks. All 100 remain pending independent human review, and the
+held-out set remains unscored. Source labels describe whole-review sentiment and
+categories, not the missing span/canonical-ID/per-mention gold labels. Original
+workbook labels are preserved despite a published-count discrepancy. The
+[workset guide](annotation-workset.md) records selection, provenance, and limits.
 
-## Faculty demonstration features
+## Quality gates still open
 
-The product insights dashboard now includes interactive evidence robustness,
-a review quality queue with JSON export, and support-aware product comparison.
-Comparison suppresses directional results when pipeline versions differ. Queue
-and robustness views check snapshot identity before displaying results. See the
-[faculty demo guide](faculty-demo.md) for contribution details and examples.
+| Gate | Evidence still needed |
+|---|---|
+| Normalization calibration | A pinned local semantic model, reviewed development threshold, and reviewer/adjudication provenance |
+| End-to-end tag quality | Representative independent labels for spans, canonical IDs including unknowns, and per-mention sentiment |
+| Held-out evaluation | Finish annotation and development decisions, freeze the candidate pipeline/ontology, then evaluate untouched held-out data |
+| LLM quality | Representative suggestion/answer evaluation; citation existence alone does not prove interpretation |
+| Deployment | Live PostgreSQL checks, Linux lock/install verification, clean Compose build/start, persistence/recovery checks |
+| Public service | Authentication/authorization and an operational deployment plan |
 
-The GitHub non-model collection failure was fixed by moving the optional PyTorch
-import into the model test that uses it. The non-model suite was checked locally
-with both `torch` and `transformers` imports blocked. This follow-up does not
-constitute evidence of a completed remote GitHub Actions run.
+Only 77 of 309 existing validation normalization labels map to the current
+ontology, so scoring that subset would not establish complete tag quality.
+Semantic normalization remains off by default. The checked-in dependency lock
+records a macOS ARM64 resolution; it is not Linux installation evidence.
 
-## Optional assistance follow-up
+## Smoke checks and their limits
 
-Unknown-aspect suggestions and product-review Q&A are implemented with structured
-outputs and server-side source validation. Groq, Gemini and Ollama are configurable;
-secrets stay in ignored server configuration. See [LLM assistance](llm-assistance.md).
-The full Python suite passes with 254 tests and 2 PostgreSQL skips. Provider transport,
-evidence rejection, and no-write behavior are verified using injected test responses.
-Live Groq smoke verification now passes with server-side credentials. A live Gemini request
-returned provider HTTP 503 due to high demand.
+The running trained app passed synthetic preview, correction and full-review
+annotation checks, including browser save, status filtering, reload and JSON
+export. Product detail stayed identical after reviewer writes, and temporary
+test products were removed. These checks validate integration, not annotation
+correctness or production load.
 
-The full 12-test browser suite passes after the assistance integration, using an
-isolated heuristic API plus explicitly injected provider responses for assistant
-UI tests. Frontend lint, production build, and unit tests pass. The non-model
-Python command passes with 247 tests, 2 PostgreSQL skips and 7 model deselections.
+A ten-sample warm preview run on Apple M4 recorded **566.45 ms median** completion,
+including scheduling and polling. It is not a throughput or production latency
+claim. Live Groq mapping/Q&A smoke checks previously passed with exact quote
+validation; a Gemini check returned provider HTTP 503. Injected-provider tests
+and connectivity checks do not establish representative LLM accuracy.
 
-
-Groq live follow-up: synthetic unknown-aspect mapping and two-review Q&A both
-succeeded, with source quote validation. Added an application User-Agent header
-after the provider edge rejected the default Python client with error 1010.
-All 11 provider transport regression tests pass. These smoke checks do not
-establish statistical accuracy for the optional assistance layer.
-
-
-## Saved-data and portfolio follow-up
-
-The app now supports clearing a product's saved reviews/insights, deleting a
-product, listing named imported batches, and removing one batch's inserted reviews.
-Transactions clean related analyses, snapshots and job references, reject active
-work, and preserve other products. Demo seeding is one-time so deletion persists
-across restarts. See [saved-data behavior](saved-data.md).
-
-Latest verification: 262 Python tests passed with 2 live PostgreSQL checks skipped;
-all 14 browser tests passed. PostgreSQL upgrade SQL generates through migration
-0003. Frontend lint, build, and unit tests pass.
-
-Added [portfolio material](portfolio-guide.md), [architecture](architecture.md),
-[performance evidence](performance.md), and [labeled screenshot assets](assets/portfolio/README.md).
-A ten-sample warm local transformer preview smoke run on Apple M4 recorded
-566.45 ms median completion, including queue/worker scheduling and 50 ms polling.
-This is not a production throughput or model-only latency claim.
+New snapshots record explicit review membership. Older snapshots use an analysis
+creation-time compatibility cutoff; reprocessing creates explicit membership.
+All current PostgreSQL schema changes are available through Alembic head (0005).

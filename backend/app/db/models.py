@@ -135,6 +135,58 @@ class ProductSnapshot(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 
+class ReviewSuggestion(Base):
+    __tablename__ = 'review_suggestions'
+    __table_args__ = (Index('ix_suggestions_run_span', 'analysis_run_id', 'start_char', 'end_char'),)
+    id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid4)
+    analysis_run_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey('analysis_runs.id', ondelete='CASCADE'), nullable=False)
+    snapshot_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), nullable=False)
+    start_char: Mapped[int] = mapped_column(Integer, nullable=False)
+    end_char: Mapped[int] = mapped_column(Integer, nullable=False)
+    payload: Mapped[dict] = mapped_column(JSON().with_variant(JSONB, 'postgresql'), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+
+
+class ReviewCorrection(Base):
+    __tablename__ = 'review_corrections'
+    __table_args__ = (
+        UniqueConstraint('analysis_run_id', 'request_id', name='uq_corrections_run_request'),
+        CheckConstraint("decision IN ('accepted', 'edited', 'rejected')", name='ck_corrections_decision'),
+        Index('ix_corrections_run_span_created', 'analysis_run_id', 'start_char', 'end_char', 'created_at'),
+    )
+    id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid4)
+    analysis_run_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey('analysis_runs.id', ondelete='CASCADE'), nullable=False)
+    snapshot_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), nullable=False)
+    request_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), nullable=False)
+    request_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
+    start_char: Mapped[int] = mapped_column(Integer, nullable=False)
+    end_char: Mapped[int] = mapped_column(Integer, nullable=False)
+    decision: Mapped[str] = mapped_column(String(8), nullable=False)
+    reviewer: Mapped[str] = mapped_column(String(120), nullable=False)
+    reason: Mapped[str] = mapped_column(Text, nullable=False)
+    payload: Mapped[dict] = mapped_column(JSON().with_variant(JSONB, 'postgresql'), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+
+
+class ReviewAnnotation(Base):
+    __tablename__ = 'review_annotations'
+    __table_args__ = (
+        UniqueConstraint('analysis_run_id', 'request_id', name='uq_annotations_run_request'),
+        CheckConstraint("status IN ('needs_review', 'reviewed', 'needs_adjudication')", name='ck_annotations_status'),
+        Index('ix_annotations_run_created', 'analysis_run_id', 'created_at'),
+    )
+    id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid4)
+    analysis_run_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey('analysis_runs.id', ondelete='CASCADE'), nullable=False)
+    snapshot_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), nullable=False)
+    request_id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), nullable=False)
+    request_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
+    status: Mapped[str] = mapped_column(String(24), nullable=False)
+    reviewer: Mapped[str] = mapped_column(String(120), nullable=False)
+    reason: Mapped[str] = mapped_column(Text, nullable=False)
+    payload: Mapped[dict] = mapped_column(JSON().with_variant(JSONB, 'postgresql'), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+
+
 class ProcessingJob(Base):
     __tablename__ = "processing_jobs"
     __table_args__ = (

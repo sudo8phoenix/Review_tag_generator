@@ -3,7 +3,8 @@ import { api, type Analysis, type Tag } from '../api'
 import './ReviewAssistant.css'
 
 type AssistStatus = { enabled: boolean; provider: string | null; model: string | null; reason: string }
-type NormalizationResult = {
+export type NormalizationResult = {
+  id?: string
   canonical_aspect_id: string | null
   canonical_aspect_label: string | null
   proposed_aspect_label: string | null
@@ -60,7 +61,9 @@ function ProviderDisclosure({ provider }: { provider: string | null }) {
   return <p className="review-assistant__disclosure">When you submit, the review text is sent to the configured assistant provider. The suggestion may be wrong and is not saved automatically.</p>
 }
 
-export function UnknownAspectAssist({ review, tag }: { review: Analysis; tag: Tag }) {
+export type SavedAspectContext = { productId: string; snapshotId: string }
+
+export function UnknownAspectAssist({ review, tag, savedContext, onSuggestion }: { review: Analysis; tag: Tag; savedContext?: SavedAspectContext; onSuggestion?: (suggestion: NormalizationResult) => void }) {
   const { status, statusError } = useAssistStatus()
   const [result, setResult] = useState<NormalizationResult | null>(null)
   const [loading, setLoading] = useState(false)
@@ -86,7 +89,10 @@ export function UnknownAspectAssist({ review, tag }: { review: Analysis; tag: Ta
     setError('')
     setResult(null)
     try {
-      const response = await api<NormalizationResult>('/assist/normalize', {
+      const response = await api<NormalizationResult>(savedContext ? `/demo/products/${savedContext.productId}/corrections/suggest` : '/assist/normalize', savedContext ? {
+        snapshot_id: savedContext.snapshotId, review_id: review.review.review_id,
+        start_char: tag.start_char, end_char: tag.end_char,
+      } : {
         review_text: review.review.review_text,
         raw_aspect: tag.raw_aspect,
         start_char: tag.start_char,
@@ -95,6 +101,7 @@ export function UnknownAspectAssist({ review, tag }: { review: Analysis; tag: Ta
       if (request.current === current) {
         setResult(response)
         setResultContext(aspectContext)
+        onSuggestion?.(response)
       }
     } catch (reason) {
       if (request.current === current) setError((reason as Error).message || 'Could not get a suggestion. Try again.')
@@ -106,7 +113,7 @@ export function UnknownAspectAssist({ review, tag }: { review: Analysis; tag: Ta
   const configured = status?.enabled === true
   return <section className="review-assistant review-assistant--compact" aria-labelledby="unknown-aspect-title">
     <div className="review-assistant__heading">
-      <div><h3 id="unknown-aspect-title">Review aspect suggestion</h3><p>Suggest a mapping for “{tag.raw_aspect}”. Nothing is saved or changed.</p></div>
+      <div><h3 id="unknown-aspect-title">Review aspect suggestion</h3><p>Suggest a mapping for “{tag.raw_aspect}”. {savedContext ? 'The suggestion is recorded for review; predictions stay unchanged.' : 'Nothing is saved or changed.'}</p></div>
       <button className="button button-secondary" type="button" onClick={() => void suggest()} disabled={!configured || loading}>
         {loading ? 'Suggesting…' : error ? 'Retry suggestion' : result ? 'Suggest again' : 'Suggest mapping'}
       </button>

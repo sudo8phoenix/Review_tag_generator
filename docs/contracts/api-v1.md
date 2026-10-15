@@ -1,4 +1,12 @@
-# Review Tag Generator API v1
+# Review Tag Generator API v1 design contract
+
+**Status: target DTO and fixture design.** This document is not the live route
+reference. The running application uses `/api/demo/...` routes and FastAPI error
+responses; some target payloads, rating inputs, and response envelopes below are
+not implemented by those routes. Use the [current API reference](../api.md) for
+requests against the app. The design contract remains useful for its validated
+DTOs and synthetic fixtures.
+
 
 Contract version: `1.0`. The machine validated DTOs live in `backend/app/contracts/models.py`; synthetic, model validated payloads live in `tests/fixtures/api/examples.json`. OpenAPI `info` must expose `contract_version: 1.0` when B01 exports the live API schema. This document freezes the payload shapes for backend and frontend agents. All JSON objects reject unknown request fields. IDs are canonical UUID strings. Timestamps are timezone-aware ISO-8601 values emitted in UTC.
 

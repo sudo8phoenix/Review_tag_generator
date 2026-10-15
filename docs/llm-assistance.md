@@ -9,7 +9,10 @@ LLM. Two user-triggered assistance features run beside it:
 2. **Ask about these reviews:** ask a question on a product insights page. The
    service retrieves relevant saved review excerpts and asks for a cited answer.
 
-Suggestions and answers are ephemeral. They do not change saved analyses,
+Preview suggestions and answers are ephemeral. Suggestions requested from saved
+evidence are retained for the [review correction workflow](review-corrections.md),
+where a reviewer can accept, edit or reject them with a reason. They do not change
+saved analyses,
 normalization mappings, tags, model scores, or aggregate totals. A proposed new
 feature is not automatically added to the ontology or used in training.
 
@@ -43,7 +46,8 @@ starting Uvicorn:
 set -a
 . ./.env.llm
 set +a
-DEMO_DATABASE=.demo/showcase.sqlite3 .venv/bin/python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8011
+PYTHONPATH=src .venv/bin/python -m uvicorn backend.app.main:app \
+  --host 127.0.0.1 --port 8011
 ```
 
 The showcase frontend uses `API_PROXY_TARGET=http://127.0.0.1:8011` when started.
@@ -112,12 +116,15 @@ that the provider is currently healthy.
 |---|---|
 | `GET /api/assist/status` | Configuration status, provider and model; never a key |
 | `POST /api/assist/normalize` | Exact-span suggestion from review text and offsets |
+| `POST /api/demo/products/{id}/corrections/suggest` | Persist a validated suggestion for exact saved evidence |
 | `POST /api/demo/products/{id}/ask` | Question answering from published reviews |
 
 The suggestion body is `{review_text, raw_aspect, start_char, end_char}`. The
 question body is `{question}` with a nonblank maximum of 500 characters.
 Suggestions return canonical/proposed labels, explanation, source span, provider,
-model and `applied=false`. Answers return claims, citations, retrieval count and
+model and `applied=false`. Saved-evidence suggestions use the separate correction
+endpoints and additionally return a persisted suggestion ID. Answers return
+claims, citations, retrieval count and
 snapshot provenance. HTTP 422 means invalid input, 429 means this process is busy,
 502 means generated evidence failed validation, and 503 means the configured
 provider is missing or unavailable. Provider rate/quota failures currently map to
@@ -142,6 +149,7 @@ Provider request formats were checked against the official documentation:
 [Gemini generateContent](https://ai.google.dev/api/generate-content), and
 [Ollama chat](https://docs.ollama.com/api/chat).
 
+## Provider transport troubleshooting
 
 The HTTP client identifies itself with `User-Agent: ReviewTagGenerator/0.1`.
 Groq initially returned HTTP 403 / edge error 1010 for the default Python client;

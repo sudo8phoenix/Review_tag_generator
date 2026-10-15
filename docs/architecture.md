@@ -25,7 +25,9 @@ flowchart LR
     P --> Q[Quality queue, robustness, comparison]
     Q --> A
     A -. user-triggered request only .-> L[Optional Groq, Gemini, or Ollama]
-    L -. suggestion or cited answer; no pipeline write .-> U
+    L -. validated suggestion or cited answer .-> A
+    U -->|explicit reviewer decision| H[Corrections and full-review annotations]
+    H --> R
 ```
 
 The UI communicates with FastAPI. The API validates requests and coordinates
@@ -89,7 +91,8 @@ SQLAlchemy maps the repository to PostgreSQL in the Compose topology and SQLite
 for the local demo. Alembic migrations define the PostgreSQL schema. Core records
 include products, reviews, immutable analysis runs, aspect mentions, processing
 jobs and items, temporary previews, idempotency requests, worker heartbeats, and
-product snapshots. PostgreSQL JSONB is used for structured payloads where
+product snapshots. Reviewer suggestions, append-only corrections, and full-review
+annotation revisions are stored separately from model analyses. PostgreSQL JSONB is used for structured payloads where
 available; SQLite stores the local equivalent as JSON.
 
 Each saved review analysis records its pipeline version, backend, sentiment
@@ -162,10 +165,32 @@ Optional LLM assistance is a side path activated by an explicit user request.
 Unknown-aspect mapping suggestions are checked against original-text offsets and
 the ontology. Product questions retrieve bounded excerpts from the current
 published snapshot; returned citations are checked against source review IDs and
-exact quotes. The returned result is ephemeral: it does not update the ontology,
-saved analyses, tags, or product totals. With a cloud provider configured,
+exact quotes. Preview suggestions and answers are ephemeral; suggestions for saved
+evidence are persisted so reviewers can accept, edit, or reject them. These records
+do not update the ontology, saved analyses, tags, or product totals. With a cloud provider configured,
 requested text is sent to that provider. Local Ollama is also supported. See
 [LLM setup and validation limits](llm-assistance.md).
+
+## Reviewer lifecycle
+
+[Aspect corrections](review-corrections.md) record mapping and sentiment decisions
+against an exact saved span. [Full-review annotations](review-annotations.md) also
+support missing aspects, changed boundaries, removed false positives, and explicit
+no-aspect reviews. Both retain the original analysis and append revision history.
+
+Annotation worklists include every analyzed review in the published snapshot,
+including zero-detection reviews. A draft starts from saved predictions and any
+aspect corrections, but completion requires an explicit reviewer action. Statuses
+are `needs_review`, `reviewed`, and `needs_adjudication`. A later aspect correction
+makes a previous completion effectively `needs_review` again.
+
+UUID request IDs make retries idempotent; expected annotation/correction revisions
+reject stale edits. Product locking serializes writes and export membership.
+Exports preserve provenance and distinguish saved from effective status. Reviewer
+names are self-reported: this demo has no authenticated identity or independent
+gold-label certification. Decisions never feed automatically into aggregation or
+training. Removing a source review also removes its suggestions, corrections,
+and annotation history.
 
 ## Seed and migration behavior
 
@@ -178,6 +203,9 @@ semantics apply. These behaviors are local demonstration setup, not a deployed
 customer onboarding or account system.
 
 ## Runtime topology and boundaries
+
+The current Alembic head is `0005_review_annotations`; migrations 0004 and 0005
+add the reviewer records.
 
 The Compose file defines PostgreSQL, a one-time Alembic migration service, API,
 one inference worker, and a built frontend. The frontend port is bound to
@@ -203,5 +231,7 @@ current project scope and should be stated in portfolio material.
 | HTTP API and request validation | `backend/app/main.py`, `imports.py` |
 | Durable queue and snapshots | `backend/app/repository.py`, `worker.py`, `db/models.py` |
 | Optional LLM path | `backend/app/llm_assistance.py`, `llm_provider.py` |
+| Reviewer records | `backend/app/corrections.py`, `backend/app/annotations.py` |
+| Offline annotation workset | `scripts/prepare_review_annotations.py` |
 | Browser routes and workflow | `frontend/src/routes/`, `frontend/src/components/` |
 | Model results and provenance | `audit/evidence/`, `docs/evaluation.md` |

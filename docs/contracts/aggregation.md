@@ -10,6 +10,9 @@ mention's `normalized_aspect` may contain a stable ontology ID, canonical label,
 or known alias. IDs are used in the output; unknown aspects are omitted from
 product aggregates while remaining available on the saved review analysis.
 
+Reviewer corrections and full-review annotations are separate records. They are
+not automatically supplied to this aggregator and do not revise published totals.
+
 ## Counting and voting
 
 `mention_count` is the number of known canonical mentions, including repeated
@@ -27,7 +30,8 @@ all other cases, any positive mention wins over neutral mentions, any negative
 mention wins over neutral mentions, and an all-neutral group votes neutral.
 Vote confidence is the minimum confidence across all mentions for that review
 and aspect. Sentiment counts and product sentiment distribution count these
-votes, never raw mentions, star ratings, or model predictions. Ratios explicitly
+review-aspect votes derived from saved model labels, rather than raw mentions
+or star ratings. Ratios explicitly
 include all three labels and divide by that aspect's distinct review count.
 
 ## Classification and ranking

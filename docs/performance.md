@@ -79,19 +79,29 @@ claiming that it removed active work.
 
 ## Engineering verification
 
-The latest full Python run passed **262 tests** with **2 PostgreSQL checks skipped**.
+The latest full Python run passed **326 tests** with **2 PostgreSQL checks skipped**.
 The browser suite covers navigation, review preview/save, recovery, robustness,
 comparison, LLM UI with injected provider responses, import removal, clearing,
 product deletion, and draft cleanup. Current counts are recorded in
 [release status](release-status.md). Frontend lint, TypeScript/production build,
-and unit checks pass.
+and **5 frontend unit checks** pass. The full browser suite passes **20 tests**,
+including persisted corrections and complete-review annotation workflows.
 
 The deletion checks assert transactional cleanup, other-product isolation,
 per-import review ownership, shared regeneration references, duplicate-only batches,
 active-work rejection, and no automatic resurrection of a deleted demo product.
-PostgreSQL migration SQL was generated successfully through migration 0003; live
+PostgreSQL migration SQL was generated successfully through migration 0005; live
 PostgreSQL execution is still a separate requirement. Local tests are not proof
 that the latest remote GitHub Actions or container release checks are green.
+
+## New annotation workset
+
+The [Virtual Assistant Devices workset](annotation-workset.md) contains 100
+development and 100 held-out tasks. Development predictions and automated draft
+annotations are diagnostics, not new accuracy evidence. All 100 development
+proposals still require human review; held-out tasks remain unscored. The browser
+annotation workspace provides a separate way to record reviewer decisions, but
+those decisions do not change the frozen component metrics above.
 
 ## Safe portfolio wording
 

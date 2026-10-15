@@ -4,7 +4,7 @@ The product list and product insights page have two controls:
 
 - **Clear saved reviews** removes that product's reviews, extracted mentions,
   analyses, insights, previews, jobs, import history and associated idempotency
-  records, while retaining the product. It publishes a new empty snapshot.
+  records, plus saved suggestions, corrections, and annotation history, while retaining the product. It publishes a new empty snapshot.
 - **Delete product** removes the product and its saved data. The initial demo
   product is seeded once and will not reappear after an intentional deletion.
 
@@ -19,6 +19,8 @@ On the product insights page, **Saved imports** lists file batches, status, row
 counts and import date. Select **Remove import**, then confirm **Remove saved
 import**. Only the review rows originally inserted by that batch are removed.
 The product's insight snapshots are rebuilt from the remaining saved analyses.
+Reviewer records for removed reviews are also deleted. Reviewer records for
+remaining reviews are retained, even when an old product snapshot is replaced.
 
 A duplicate-only batch inserted no review rows, so removing it leaves the existing
 reviews unchanged. When a later file skipped a duplicate originally inserted by
@@ -58,8 +60,8 @@ Missing products/imports return 404; active work returns 409. Batch ownership is
 checked against the requested product before deletion. Clear/delete return the
 product ID and number of removed reviews. Import removal also returns its job ID.
 
-PostgreSQL deployments must run Alembic migration `0003_saved_data_management`.
-It adds `application_settings` for the one-time demo seed marker and nullable
+PostgreSQL deployments must upgrade to the current Alembic head,
+`0005_review_annotations`. Migration `0003_saved_data_management` introduced `application_settings` for the one-time demo seed marker and nullable
 `processing_jobs.input_filename`. Existing local SQLite databases are upgraded
 at repository startup, preserving their data. The initial demo seed marker is
 retained when user content is deleted. Worker heartbeat records contain runtime

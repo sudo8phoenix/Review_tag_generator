@@ -1,0 +1,26 @@
+{
+  "backend": "transformer",
+  "context_policy": "full_review",
+  "model_weight_sha256": {
+    "aspect": "c3a03c039c4f6bf3b51273298504a4d4cb0993ecb5f6210b9d0154cac9f66291",
+    "sentiment": "2f110027f20a2e5dfd9292d0b40600c76bbeab1034afb6ffda7b35a76f13bc90"
+  },
+  "notice": "Unreviewed model suggestions; triage counts are not accuracy. Held-out set was not inferred.",
+  "predicted_mentions": 180,
+  "predictions_sha256": "58e6fb2890c0cd21b97d5d47af44998ba1b20db1a50b26f30284970b74629232",
+  "queue_summary": {
+    "confidence_threshold": 0.6,
+    "queued_reviews": 96,
+    "reason_counts": {
+      "contradictory_sentiment": 0,
+      "low_confidence": 19,
+      "no_aspects": 20,
+      "unknown_aspect": 76
+    }
+  },
+  "reviews": 100,
+  "source_tasks_sha256": "07186c57ae066636db30358249b67069cf9f7324244def7fe9f5eb476ff58b14",
+  "source_tree_sha256": "75c789ff7db8fc8dfd2a600071436b9a1a7aeecb54c5482f0fda6522bbe97495",
+  "split": "development",
+  "unknown_mentions": 156
+}

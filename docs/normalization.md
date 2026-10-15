@@ -70,3 +70,10 @@ For the running API and worker, use the same explicit environment settings:
 never downloads a semantic model implicitly. The running pipeline fingerprint
 includes these settings so differently configured workers cannot consume one
 another's jobs.
+
+## Relationship to annotation tasks
+
+The [external annotation workset](annotation-workset.md) contains 200 complete
+reviews split into development and held-out tasks. It is distinct from a reviewed
+normalization calibration set of aspect phrases. Automated draft annotations do
+not satisfy the human calibration gate or justify enabling semantic matching.

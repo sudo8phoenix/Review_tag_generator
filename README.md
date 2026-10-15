@@ -1,170 +1,39 @@
 # Review Tag Generator
 
-The service extracts aspects, predicts their sentiment, normalizes aliases,
-generates customer-facing tags, and aggregates product insights. The deployed
-API uses the verified DistilBERT checkpoints and evaluates sentiment with the
-full review as context (`full_review`). It does not silently switch models when
-checkpoints or inference dependencies are unavailable.
+Turn product reviews into feature-level feedback you can inspect and review.
 
-See [release status and remaining evidence gates](docs/release-status.md).
-For a complete explanation of the models, training, inference, and measured
-limitations, read [the ML guide](docs/ml-explained.md).
+Two fine-tuned DistilBERT models extract aspect spans and classify their sentiment.
+Deterministic rules normalize known aliases, generate tags, and aggregate saved
+predictions into product insights. The application keeps original evidence,
+reviewer corrections, and full-review annotations separately traceable.
 
-## Portfolio and technical documentation
+[Getting started](docs/getting-started.md) · [Documentation](docs/README.md) ·
+[Architecture](docs/architecture.md) · [Release status](docs/release-status.md)
 
-- [Portfolio guide](docs/portfolio-guide.md): project pitch, case study, benefits,
-  distinctive engineering, feature descriptions and interview answers.
-- [Performance and evidence](docs/performance.md): measured ML results, local
-  preview latency, verification and portfolio-safe metric wording.
-- [System architecture](docs/architecture.md): browser, API, worker, database,
-  snapshot consistency and optional LLM flow.
-- [Screenshot assets](docs/assets/portfolio/README.md): actual UI captures with
-  explicit synthetic-data and test-provider provenance.
-- [Saved-data management](docs/saved-data.md): clear reviews, remove imported
-  batches, delete products and storage behavior.
+## What you can do
 
-## Optional LLM assistance
+| Workflow | What it provides |
+|---|---|
+| Preview and save | Highlighted aspects and sentiment before committing reviews to product totals |
+| Product insights | Canonical feature counts, sentiment, supported tags, and representative evidence |
+| Bulk imports | TXT, CSV, JSON, JSONL, and NDJSON validation with durable jobs and row-error export |
+| Evidence tools | Review quality queue, single-review-removal robustness, and support-aware product comparison |
+| Optional LLM assistance | Unknown-aspect suggestions and answers citing saved review excerpts |
+| Reviewer corrections | Accept, edit, or reject suggestions; correct sentiment; retain decision history |
+| Annotation workspace | Add missed aspects, edit boundaries, track review status, save drafts, and export annotations |
+| Saved-data controls | Remove an imported batch, clear reviews, or delete a product |
 
-Unknown aspect evidence drawers now offer **Suggest mapping**, and product pages
-include **Ask about these reviews** with source citations. Groq, Gemini, and local
-Ollama are supported. Calls run only on request; suggestions do not overwrite the
-trained pipeline or product totals. See [setup, usage, and validation](docs/llm-assistance.md).
+The trained pipeline uses `full_review` sentiment context and verified checkpoints.
+Missing model artifacts cause an explicit error. The optional heuristic demo is
+selected deliberately and labeled in the UI. LLM calls run only on request.
+Reviewer decisions and annotations do not automatically change model predictions,
+product totals, ontology aliases, or model weights.
 
-## Project demonstration tools
+## Quick start
 
-The product insights page now includes an interactive robustness audit, a
-[review quality queue](docs/review-quality.md) with prediction-evidence export,
-and [product comparison](docs/product-comparison.md) with support and model-version
-checks. These operate on saved review predictions and published snapshots.
-
-See [the faculty demo and contribution guide](docs/faculty-demo.md) for examples,
-code pointers, and a clear explanation of the project's contributions.
-
-## Evidence robustness audit
-
-The project now checks whether product tags survive removing a single supporting
-review. The report distinguishes disagreements between reviewers from contradictory
-mentions inside one review, and explains which vote removals would change a tag.
-It runs on the published snapshot without additional inference.
-
-```bash
-curl --fail http://127.0.0.1:8000/api/demo/products/demo-laptop/evidence-audit
-```
-
-See [the method, examples, and limitations](docs/evidence-robustness.md). This is
-an implemented sensitivity feature, not a claim of a new model architecture.
-
-Run the demo from the project root:
-
-```bash
-python3 scripts/run_demo.py
-```
-
-Use the library with `PYTHONPATH=src`. The main entry point is `ReviewAnalyzer`; its `analyze(review)` method returns mention-level tags and `aggregate(reviews)` returns product strengths, weaknesses, sentiment counts, aspect frequencies, and representative reviews.
-
-The winning DistilBERT checkpoints, evaluation results, and dataset hashes are
-recorded in [audit/evidence](audit/evidence). The heuristic analyzer is a
-separate explicit mode for local demonstrations: run
-`DEMO_MODEL_BACKEND=heuristic ./scripts/start_demo.sh`. It uses
-`local_clause` sentiment context and is labeled in the UI; the deployed
-transformer service remains on `full_review`. The standalone Python library
-`ReviewAnalyzer(use_transformer="auto")` currently requires trained artifacts
-and behaves like `True`; use `False` to select the heuristic path explicitly.
-
-Core assertions can be run without model dependencies using the explicit heuristic:
-
-```bash
-PYTHONPATH=src python3 - <<'PY'
-from review_tag_generator import Review, ReviewAnalyzer
-result = ReviewAnalyzer(use_transformer=False).analyze(Review("r1", "p1", "Amazing display but terrible battery."))
-print(result["tags"])
-PY
-```
-
-## Compose deployment
-
-The Compose stack runs PostgreSQL, the API, one inference worker, and the built
-web UI. The API and worker share the same image and verified DistilBERT model
-checkpoints. PostgreSQL data lives in the `postgres_data` Docker volume, so it
-survives container replacement. The UI is available at http://127.0.0.1:8080.
-
-Install Git LFS and pull the model artifacts before building. Then create a
-release environment file and start the stack:
-
-```bash
-git lfs install
-git lfs pull
-cp .env.release.example .env.release
-# Replace POSTGRES_PASSWORD in .env.release with `openssl rand -hex 32` output.
-docker compose --env-file .env.release up --build -d
-```
-
-Compose waits for PostgreSQL health, runs `alembic upgrade head`, and then
-starts the API and worker. Check service state with
-`docker compose --env-file .env.release ps` and API health at
-http://127.0.0.1:8080/api/health. Stop the services with
-`docker compose --env-file .env.release down`; add `-v` only when you intend to
-delete the database volume.
-
-The published UI port binds to localhost. The API has no authentication yet,
-so keep the stack behind a trusted local network or add an authenticated
-reverse proxy before exposing it to the internet. The model checkpoints add
-about 508 MB to the image. Python dependencies are installed from the pinned
-`requirements.lock` and `requirements-inference.txt` files. The checked-in lock
-records a macOS ARM64 resolution; the Linux container dependency set has not
-been resolved or verified on this host.
-
-## Faculty demo
-
-With the local `.venv` and frontend dependencies installed, start both services:
-
-```bash
-./scripts/start_demo.sh
-```
-
-Open http://127.0.0.1:5173. Select **Demo laptop**, preview a review, then
-choose **Save review**. Preview leaves product totals unchanged; saving creates
-a durable analysis job. The local default uses SQLite at
-`.demo/application.sqlite3`; the Compose stack uses PostgreSQL. Product
-snapshots update when the worker finishes each job. While processing continues,
-review evidence, totals, and revision remain tied to the last published snapshot.
-Live previews run between bulk rows so imports do not block the whole preview
-queue. With `RUN_EMBEDDED_WORKER=0`, the API reads runtime metadata without
-loading the inference models; the separate worker owns the model bundle. Aggregate tags need
-three supporting reviews. Imports accept `.txt`, `.csv`, `.json`, `.jsonl`, and
-`.ndjson` files (up to 10 MiB and 5,000 rows). CSV headers and JSON objects may
-use `review_text`, `text`, or `reviewText`; invalid rows are reported with
-their row number. The UI calls `POST /api/demo/imports/validate` before
-previewing an import. It previews at most 100 accepted rows, then submits the
-full file for processing.
-
-The live API uses `/api/health` and `/api/demo/...` routes. Review preview is
-`POST /api/demo/products/{id}/preview` with `{"reviews":["..."]}`; it returns
-queued preview IDs (no immediate analysis). Poll each ID at
-`/api/demo/previews/{id}` until it reaches `completed` or `failed`. Previews
-expire after 30 minutes and do not update product totals.
-Saving reviews uses `POST /api/demo/products/{id}/reviews` (or `/jobs`) with the
-same body and returns a `202` job. Imports use
-`POST /api/demo/products/{id}/imports` with JSON `filename` and `content`.
-Use `POST /api/demo/imports/validate` with the same body to validate a file
-without saving it. Poll `/api/demo/jobs/{id}` for job progress and read the current product
-snapshot from `/api/demo/products/{id}`. The frontend and OpenAPI page are at
-http://127.0.0.1:5173 and http://127.0.0.1:8000/docs.
-`GET /api/models/metrics` reports saved evaluation evidence and currently marks
-the human normalization gate as pending.
-
-The routes and payloads in [the API v1 contract](docs/contracts/api-v1.md) are
-the target contract; its versioned `/api/...` route table is not the live
-router. [The aggregation contract](docs/contracts/aggregation.md) records the
-aggregation policy and core function behavior. The live service has no
-authentication and should remain bound to localhost. Checkpoints are included
-through Git LFS. If checkpoints are unavailable, explicitly run
-`DEMO_MODEL_BACKEND=heuristic ./scripts/start_demo.sh`; the UI labels this mode.
-
-## Install from a fresh clone
-
-Install Git LFS before cloning. The two trained checkpoints require approximately
-508 MB of downloads; raw training datasets are not required for inference.
+Prerequisites: Python **3.11**, Node.js **22** (the CI version), npm, and Git LFS.
+The two trained checkpoints require approximately **508 MB** of downloads. Raw
+training datasets are not required to run inference.
 
 ```bash
 git lfs install
@@ -178,6 +47,117 @@ npm --prefix frontend ci
 ./scripts/start_demo.sh
 ```
 
-The tokenizer files, model configurations, verification manifests, ontology,
-and dependency files are included in Git. Keep the complete checkpoint
-directories intact so their hashes match the recorded training manifests.
+Open **[the app](http://127.0.0.1:5173)** and
+[API documentation](http://127.0.0.1:8000/docs). Select **Demo laptop**, preview a
+review, then choose **Save review**. Once processing finishes, open product
+insights to examine evidence and annotations.
+
+The launcher uses API port **8000** and frontend port **5173**. If port 8000 is
+occupied, follow the [alternate-port instructions](docs/getting-started.md#alternate-api-port).
+Local data persists in `.demo/application.sqlite3`.
+
+To run an explicitly labeled rules-based demo instead:
+
+```bash
+DEMO_MODEL_BACKEND=heuristic ./scripts/start_demo.sh
+```
+
+This is a local demo without authentication. Keep it bound to localhost or a
+trusted network. See [deployment boundaries](docs/getting-started.md#compose-deployment)
+before exposing it publicly.
+
+## Review and annotate
+
+Open a saved review's highlighted aspect to accept, edit, or reject a mapping
+suggestion, correct sentiment, or mark a phrase unsupported. The
+**Annotation workspace** adds full-review worklists with **Needs review**,
+**Reviewed**, and **Needs adjudication** filters. Reviewers can select missing
+phrases, adjust exact spans, confirm reviews with no explicit aspects, and advance
+to the next unfinished review.
+
+![Annotation editor showing source text and editable aspect spans](docs/assets/portfolio/annotation-editor.png)
+
+*Actual UI with synthetic reviews and the explicit heuristic test backend. This
+capture illustrates annotation controls, not measured prediction accuracy.*
+
+Both workflows preserve original predictions and append review history. Names and
+completion are self-reported in this local app; exports are not independently
+adjudicated gold labels. Read [review corrections](docs/review-corrections.md) and
+[full-review annotation](docs/review-annotations.md) for behavior and API details.
+
+## Results and verification
+
+| Measurement | Result | Scope |
+|---|---:|---|
+| Aspect extraction exact-span F1 | **70.62%** | Frozen test, 1,616 reviews |
+| Sentiment Macro F1 | **74.96%** | Frozen test, 1,445 gold aspect–sentiment pairs |
+| Local preview median | **566.45 ms** | Ten warm sequential requests on Apple M4; includes scheduling and polling |
+| Python verification | **326 passed, 2 skipped** | Skips require a live PostgreSQL test database |
+| Browser verification | **20 passed** | Isolated test app; provider responses injected where noted |
+| Frontend unit verification | **5 passed** | Lint and production build also pass |
+
+Component ML scores do not establish end-to-end tag accuracy. There is no approved
+human-reviewed normalization or canonical-tag accuracy score. The latency sample
+is a smoke measurement, not a production benchmark. PostgreSQL migration SQL
+generates through **0005**, but live PostgreSQL and Linux container execution have
+not been verified on this host. Remote CI status is separate from local checks.
+
+See [performance evidence](docs/performance.md), [evaluation](docs/evaluation.md),
+and [verification commands](docs/verification.md).
+
+## Dataset preparation
+
+The new annotation workset uses the
+[Virtual Assistant Devices Dataset](https://data.mendeley.com/datasets/d5vsgcxrk5/1),
+version 1, by Yaser alhasawi and Salem Algamdi, under the publisher's CC BY 4.0
+license. Its 2,370 reviews provide review-level labels; exact spans, canonical
+IDs, and per-mention sentiment still need annotation.
+
+The local preparation audits duplicates and overlap with existing model splits,
+then creates 100 development and 100 held-out tasks. Automated development
+proposals retain their provenance and remain pending human review; held-out
+inference has not been run. The raw workbook and review text remain outside Git.
+See [dataset sources](docs/datasets.md) and [the workset guide](docs/annotation-workset.md).
+
+## Deployment and library use
+
+The Compose recipe runs PostgreSQL, migrations, API, a separate inference worker,
+and the built frontend at `http://127.0.0.1:8080`. Follow the
+[deployment instructions](docs/getting-started.md#compose-deployment), including
+database credentials, Git LFS, migration head, and verification limitations.
+
+For a small library demonstration:
+
+```bash
+.venv/bin/python scripts/run_demo.py
+```
+
+The library entry point is `ReviewAnalyzer`. Its `analyze(review)` returns
+mention-level results; `aggregate(reviews)` is the legacy prototype adapter.
+Persisted application snapshots use `aggregate_saved_analyses` with the
+[saved-analysis aggregation policy](docs/contracts/aggregation.md).
+`use_transformer="auto"` currently requires trained artifacts just like `True`;
+choose `False` explicitly for heuristic library use.
+
+## Repository map
+
+```text
+src/review_tag_generator/   Models, normalization, tags, and evidence tools
+backend/app/               API, workers, persistence, corrections, annotations
+backend/alembic/           PostgreSQL schema migrations
+frontend/src/              React routes, review forms, and annotation workspace
+frontend/e2e/              Browser workflow verification
+scripts/                   Evaluation, dataset preparation, imports, and demos
+tests/                     Unit, HTTP/storage, PostgreSQL, and model checks
+audit/evidence/            Evaluation reports, manifests, and diagnostic summaries
+docs/                      User guides, architecture, API reference, and evidence
+```
+
+For a guided presentation, use the [faculty demo](docs/faculty-demo.md),
+[portfolio guide](docs/portfolio-guide.md), and
+[labeled screenshot assets](docs/assets/portfolio/README.md).
+Report bugs with reproduction steps and expected behavior through
+[GitHub Issues](https://github.com/sudo8phoenix/Review_tag_generator/issues).
+
+Dataset licenses apply to their named sources; they do not establish a license
+for this repository's code. Check the source-specific terms before redistribution.

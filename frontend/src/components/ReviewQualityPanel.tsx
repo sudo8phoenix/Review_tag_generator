@@ -30,7 +30,7 @@ type QualityQueueResponse = {
   disclaimer: string
 }
 
-type Props = { productId: string; snapshotId: string | null }
+type Props = { productId: string; snapshotId: string | null; onReview?: (reviewId: string, start: number, end: number) => void }
 
 const reasonNames: Record<string, string> = {
   unknown_aspect: 'Unknown aspect',
@@ -39,7 +39,7 @@ const reasonNames: Record<string, string> = {
   contradictory_sentiment: 'Mixed sentiment',
 }
 
-export function ReviewQualityPanel({ productId, snapshotId }: Props) {
+export function ReviewQualityPanel({ productId, snapshotId, onReview }: Props) {
   const [data, setData] = useState<QualityQueueResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -104,7 +104,9 @@ export function ReviewQualityPanel({ productId, snapshotId }: Props) {
             <blockquote>{item.review_text}</blockquote>
             <div className="rq-aspects" aria-label="Saved aspect predictions">
               {item.aspects.map((aspect, index) => <span className="rq-aspect" key={`${aspect.start_char ?? 'x'}-${aspect.end_char ?? 'x'}-${index}`}>
-                <strong>{aspect.raw_aspect ?? 'Aspect'}</strong>{' '}{aspect.normalized_aspect ?? 'Unmapped'} · {aspect.sentiment ?? 'sentiment not reported'}{typeof aspect.confidence === 'number' ? ` · ${(aspect.confidence * 100).toFixed(0)}% score` : ''}
+                {onReview && aspect.start_char !== undefined && aspect.end_char !== undefined
+                  ? <button type="button" className="evidence-link" aria-label={`Review ${aspect.raw_aspect ?? 'aspect'} prediction`} onClick={() => onReview(item.review_id, aspect.start_char!, aspect.end_char!)}>{aspect.raw_aspect ?? 'Aspect'}</button>
+                  : <strong>{aspect.raw_aspect ?? 'Aspect'}</strong>}{' '}{aspect.normalized_aspect ?? 'Unmapped'} · {aspect.sentiment ?? 'sentiment not reported'}{typeof aspect.confidence === 'number' ? ` · ${(aspect.confidence * 100).toFixed(0)}% score` : ''}
               </span>)}
             </div>
             <p className="rq-provenance">{item.backend ?? 'Backend not reported'}{item.context_policy ? ` · ${item.context_policy} context` : ''}{item.minimum_confidence != null ? ` · minimum score ${(item.minimum_confidence * 100).toFixed(1)}%` : ''}</p>

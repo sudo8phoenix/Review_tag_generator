@@ -10,7 +10,9 @@ import { StatusBadge } from '../components/StatusBadge'
 import { Dialog } from '../components/Dialog'
 import { SavedDataControls } from '../components/SavedDataControls'
 import { SavedImportsPanel } from '../components/SavedImportsPanel'
-import { UnknownAspectAssist, ProductReviewAssistant } from '../components/ReviewAssistant'
+import { UnknownAspectAssist, ProductReviewAssistant, type SavedAspectContext } from '../components/ReviewAssistant'
+import { AspectCorrectionPanel, CorrectionExport } from '../components/AspectCorrectionPanel'
+import { ReviewAnnotationWorkspace } from '../components/ReviewAnnotationWorkspace'
 import { EvidenceRobustnessPanel } from '../components/EvidenceRobustnessPanel'
 import { ReviewQualityPanel } from '../components/ReviewQualityPanel'
 import { ProductComparisonPanel } from '../components/ProductComparisonPanel'
@@ -65,7 +67,7 @@ function ReviewResults({ analyses, onEvidence }: { analyses: Analysis[]; onEvide
   </article>)}</div>
 }
 
-function AspectEvidenceDrawer({ evidence, onClose }: { evidence: { review: Analysis; tagIndex: number } | null; onClose: () => void }) {
+function AspectEvidenceDrawer({ evidence, onClose, savedContext }: { evidence: { review: Analysis; tagIndex: number } | null; onClose: () => void; savedContext?: SavedAspectContext }) {
   const review = evidence?.review
   const tag = evidence ? review?.tags[evidence.tagIndex] : undefined
   if (!review || !tag) return <Dialog open={false} onClose={onClose} title="Aspect evidence" variant="drawer"> </Dialog>
@@ -81,7 +83,9 @@ function AspectEvidenceDrawer({ evidence, onClose }: { evidence: { review: Analy
     <p className="field-hint">The highlighted phrase was classified using this context window.</p>
     <p className="review-quote evidence-context">“{context.slice(0, relativeStart).join('')}<mark>{context.slice(relativeStart, relativeEnd).join('')}</mark>{context.slice(relativeEnd).join('')}”</p>
     <dl className="evidence-details"><dt>Matched phrase</dt><dd>{tag.raw_aspect}</dd><dt>Normalized aspect</dt><dd>{tag.normalized_aspect ?? 'Unknown'}</dd><dt>Normalization</dt><dd>{tag.normalization_method ?? 'Not reported'}{tag.normalization_similarity != null ? ` · similarity ${(tag.normalization_similarity * 100).toFixed(1)}%` : ''}</dd><dt>Context policy</dt><dd>{review.context_policy ?? 'Not reported'}</dd><dt>Sentiment</dt><dd><SentimentBadge sentiment={tag.sentiment} /></dd><dt>Sentiment confidence</dt><dd>{tag.sentiment_confidence == null ? 'Not reported' : `${(tag.sentiment_confidence * 100).toFixed(1)}%`}</dd><dt>Aspect confidence</dt><dd>{tag.aspect_confidence == null ? 'Not reported' : `${(tag.aspect_confidence * 100).toFixed(1)}%`}</dd><dt>Tag</dt><dd>{tag.tag ?? 'No canonical tag'}</dd><dt>Summary score</dt><dd>{(tag.confidence * 100).toFixed(1)}%</dd>{tag.probabilities && <><dt>Sentiment probabilities</dt><dd>{(['negative', 'neutral', 'positive'] as const).map(label => `${label} ${((tag.probabilities?.[label] ?? 0) * 100).toFixed(1)}%`).join(' · ')}</dd></>}</dl>
-    {tag.normalized_aspect === null && <UnknownAspectAssist key={`${review.review.review_id}:${tag.start_char}`} review={review} tag={tag} />}
+    {savedContext && tag.start_char !== undefined && tag.end_char !== undefined
+      ? <AspectCorrectionPanel key={`${savedContext.snapshotId}:${review.review.review_id}:${tag.start_char}:${tag.end_char}`} review={review} tag={tag} savedContext={savedContext} />
+      : tag.normalized_aspect === null && <UnknownAspectAssist key={`${review.review.review_id}:${tag.start_char}`} review={review} tag={tag} />}
   </Dialog>
 }
 
@@ -189,11 +193,17 @@ export function ProductDetailPage() {
       {!!data.insights.aspects.length && <section className="content-section demo-spaced"><div className="section-heading"><div><h2>Aspect summary</h2><p>Search and sort to inspect support and sentiment.</p></div></div><div className="insight-controls"><label>Search aspects<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Display, battery…" /></label><label>Sort by<select value={sort} onChange={event => setSort(event.target.value as typeof sort)}><option value="support">Review support</option><option value="name">Aspect name</option><option value="sentiment">Positive share</option></select></label></div><div className="table-scroll"><table><thead><tr><th>Aspect</th><th>Review support</th><th>Positive</th><th>Neutral</th><th>Negative</th><th>Classification</th></tr></thead><tbody>{aspects.map(aspect => <tr key={aspect.aspect_id}><td>{aspect.aspect}</td><td>{aspect.review_count}</td><td>{aspect.counts?.positive ?? '—'}</td><td>{aspect.counts?.neutral ?? '—'}</td><td>{aspect.counts?.negative ?? '—'}</td><td>{aspect.classification.replaceAll('_', ' ')}</td></tr>)}</tbody></table>{!aspects.length && <p className="field-hint">No aspects match that search.</p>}</div></section>}
       <ProductReviewAssistant key={`ask:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
       <EvidenceRobustnessPanel key={`robustness:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
-      <ReviewQualityPanel key={`quality:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
+      <ReviewQualityPanel key={`quality:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} onReview={(reviewId, start, end) => {
+        const review = data.reviews.find(item => item.review.review_id === reviewId)
+        const tagIndex = review?.tags.findIndex(tag => tag.start_char === start && tag.end_char === end) ?? -1
+        if (review && tagIndex >= 0) setEvidence({ review, tagIndex })
+      }} />
+      <CorrectionExport productId={data.product.id} />
+      {data.snapshot_id && data.pipeline_version && <ReviewAnnotationWorkspace key={`annotations:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id} />}
       <ProductComparisonPanel key={`comparison:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} />
       <section className="content-section demo-spaced"><h2>Representative reviews</h2><div className="representative-list">{(data.insights.representative_reviews ?? []).map((item, index) => <article key={`${item.review_id}-${index}`}><div className="section-heading"><strong>{item.aspect ?? data.insights.aspects.find(aspect => aspect.aspect_id === item.aspect_id)?.aspect ?? 'Product aspect'}</strong><SentimentBadge sentiment={item.sentiment as 'positive' | 'neutral' | 'negative'} /></div><p className="review-quote">“{item.review_text}”</p><span className="field-hint">{item.tag ?? `Representative evidence · ${((item.confidence ?? 0) * 100).toFixed(1)}% model score`}</span></article>)}{!data.insights.representative_reviews?.length && <p className="field-hint">Representative reviews will appear as reviews are analyzed.</p>}</div></section>
       <h2 className="demo-spaced">Review evidence</h2><ReviewResults analyses={data.reviews} onEvidence={(review, tagIndex) => setEvidence({ review, tagIndex })} />{!data.reviews.length && <EmptyState title="No reviews yet">Analyze a review to populate this product’s insights.</EmptyState>}
-      <AspectEvidenceDrawer evidence={evidence} onClose={() => setEvidence(null)} />
+      <AspectEvidenceDrawer evidence={evidence && data.reviews.includes(evidence.review) ? evidence : null} onClose={() => setEvidence(null)} savedContext={data.snapshot_id && data.pipeline_version ? { productId: data.product.id, snapshotId: data.snapshot_id } : undefined} />
     </>}
   </>
 }

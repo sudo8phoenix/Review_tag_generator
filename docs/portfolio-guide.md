@@ -10,13 +10,13 @@ and the source-linked [ML guide](ml-explained.md).
 
 **Tagline:** Turn product reviews into feature-level feedback you can inspect.
 
-**40-word summary:**
+**Short summary:**
 
 > Review Tag Generator turns customer reviews into feature-level product insights. Two fine-tuned DistilBERT models identify aspects and their sentiment; deterministic rules normalize and aggregate predictions. Source spans, review-level support, versioned snapshots, and review tools make each result easier to inspect.
 
 ## Case study
 
-**120-word version:**
+**Case-study copy:**
 
 > Product teams receive reviews but lack a view of which features people discuss and how they feel. Whole-review sentiment hides mixed opinions, while untraceable summaries make insights hard to verify. I worked on Review Tag Generator, a web application that identifies aspect spans, classifies sentiment for each aspect, maps known aliases to a shared ontology, and builds product summaries from saved reviews. The interface links tags back to source text and provides quality, comparison, and single-review-removal tools. Processing runs through durable jobs and publishes versioned snapshots so imports do not expose partial totals. Held-out scores measure extraction and sentiment separately; they are not an end-to-end tag accuracy claim. The system remains a portfolio demo, with evaluation and production limits documented.
 
@@ -64,6 +64,8 @@ project does not claim a new model architecture or a new leave-one-out algorithm
 | Evidence drawer | Open a result and inspect the highlighted phrase and sentiment context | Makes model output traceable to original text |
 | Product insights | Show canonical aspect support, sentiment mix, and representative reviews | Summarizes saved predictions while preserving evidence |
 | Review quality queue | Inspect unknown aspects, low-confidence cases, empty detections, or contradictions | Helps a human decide what to review; it does not relabel predictions |
+| Reviewer corrections | Save a separate category/sentiment decision and inspect history | Preserves the original model output and reviewer rationale |
+| Full-review annotations | Add missed spans, edit boundaries, remove false detections, and track completion | Supports complete-review labeling, including explicit empty annotations |
 | Evidence robustness | Remove a represented vote and observe classification and tag stability | Reveals sensitivity to the available review sample |
 | Product comparison | Compare shared features and support across two products | Shows evidence gaps and avoids incompatible directional comparisons |
 | Batch import and job controls | Validate/import a file, watch row progress, inspect errors, and manage saved data | Makes bulk workflows observable and recoverable |
@@ -106,7 +108,9 @@ private customer reviews or API credentials. A concise walkthrough is:
 4. Save the review, wait for the job to finish, then open product insights.
 5. Show the quality queue, evidence robustness panel, and product comparison.
    Explain that each operates on saved predictions and published snapshots.
-6. Optionally request LLM assistance. Show the returned source citation and state
+6. Open the annotation workspace, add or revise a span, save a draft, and show
+   reviewed progress and export. Explain that these records do not update totals.
+7. Optionally request LLM assistance. Show the returned source citation and state
    that it is user-triggered, optional, and separate from recorded model metrics.
 
 Ready-to-use [screenshot assets and their provenance](assets/portfolio/README.md)
@@ -119,6 +123,8 @@ are included. Recommended portfolio screenshots, captured from the actual runnin
 | Evidence robustness panel | “Single-review-removal scenarios show when a tag depends on thin evidence.” |
 | Review quality queue and exported evidence | “The queue prioritizes cases for human inspection without changing model labels.” |
 | Product comparison with evidence gap visible | “Directional comparisons require minimum support and matching pipeline versions.” |
+| Annotation editor and review progress | “Reviewer revisions preserve original predictions and exact source spans.” |
+| Correction drawer and decision history | “Mapping and sentiment decisions are recorded separately with a reason.” |
 | Import progress with validation feedback | “Bulk reviews move through a durable job with visible row-level outcomes.” |
 
 Only use a screenshot if the displayed build and state match the caption. Do not
@@ -136,7 +142,10 @@ imply that illustrative or synthetic data are real customer evidence.
   SQLite demo, and separate model worker support durable batch processing.
 - React, TypeScript, Vite, and Recharts provide the browser application.
 - Optional Groq, Gemini, or local Ollama assistance runs only after a user request.
-  It cannot write mappings or alter saved predictions and totals.
+  Saved suggestions and explicit reviewer decisions are persisted separately;
+  they do not apply ontology mappings or alter saved predictions and totals.
+- Full-review annotations support missing spans, boundary edits, explicit empty
+  reviews, status filters, revision conflicts, and provenance-preserving exports.
 
 See [architecture](architecture.md), [LLM assistance boundaries](llm-assistance.md),
 and [normalization](normalization.md) for details.
@@ -175,6 +184,7 @@ readiness, and behavior under concurrent production workloads.
 - [Recorded evaluation and reproduction commands](evaluation.md)
 - [Evidence robustness method](evidence-robustness.md)
 - [Review quality queue](review-quality.md)
+- [Reviewer corrections](review-corrections.md) and [full-review annotations](review-annotations.md)
 - [Product comparison limits](product-comparison.md)
 - [Faculty demo walkthrough and code pointers](faculty-demo.md)
 - [Current release and verification status](release-status.md)

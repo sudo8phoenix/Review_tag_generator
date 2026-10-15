@@ -1,6 +1,6 @@
 # Project contributions and faculty demonstration
 
-The project now has three connected tools for examining model-generated review
+The project now has five connected tools for examining model-generated review
 insights. They are engineering and analysis contributions built around the saved
 models; they do not claim that DistilBERT or sensitivity analysis was invented here.
 
@@ -12,7 +12,10 @@ models; they do not claim that DistilBERT or sensitivity analysis was invented h
 | Review quality queue | Which predictions should a human inspect first? | Deterministic prioritization of unknown aspects, low scores, absent aspects and contradictory sentiment; exportable source evidence |
 | Product comparison | How does feature feedback differ between two products? | Canonical-aspect alignment, support checks, model-version compatibility checks and explicit evidence gaps |
 
-All three appear on the product insights page. Robustness and quality reports can
+| Aspect corrections | How should this saved prediction be revised? | Separate mapping/sentiment decisions, persisted suggestions, conflict checks and revision history |
+| Full-review annotations | What did extraction miss or label incorrectly? | Editable spans, false-positive removal, zero-aspect confirmation, review status and export |
+
+All five appear on the product insights page. Robustness and quality reports can
 be downloaded as JSON. A download records evidence for discussion; it does not
 create human-reviewed labels or retrain the model.
 
@@ -55,6 +58,22 @@ create human-reviewed labels or retrain the model.
 Synthetic demonstration examples are not evaluation data and must not be used to
 claim accuracy. Trained predictions may differ from the heuristic outputs above.
 
+## Reviewer workflow extension
+
+1. Open a saved aspect in the evidence drawer. Record a manual category or sentiment
+   decision with a reviewer name and reason, then reload its history. Optional LLM
+   suggestions can be accepted, edited, or rejected through the same workflow.
+2. Open the annotation workspace and select a review. Highlight source text to add
+   a missing aspect, adjust an existing boundary, or remove a false detection.
+3. Save a draft, then mark a checked review as reviewed. For “Nothing to report.”,
+   explicitly confirm the empty aspect list if that is your annotation decision.
+4. Show the progress filters and export. Explain that reviewer records remain
+   separate from the original model predictions and product totals. Names are
+   self-reported, and a saved decision is not independent gold certification.
+
+See [corrections](review-corrections.md) and [annotations](review-annotations.md)
+for concurrency, status, and export details.
+
 ## How to explain the work
 
 A defensible project description is: “We implemented an aspect-based review
@@ -72,7 +91,8 @@ Be prepared to explain these design choices:
 - **Tag versus classification stability:** good and excellent use the same positive
   tag family, so a classification can change without changing the tag.
 - **Human review suggestions:** confidence is uncalibrated and a flag is not proof
-  of an error. Human-approved corrections and automatic retraining are future work.
+  of an error. Reviewer corrections and full-review annotations are implemented;
+  independent label adjudication and automatic retraining remain future work.
 - **Comparison limits:** sampling differences and model errors can explain an
   observed gap; it is not proof that one product is objectively better.
 
@@ -81,7 +101,10 @@ Be prepared to explain these design choices:
 - `src/review_tag_generator/evidence_audit.py`: analytic leave-one-review-out report.
 - `src/review_tag_generator/quality_queue.py`: human review prioritization.
 - `src/review_tag_generator/comparison.py`: support-aware comparison.
-- `frontend/src/components/`: the three corresponding interactive panels.
+- `backend/app/corrections.py` and `annotations.py`: reviewer revision storage.
+- `frontend/src/components/`: evidence, correction, and annotation panels.
+- `tests/integration/test_corrections.py`, `test_annotations.py`, and the matching
+  browser suites: persisted reviewer workflows and stale-write protection.
 - `tests/unit/`, `tests/integration/test_application.py`, and
   `frontend/e2e/evidence-tools.spec.ts`: pure, HTTP/storage and browser verification.
 

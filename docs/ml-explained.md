@@ -217,3 +217,13 @@ review quotations. It is separate from the evaluated DistilBERT pipeline. Sugges
 are not automatically applied, and cited answer text is validated against saved
 review excerpts. Quote existence does not prove semantic correctness. These features
 need separate human evaluation before any accuracy claims can be made.
+
+## 12. Reviewer labels and original predictions
+
+[Aspect corrections](review-corrections.md) preserve individual mapping and sentiment
+decisions. [Full-review annotations](review-annotations.md) also capture missed
+spans, changed boundaries, removed detections, and explicit reviews with no aspects.
+Drafts, reviewed status, and adjudication status are separate from model output;
+a later aspect correction reopens an earlier completion for review. These records
+retain revision history and can be exported. They do not automatically retrain
+checkpoints, change aggregate votes, or improve the published evaluation scores.

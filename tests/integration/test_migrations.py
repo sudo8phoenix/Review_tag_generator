@@ -32,6 +32,9 @@ REQUIRED_TABLES = {
     "analysis_previews",
     "worker_status",
     "application_settings",
+    "review_suggestions",
+    "review_corrections",
+    "review_annotations",
 }
 
 
