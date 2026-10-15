@@ -196,3 +196,14 @@ boundary errors, weaker neutral sentiment recall, contrastive-sentence errors,
 unknown ontology concepts, uncalibrated confidence scores, and missing human
 normalization/end-to-end acceptance evidence. Stable tags can consistently repeat
 wrong model predictions; the robustness report cannot detect that by itself.
+
+
+## 10. Tools for inspecting predictions
+
+The product dashboard exposes the evidence robustness report interactively. The
+[quality queue](review-quality.md) suggests predictions for human review without
+changing their labels. [Product comparison](product-comparison.md) aligns canonical
+aspects across products and suppresses directional results for thin evidence or
+mismatched pipeline versions. These are downstream analysis features; they do not
+change the trained checkpoints or improve the recorded model scores by themselves.
+See [the demonstration guide](faculty-demo.md) for a repeatable walkthrough.

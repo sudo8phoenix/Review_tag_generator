@@ -239,3 +239,28 @@ def test_evidence_audit_uses_published_snapshot(client):
     assert audit['aspects'][0]['fragile_tag']
     assert audit['aspects'][0]['tag_stability'] == 0
     assert client.get('/api/demo/products/missing/evidence-audit').status_code == 404
+
+
+def test_quality_queue_and_comparison_follow_saved_evidence(client):
+    other = client.post('/api/demo/products', json={'name': 'Comparison laptop'}).json()['id']
+    reviews = ['Great display.', 'Excellent display.', 'Amazing display.', 'Poor display.', 'Terrible display.', 'Nothing to report.']
+    client.post('/api/demo/products/demo-laptop/jobs', json={'reviews': reviews})
+    client.post(f'/api/demo/products/{other}/jobs', json={'reviews': ['Poor display.', 'Terrible display.', 'Bad display.']})
+    finish(client)
+    detail = client.get('/api/demo/products/demo-laptop').json()
+    queue = client.get('/api/demo/products/demo-laptop/quality-queue').json()
+    assert queue['snapshot_id'] == detail['snapshot_id']
+    assert queue['summary']['reason_counts']['no_aspects'] == 1
+    assert any(item['review_text'] == 'Nothing to report.' for item in queue['items'])
+    comparison = client.get(f'/api/demo/products/demo-laptop/compare/{other}').json()
+    display = next(row for row in comparison['rows'] if row['aspect_id'] == 'display')
+    assert display['left']['review_count'] == 5
+    assert display['right']['review_count'] == 3
+    assert display['signal'] == 'left'
+    # Pending input must not alter published diagnostic evidence.
+    client.post('/api/demo/products/demo-laptop/jobs', json={'reviews': ['Another uninformative comment.']})
+    pending = client.get('/api/demo/products/demo-laptop/quality-queue').json()
+    assert pending['stale']
+    assert pending['items'] == queue['items']
+    assert client.get('/api/demo/products/missing/quality-queue').status_code == 404
+    assert client.get('/api/demo/products/demo-laptop/compare/missing').status_code == 404

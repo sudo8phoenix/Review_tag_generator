@@ -147,6 +147,23 @@ def evidence_audit(product_id: str):
         **{key: published[key] for key in ('snapshot_id', 'pipeline_version', 'aggregate_version', 'data_revision', 'stale')}}
 
 
+@app.get('/api/demo/products/{product_id}/quality-queue')
+def quality_queue(product_id: str):
+    from review_tag_generator.quality_queue import review_quality_queue
+    published = app.state.repository.detail(product_id, app.state.version, app.state.backend)
+    return {**review_quality_queue(published['reviews']),
+        **{key: published[key] for key in ('snapshot_id', 'pipeline_version', 'aggregate_version', 'data_revision', 'stale')}}
+
+
+@app.get('/api/demo/products/{product_id}/compare/{other_product_id}')
+def compare_product_feedback(product_id: str, other_product_id: str):
+    from review_tag_generator.comparison import compare_products
+    repository = app.state.repository
+    left = repository.detail(product_id, app.state.version, app.state.backend)
+    right = repository.detail(other_product_id, app.state.version, app.state.backend)
+    return compare_products(left, right)
+
+
 @app.post('/api/demo/products/{product_id}/preview')
 def preview(product_id: str, body: ReviewsInput):
     repository = app.state.repository

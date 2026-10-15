@@ -10,6 +10,16 @@ See [release status and remaining evidence gates](docs/release-status.md).
 For a complete explanation of the models, training, inference, and measured
 limitations, read [the ML guide](docs/ml-explained.md).
 
+## Project demonstration tools
+
+The product insights page now includes an interactive robustness audit, a
+[review quality queue](docs/review-quality.md) with prediction-evidence export,
+and [product comparison](docs/product-comparison.md) with support and model-version
+checks. These operate on saved review predictions and published snapshots.
+
+See [the faculty demo and contribution guide](docs/faculty-demo.md) for examples,
+code pointers, and a clear explanation of the project's contributions.
+
 ## Evidence robustness audit
 
 The project now checks whether product tags survive removing a single supporting

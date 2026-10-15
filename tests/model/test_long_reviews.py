@@ -1,5 +1,4 @@
 import pytest
-import torch
 from types import SimpleNamespace
 
 from review_tag_generator import ReviewAnalyzer
@@ -8,6 +7,8 @@ from review_tag_generator.transformer_models import ReviewTooLongError
 
 @pytest.mark.model
 def test_aspect_after_first_model_window_is_seen():
+    import torch
+
     analyzer = ReviewAnalyzer(use_transformer=True)
     text = "Nothing special here. " * 65 + "The battery is terrible."
     assert len(analyzer.models.aspect_tokenizer(text, add_special_tokens=False)["input_ids"]) > 256

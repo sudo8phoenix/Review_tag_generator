@@ -32,12 +32,12 @@ explicit heuristic demo uses `local_clause` and is reported separately.
 
 ## Verification on this workspace
 
-The full Python suite passes (219 passed, 2 PostgreSQL suites skipped), including
+The full Python suite passes (233 passed, 2 PostgreSQL suites skipped), including
 trained checkpoint tests and the complete
 HTTP → worker → database → snapshot path. PostgreSQL migration and repository
 integration tests require `POSTGRES_TEST_URL`; they are configured to run against
 an isolated PostgreSQL service in CI. The generated PostgreSQL migration SQL was
-checked locally. Frontend lint, production build, and unit tests pass; all 9
+checked locally. Frontend lint, production build, and unit tests pass; all 10
 Playwright browser tests pass, including the complete preview/save flow and draft
 recovery. Layouts were checked at 320, 768, and 1440 pixels without console or page
 errors. Compose configuration validation succeeds.
@@ -78,3 +78,16 @@ new browser or live PostgreSQL verification run.
 New snapshots record exact review membership. For snapshots created before this
 change, evidence selection uses the snapshot creation timestamp as a compatibility
 fallback. Reprocessing saved reviews publishes a snapshot with explicit membership.
+
+## Faculty demonstration features
+
+The product insights dashboard now includes interactive evidence robustness,
+a review quality queue with JSON export, and support-aware product comparison.
+Comparison suppresses directional results when pipeline versions differ. Queue
+and robustness views check snapshot identity before displaying results. See the
+[faculty demo guide](faculty-demo.md) for contribution details and examples.
+
+The GitHub non-model collection failure was fixed by moving the optional PyTorch
+import into the model test that uses it. The non-model suite was checked locally
+with both `torch` and `transformers` imports blocked. This follow-up does not
+constitute evidence of a completed remote GitHub Actions run.

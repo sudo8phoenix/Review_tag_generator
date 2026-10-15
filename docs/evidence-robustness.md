@@ -13,8 +13,9 @@ curl --fail http://127.0.0.1:8000/api/demo/products/demo-laptop/evidence-audit
 ```
 
 With Compose, use port 8080 instead. Replace `demo-laptop` with another product UUID
-as needed. This feature currently returns JSON through the API; it has no dedicated
-frontend screen. The endpoint also appears in the FastAPI `/docs` interface.
+as needed. The product insights page includes an interactive Evidence robustness panel with
+aspect selection, vote-removal scenarios, and a JSON download. The endpoint also
+appears in the FastAPI `/docs` interface.
 
 The response includes the published snapshot ID, pipeline version, aggregate
 version, revision and stale flag. Pending imports do not leak partial evidence

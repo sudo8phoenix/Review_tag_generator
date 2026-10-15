@@ -34,7 +34,7 @@ jobs:
           cache: pip
       - name: Install application and test dependencies
         run: python -m pip install -e '.[backend,test]'
-      - name: Run tests that do not require trained checkpoints or PostgreSQL
+      - name: Run non-model tests including PostgreSQL integration
         env:
           APP_PROFILE: unit
           MODEL_BACKEND: fake
