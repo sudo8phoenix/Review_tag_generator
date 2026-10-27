@@ -9,6 +9,8 @@
 .comparison-provenance strong { overflow-wrap: anywhere; font-size: 13px; }
 .comparison-provenance span { color: var(--muted); font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; }
 .comparison-note { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.comparison-provenance-details { color: var(--muted); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.comparison-provenance-details summary { color: var(--accent-dark); cursor: pointer; }
 .comparison-note.warning { padding: 10px 12px; color: #765211; background: #fbf6e9; border-left: 3px solid var(--warning); }
 .comparison-table table { min-width: 700px; }
 .comparison-table td, .comparison-table th { vertical-align: top; white-space: normal; }

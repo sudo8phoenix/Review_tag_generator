@@ -46,7 +46,7 @@ test('accepts, edits and rejects with persistent history and export', async ({ p
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   const { requests } = await fixture(page)
-  await page.goto(`/products/${productId}`)
+  await page.goto(`/products/${productId}/reviews`)
   await page.getByRole('button', { name: 'Show evidence for speed' }).click()
   const drawer = page.getByRole('dialog', { name: 'Aspect evidence' })
   await drawer.getByRole('button', { name: 'Suggest mapping' }).click()
@@ -82,6 +82,7 @@ test('accepts, edits and rejects with persistent history and export', async ({ p
   await expect(drawer.getByText('Rejected suggestion', { exact: true })).toBeVisible()
   await page.keyboard.press('Escape')
   const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: 'Advanced tools', exact: true }).click()
   await page.getByRole('button', { name: 'Export review decisions' }).click()
   expect((await download).suggestedFilename()).toContain('review-decisions-')
   expect(errors).toEqual([])
@@ -89,7 +90,7 @@ test('accepts, edits and rejects with persistent history and export', async ({ p
 
 test('keeps input and request identity when saving fails', async ({ page }) => {
   const { requests } = await fixture(page, true)
-  await page.goto(`/products/${productId}`)
+  await page.goto(`/products/${productId}/reviews`)
   await page.getByRole('button', { name: 'Show evidence for speed' }).click()
   const drawer = page.getByRole('dialog', { name: 'Aspect evidence' })
   await drawer.getByLabel('Reviewer name').fill('Reviewer A')
@@ -111,7 +112,7 @@ test('saves a real sentiment correction through the API and reloads it', async (
     const job = await saved.json()
     await expect.poll(async () => (await (await request.get(`/api/demo/jobs/${job.id}`)).json()).status, { timeout: 30_000 }).toBe('completed')
     const before = await (await request.get(`/api/demo/products/${product.id}`)).json()
-    await page.goto(`/products/${product.id}`)
+    await page.goto(`/products/${product.id}/reviews`)
     await page.getByRole('button', { name: 'Show evidence for battery' }).click()
     const drawer = page.getByRole('dialog', { name: 'Aspect evidence' })
     await drawer.getByLabel('Reviewer name').fill('Browser reviewer')

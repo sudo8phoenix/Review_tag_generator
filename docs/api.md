@@ -18,6 +18,7 @@ configured API target. All paths below include the `/api` prefix.
 | GET / POST | `/api/demo/products` | List products / create with `{"name":"…"}` |
 | GET | `/api/demo/products/{product_id}` | Published model evidence and insights |
 | POST | `/api/demo/products/{product_id}/preview` | Queue expiring unsaved review previews |
+| POST | `/api/demo/products/{product_id}/preview-summary` | Summarize completed, unexpired previews without saving |
 | GET | `/api/demo/previews/{preview_id}` | Poll one preview |
 | POST | `/api/demo/products/{product_id}/reviews` | Save reviews and queue analysis |
 | POST | `/api/demo/products/{product_id}/jobs` | Alias for the review-submission route |
@@ -39,6 +40,14 @@ Preview returns queued IDs, not immediate analyses. Poll each ID until completed
 or failed. Previews expire after 30 minutes and never change product totals.
 Submission returns a 202 job; poll it before expecting a newly published snapshot.
 Use an `Idempotency-Key` header for retryable review/import submissions.
+
+For an unsaved shopping summary, send `{"preview_ids":["<preview UUID>","<preview UUID>"]}`
+to the product's `preview-summary` route after polling completes. It accepts 1–100
+IDs and returns `saved: false`, the pipeline version, duplicate-text count, and
+`insights` using the same aggregation rules as saved products. IDs must belong to
+that product, be complete and unexpired, and use the current pipeline. Repeated
+IDs and whitespace/case-folded duplicate texts cannot inflate review support.
+The endpoint publishes no snapshot and changes no saved review totals.
 
 File validation/import uses JSON content rather than the target contract's
 multipart upload:

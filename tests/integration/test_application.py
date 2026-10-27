@@ -324,3 +324,41 @@ def test_demo_deletion_survives_repository_reinitialization(client):
     assert client.delete('/api/demo/products/demo-laptop').status_code == 200
     repository.initialize()
     assert client.get('/api/demo/products').json() == []
+
+
+def test_preview_summary_is_unsaved_deduplicated_and_matches_published_votes(client):
+    reviews = ['Great display.', '  GREAT   display. ', 'Excellent display.', 'Poor display.']
+    ids = client.post('/api/demo/products/demo-laptop/preview', json={'reviews': reviews}).json()['preview_ids']
+    assert client.post('/api/demo/products/demo-laptop/preview-summary', json={'preview_ids': ids}).status_code == 409
+    finish(client)
+    summary = client.post('/api/demo/products/demo-laptop/preview-summary', json={'preview_ids': ids + [ids[0]]}).json()
+    assert summary['saved'] is False
+    assert summary['duplicate_reviews'] == 1
+    assert summary['insights']['review_count'] == 3
+    assert summary['insights']['aspects'][0]['counts'] == {'positive': 2, 'neutral': 0, 'negative': 1}
+    assert summary['insights']['aspects'][0]['classification'] == 'good'
+    assert client.get('/api/demo/products/demo-laptop').json()['insights']['review_count'] == 0
+    client.post('/api/demo/products/demo-laptop/jobs', json={'reviews': reviews})
+    finish(client)
+    published = client.get('/api/demo/products/demo-laptop').json()['insights']
+    assert summary['insights']['aspects'] == published['aspects']
+
+
+def test_preview_summary_rejects_other_product_expiry_version_and_invalid_ids(client):
+    from backend.app.db.models import AnalysisPreview
+    other = client.post('/api/demo/products', json={'name': 'Other product'}).json()['id']
+    ids = client.post('/api/demo/products/demo-laptop/preview', json={'reviews': ['Great battery.']}).json()['preview_ids']
+    finish(client)
+    assert client.post(f'/api/demo/products/{other}/preview-summary', json={'preview_ids': ids}).status_code == 404
+    for invalid in [[], ['bad-id'], [str(UUID(int=0))], ids * 101]:
+        response = client.post('/api/demo/products/demo-laptop/preview-summary', json={'preview_ids': invalid})
+        assert response.status_code in [404, 422]
+    with app.state.repository.transaction() as db:
+        preview = db.get(AnalysisPreview, UUID(ids[0]))
+        preview.pipeline_version = 'older-pipeline'
+    assert client.post('/api/demo/products/demo-laptop/preview-summary', json={'preview_ids': ids}).status_code == 409
+    with app.state.repository.transaction() as db:
+        preview = db.get(AnalysisPreview, UUID(ids[0]))
+        preview.pipeline_version = app.state.version
+        preview.expires_at = utcnow() - timedelta(seconds=1)
+    assert client.post('/api/demo/products/demo-laptop/preview-summary', json={'preview_ids': ids}).status_code == 410

@@ -6,7 +6,7 @@ test('redirects home to products and exposes the app landmarks', async ({ page }
   await expect(page.getByRole('banner')).toBeVisible()
   await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible()
   await expect(page.getByRole('main')).toBeVisible()
-  await expect(page.getByRole('heading', { level: 1, name: 'Products' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Saved products' })).toBeVisible()
 })
 
 test('primary navigation reaches metrics and returns to products', async ({ page }) => {
@@ -15,7 +15,7 @@ test('primary navigation reaches metrics and returns to products', async ({ page
   await expect(page).toHaveURL(/\/models$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Model metrics' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Aspect extraction · held-out test' })).toBeVisible()
-  await page.getByRole('link', { name: 'Products' }).click()
+  await page.getByRole('link', { name: 'Saved products' }).click()
   await expect(page).toHaveURL(/\/products$/)
 })
 
@@ -30,6 +30,7 @@ test('skip link is keyboard reachable and moves focus to main content', async ({
 
 test('navigation links follow a predictable keyboard order', async ({ page }) => {
   await page.goto('/products')
+  await page.keyboard.press('Tab')
   await page.keyboard.press('Tab')
   await page.keyboard.press('Tab')
   await page.keyboard.press('Tab')

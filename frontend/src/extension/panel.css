@@ -1,0 +1,68 @@
+:root { --accent: #17654e; --accent-dark: #104d3b; --accent-soft: #e7efe8; background: #f7f8f5; }
+body { min-width: 280px; }
+.companion-panel { min-height: 100vh; background: #f7f8f5; }
+.panel-brand { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 17px 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.panel-brand .brand { font-size: 11px; letter-spacing: -.03em; gap: 8px; }
+.panel-brand .brand-mark { width: 28px; height: 28px; font-size: 14px; }
+.panel-brand-light { color: var(--muted); font-weight: 500; }
+.panel-settings { width: 34px; height: 34px; border: 1px solid var(--line); background: var(--surface); border-radius: 5px; color: var(--muted); cursor: pointer; }
+.panel-settings .icon { width: 17px; height: 17px; }
+.panel-content { padding: 28px 22px; }
+.panel-content > .eyebrow { font-size: 9px; color: var(--muted); }
+.panel-content h1 { margin: 0 0 12px; color: var(--ink); font: 500 31px/1.12 Georgia, serif; letter-spacing: -.035em; }
+.panel-intro { color: var(--muted); font-size: 12px; line-height: 1.8; margin: 0; }
+.panel-connection { display: flex; gap: 7px; align-items: center; font-size: 9px; color: var(--muted); margin: 18px 0 24px; }
+.panel-status-dot { width: 6px; height: 6px; background: var(--muted); border-radius: 50%; }
+.panel-status-dot.connected { background: var(--positive); }
+.panel-step { padding-top: 20px; margin-top: 20px; border-top: 1px solid var(--line); }
+.panel-step-label { display: flex; gap: 10px; align-items: center; margin-bottom: 17px; }
+.panel-step-label > span { color: var(--accent); font-size: 9px; border: 1px solid #c8d8cd; background: var(--accent-soft); padding: 5px 6px; border-radius: 4px; }
+.panel-step-label h2 { margin: 0; font-size: 14px; letter-spacing: -.025em; }
+.panel-step > summary.panel-step-label { color: var(--ink); }
+.panel-step > summary::after { content: 'Edit'; color: var(--muted); margin-left: auto; font-size: 9px; }
+.panel-step[open] > summary::after { content: 'Hide'; }
+.panel-step > summary h2 { font-size: 13px; }
+.panel-current-product { display: flex; align-items: start; gap: 8px; margin: 16px 0 0; padding: 13px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--muted); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; }
+.panel-current-product strong { display: block; font-weight: 600; color: var(--ink); }
+.panel-current-product .icon { flex-shrink: 0; width: 17px; height: 17px; color: var(--accent); }
+.panel-wide { width: 100%; min-height: 43px; gap: 9px; white-space: normal; line-height: 1.6; overflow-wrap: anywhere; }
+.panel-wide .icon { flex-shrink: 0; width: 17px; height: 17px; }
+.panel-note { color: var(--muted); font-size: 10px; line-height: 1.85; margin: 12px 0 0; }
+.panel-content summary { color: var(--accent); cursor: pointer; font-size: 11px; line-height: 1.6; }
+.panel-step > details { margin: 15px 0; }
+.panel-content input, .panel-content select, .panel-content textarea { min-width: 0; width: 100%; color: var(--ink); background: var(--surface); border: 1px solid #c7d2ca; border-radius: 5px; padding: 10px; font: inherit; font-size: 12px; line-height: 1.6; }
+.panel-content textarea { resize: vertical; }
+.panel-content label { display: block; color: var(--muted); font-size: 10px; margin: 13px 0 6px; }
+.panel-step select { margin-bottom: 0; }
+.panel-paste-label { margin-top: 14px; }
+.panel-create .button { margin-top: 10px; }
+.panel-capture { padding: 15px; background: var(--accent-soft); border: 1px solid #cfddd1; border-radius: 5px; margin-top: 18px; overflow-wrap: anywhere; }
+.panel-capture > strong, .panel-capture > span { display: block; font-size: 11px; line-height: 1.7; }
+.panel-capture > span { color: var(--muted); font-size: 10px; margin-top: 5px; }
+.panel-capture > p { font-size: 10px; color: var(--muted); line-height: 1.8; margin: 9px 0 12px; }
+.panel-captured-text { font-size: 11px; line-height: 1.9; color: var(--ink); }
+.panel-step + .panel-wide { margin-top: 9px; }
+.panel-results { margin-top: 24px; padding-top: 23px; border-top: 1px solid var(--line); }
+.panel-results > .panel-note { margin-bottom: 15px; }
+.panel-feature { border-top: 1px solid var(--line); padding: 14px 0; }
+.panel-feature summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--ink); }
+.panel-feature summary strong { font-size: 13px; }
+.panel-feature-status { font-size: 9px; color: var(--muted); text-transform: capitalize; text-align: right; }
+.panel-feature-status.good, .panel-feature-status.excellent { color: var(--positive); }
+.panel-feature-status.poor, .panel-feature-status.weak { color: var(--negative); }
+.panel-feature-status.insufficient_evidence { color: var(--warning); }
+.panel-votes { font-size: 10px; line-height: 1.8; color: var(--muted); }
+.panel-feature blockquote { margin: 12px 0; padding: 10px 13px; border-left: 2px solid #b5c9bb; background: var(--surface); color: var(--ink); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+.panel-job, .panel-recovery { padding: 14px; margin-top: 20px; color: var(--accent-dark); background: var(--accent-soft); border: 1px solid #c8d8cd; border-radius: 5px; font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.panel-job h2 { font-size: 13px; margin: 0 0 7px; }
+.panel-job p { margin: 0 0 7px; }
+.panel-workspace { display: flex; gap: 8px; justify-content: space-between; align-items: center; width: 100%; padding: 15px 0 0; margin-top: 25px; border: 0; border-top: 1px solid var(--line); color: var(--accent); background: transparent; text-align: left; font: inherit; font-weight: 600; font-size: 11px; cursor: pointer; }
+.panel-workspace .icon { width: 16px; height: 16px; }
+.panel-footer { padding: 16px 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; line-height: 1.7; }
+.panel-settings-form { padding: 17px; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; margin: 18px 0; }
+.panel-settings-form h2 { margin: 0; font-size: 14px; }
+.panel-settings-form p { font-size: 11px; color: var(--muted); line-height: 1.7; }
+.panel-settings-form .button { margin-top: 15px; }
+.panel-content .alert { margin: 16px 0; font-size: 11px; overflow-wrap: anywhere; }
+.panel-content :disabled { opacity: .6; cursor: not-allowed; }
+@media (max-width: 320px) { .panel-brand { padding-inline: 16px; } .panel-content { padding-inline: 17px; } .panel-content h1 { font-size: 28px; } }

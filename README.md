@@ -10,6 +10,11 @@ reviewer corrections, and full-review annotations separately traceable.
 [Getting started](docs/getting-started.md) · [Documentation](docs/README.md) ·
 [Architecture](docs/architecture.md) · [Release status](docs/release-status.md)
 
+The new [shopping companion guide](docs/shopping-companion.md) covers the saved-product
+interface, feature/evidence view, comparison page, and unpacked local Chrome extension.
+Open **Browser companion** in the app for setup. The retailer adapter is experimental;
+selection/paste, unsaved preview, and explicit saving work through the local API.
+
 ## What you can do
 
 | Workflow | What it provides |

@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { useCallback, useEffect, useState } from 'react'
+import { Link, NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { api, type Analysis, type Detail, type ImportValidation, type Job, type ModelMetrics, type PreviewPoll, type Product } from '../api'
 import { Button } from '../components/Button'
 import { EmptyState } from '../components/EmptyState'
@@ -15,7 +14,8 @@ import { AspectCorrectionPanel, CorrectionExport } from '../components/AspectCor
 import { ReviewAnnotationWorkspace } from '../components/ReviewAnnotationWorkspace'
 import { EvidenceRobustnessPanel } from '../components/EvidenceRobustnessPanel'
 import { ReviewQualityPanel } from '../components/ReviewQualityPanel'
-import { ProductComparisonPanel } from '../components/ProductComparisonPanel'
+import { ProductInsights } from '../components/ProductInsights'
+import { Icon } from '../components/Icon'
 
 function ErrorMessage({ error }: { error: string }) {
   return error ? <p className="alert alert-error" role="alert">{error}</p> : null
@@ -107,34 +107,48 @@ export function ProductsPage() {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
-  useEffect(() => { let active = true; api<Product[]>('/demo/products').then(value => { if (active) { discardRemovedProductDrafts(value); setProducts(value) } }).catch(reason => { if (active) setError(reason.message) }); return () => { active = false } }, [])
-  async function refreshProducts() {
-    try { const value = await api<Product[]>('/demo/products'); discardRemovedProductDrafts(value); setProducts(value); setError('') }
-    catch (reason) { setError((reason as Error).message) }
-  }
+  const [params, setParams] = useSearchParams()
+  const query = params.get('q') ?? ''
+  useEffect(() => {
+    let active = true
+    api<Product[]>('/demo/products').then(value => { if (active) { discardRemovedProductDrafts(value); setProducts(value) } }).catch(reason => { if (active) setError(reason.message) })
+    return () => { active = false }
+  }, [])
   async function create(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError('')
-    try { await api('/demo/products', { name }); setProducts(await api<Product[]>('/demo/products')); setName('') } catch (reason) { setError((reason as Error).message) } finally { setBusy(false) }
+    try { await api('/demo/products', { name }); setProducts(await api<Product[]>('/demo/products')); setName('') }
+    catch (reason) { setError((reason as Error).message) } finally { setBusy(false) }
   }
+  const visible = products?.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
   return <>
-    <PageHeader eyebrow="Workspace" title="Products" description="Explore customer feedback, analyze a new review, and generate aspect-level tags." />
+    <PageHeader eyebrow="A more considered purchase" title="Saved products" description="Keep your options together. Let the reviews tell you more." actions={<Link className="button button-secondary" to="/companion"><Icon name="browser" /> Browser companion</Link>} />
     <ErrorMessage error={error} />
-    <form className="content-section demo-form" onSubmit={create}>
-      <label htmlFor="product-name">Create a product</label><div className="demo-actions"><input id="product-name" value={name} onChange={event => setName(event.target.value)} placeholder="e.g. Campus laptop" maxLength={120} required /><Button busy={busy} disabled={!name.trim()}>Create product</Button></div>
+    <section className="collection-intro"><div><span className="section-number">01 / YOUR SHORTLIST</span><h2>Good decisions start with a closer look.</h2><p>Collect reviews, uncover recurring feedback, and compare the features that matter to you.</p></div><div className="collection-total"><strong>{products?.length ?? '—'}</strong><span>saved product{products?.length === 1 ? '' : 's'}</span></div></section>
+    <form className="create-product-form demo-form" onSubmit={create}>
+      <label htmlFor="product-name">Create a product</label><div className="demo-actions"><input id="product-name" value={name} onChange={event => setName(event.target.value)} placeholder="Name a product you’re considering…" maxLength={120} required /><Button busy={busy} disabled={!name.trim()}><Icon name="plus" /> Create product</Button></div>
     </form>
-    <div className="demo-stack">{products === null && !error && <p role="status">Connecting to backend and loading products…</p>}
-      {products?.map(product => <section className="content-section" key={product.id}><div className="section-heading"><div><h2>{product.name}</h2><p>{product.review_count} saved reviews</p></div><StatusBadge tone="success">Ready to analyze</StatusBadge></div>
-        <div className="demo-actions"><Link className="button button-primary" to={`/products/${product.id}`}>View insights</Link><Link className="button button-secondary" to={`/products/${product.id}/review`}>Analyze review</Link><Link className="text-link" to={`/products/${product.id}/upload`}>Import reviews</Link></div><SavedDataControls productId={product.id} productName={product.name} onCleared={() => void refreshProducts()} onDeleted={() => void refreshProducts()} /></section>)}
-      {products?.length === 0 && <EmptyState title="No products yet">Create a product above to start analyzing reviews.</EmptyState>}
+    <div className="collection-toolbar"><h2>Your products <span>{products?.length ?? '—'}</span></h2><label className="collection-search"><Icon name="search" /><span className="sr-only">Search saved products</span><input value={query} placeholder="Search your products…" onChange={event => setParams(event.target.value ? { q: event.target.value } : {}, { replace: true })} /></label></div>
+    <div className="product-collection">
+      {products === null && !error && <p role="status">Connecting to the local service and loading your products…</p>}
+      {visible?.map((product, index) => <section className="content-section saved-product-row" key={product.id}><div className="product-thumbnail" aria-hidden="true"><Icon name="bookmark" /><span>{String(index + 1).padStart(2, '0')}</span></div><div className="saved-product-info"><span className="product-kicker">SAVED PRODUCT</span><h2>{product.name}</h2><p>{product.review_count} saved review{product.review_count === 1 ? '' : 's'} <span aria-hidden="true">·</span> {product.review_count ? 'Ready to explore' : 'Add reviews to see feedback'}</p><div className="product-row-links"><Link to={`/products/${product.id}/review`}>Analyze review</Link><Link to={`/products/${product.id}/upload`}>Import reviews</Link><Link to={`/compare?left=${encodeURIComponent(product.id)}`}>Compare</Link></div></div><Link className="button button-secondary product-open" to={`/products/${product.id}`}>View insights <Icon name="arrow" /></Link></section>)}
+      {products?.length === 0 && <EmptyState title="Start your first shortlist">Create a product above, then paste or import reviews. Your saved findings will stay together here.</EmptyState>}
+      {!!products?.length && visible?.length === 0 && <EmptyState title="No matching products">Try a different name or clear the search to see your collection.</EmptyState>}
     </div>
+    <p className="collection-footnote"><Icon name="quote" /> Every finding starts with a review. Your saved sample may differ from a retailer’s full review history.</p>
   </>
 }
 
-export function ProductDetailPage() {
+type ProductView = 'overview' | 'reviews' | 'advanced' | 'settings'
+
+export function ProductDetailPage({ view = 'overview' }: { view?: ProductView }) {
+  const { id } = useParams()
+  return <ProductDetail key={`${id}:${view}`} view={view} />
+}
+
+function ProductDetail({ view }: { view: ProductView }) {
   const navigate = useNavigate()
-  const { id } = useParams(); const { data, error, refresh } = useDetail(id)
-  const [query, setQuery] = useState('')
-  const [sort, setSort] = useState<'support' | 'name' | 'sentiment'>('support')
+  const { id } = useParams()
+  const { data, error, refresh } = useDetail(id)
   const [evidence, setEvidence] = useState<{ review: Analysis; tagIndex: number } | null>(null)
   const [regeneration, setRegeneration] = useState<Job | null>(null)
   const [regenerationError, setRegenerationError] = useState('')
@@ -142,19 +156,6 @@ export function ProductDetailPage() {
   const regenerationId = regeneration?.id
   const regenerationStatus = regeneration?.status
   const regenerationActive = !!regenerationId && !!regenerationStatus && !['completed', 'completed_with_errors', 'failed'].includes(regenerationStatus)
-  const aspects = useMemo(() => {
-    const needle = query.trim().toLowerCase()
-    const rows = (data?.insights.aspects ?? []).map(item => {
-      if (item.counts) return item
-      const counts: Record<string, number> = { positive: 0, neutral: 0, negative: 0 }
-      for (const review of data?.reviews ?? []) {
-        const sentiments = new Set(review.tags.filter(tag => tag.normalized_aspect === item.aspect || tag.normalized_aspect === item.aspect_id).map(tag => tag.sentiment))
-        for (const sentiment of sentiments) counts[sentiment] = (counts[sentiment] ?? 0) + 1
-      }
-      return { ...item, counts, ratios: Object.fromEntries(Object.entries(counts).map(([key, value]) => [key, value / Math.max(item.review_count, 1)])) }
-    }).filter(item => !needle || item.aspect.toLowerCase().includes(needle) || item.classification.includes(needle))
-    return rows.sort((a, b) => sort === 'name' ? a.aspect.localeCompare(b.aspect) : sort === 'sentiment' ? (b.ratios?.positive ?? 0) - (a.ratios?.positive ?? 0) : b.review_count - a.review_count)
-  }, [data, query, sort])
   useEffect(() => {
     if (!regenerationId || !regenerationStatus || !regenerationActive) return
     let active = true
@@ -179,30 +180,20 @@ export function ProductDetailPage() {
     try { setRegeneration(await api<Job>(`/demo/products/${id}/regenerate`, {})) }
     catch (reason) { setRegenerationError((reason as Error).message) } finally { setRegenerationBusy(false) }
   }
-  return <><PageHeader eyebrow="Product insights" title={data?.product.name ?? 'Product'} description="Saved review evidence, generated tags, and recurring customer opinions." /><ErrorMessage error={error} />
-    {!data && !error && <p role="status">Loading insights…</p>}
-    {data && <><div className="demo-actions"><Link className="button button-primary" to={`/products/${id}/review`}>Analyze a review</Link><Link className="button button-secondary" to={`/products/${id}/upload`}>Import reviews</Link><StatusBadge>{data.backend === 'transformer' ? 'Trained DistilBERT' : 'Heuristic demo'}</StatusBadge></div>
+  const onEvidence = (review: Analysis, tagIndex: number) => setEvidence({ review, tagIndex })
+  return <>
+    <Link className="back-link" to="/products">← Saved products</Link>
+    <PageHeader eyebrow="A closer look" title={data?.product.name ?? 'Product'} description="The strengths, the tradeoffs, and the reviews behind them." actions={<Link className="button button-primary" to={`/products/${id}/review`}><Icon name="plus" /> Analyze a review</Link>} />
+    <ErrorMessage error={error} />
+    {!data && !error && <p role="status">Loading saved evidence…</p>}
+    {data && <>
+      <div className="product-context"><StatusBadge>{data.backend === 'transformer' ? 'Trained DistilBERT' : 'Heuristic demo'}</StatusBadge><span>Saved review sample · {data.stale ? 'earlier analysis' : 'published analysis'}</span><Link to={`/products/${id}/upload`}>Import reviews</Link></div>
+      <nav className="product-tabs" aria-label="Product views"><NavLink end to={`/products/${id}`}>Overview</NavLink><NavLink to={`/products/${id}/reviews`}>Review evidence</NavLink><Link to={`/compare?left=${encodeURIComponent(data.product.id)}`}>Compare</Link><NavLink to={`/products/${id}/advanced`}>Advanced tools</NavLink><NavLink to={`/products/${id}/settings`}>Data settings</NavLink></nav>
       {data.stale && <section className="alert alert-warning stale-insights"><div><strong>Showing the last published analysis</strong><p>These insights may use an earlier analysis version or exclude recent reviews. Refresh analyses to include saved feedback.</p></div><Button variant="secondary" onClick={() => void regenerate()} disabled={regenerationBusy || regenerationActive}>{regenerationActive ? 'Refresh in progress…' : 'Refresh analyses'}</Button>{regeneration && <p role="status">Refresh job {regeneration.status.replaceAll('_', ' ')} · {regeneration.completed_rows} of {regeneration.total_rows} reviews analyzed</p>}{regenerationError && <p role="alert">{regenerationError}</p>}</section>}
-      <SavedDataControls productId={data.product.id} productName={data.product.name} onCleared={refresh} onDeleted={() => navigate('/products')} />
-      <SavedImportsPanel key={`imports:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} onRemoved={refresh} />
-      <div className="demo-stats"><section><strong>{data.insights.review_count}</strong><span>Saved reviews</span></section>{['positive', 'neutral', 'negative'].map(sentiment => <section key={sentiment}><strong>{data.insights.sentiment_distribution[sentiment] ?? 0}</strong><span>{sentiment} aspect votes</span></section>)}</div>
-      <section className="content-section"><div className="section-heading"><div><h2>Sentiment by aspect</h2><p>Review votes grouped by detected product feature.</p></div></div>
-        {data.insights.aspects.length ? <div className="sentiment-chart" role="img" aria-label="Stacked chart showing positive, neutral, and negative votes by aspect"><ResponsiveContainer width="100%" height={Math.max(220, data.insights.aspects.length * 42)}><BarChart data={aspects} layout="vertical" margin={{ left: 20, right: 18, top: 8, bottom: 8 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} /><XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="aspect" width={95} tick={{ fontSize: 11 }} /><Tooltip /><Bar isAnimationActive={false} dataKey="counts.positive" name="Positive" stackId="votes" fill="#177451" /><Bar isAnimationActive={false} dataKey="counts.neutral" name="Neutral" stackId="votes" fill="#a5b0aa" /><Bar isAnimationActive={false} dataKey="counts.negative" name="Negative" stackId="votes" fill="#b54742" /></BarChart></ResponsiveContainer></div> : <p className="field-hint">No aspect votes to chart yet.</p>}
-      </section>
-      <section className="content-section"><h2>Supported product tags</h2><p className="field-hint">Tags require at least three supporting reviews. Add more feedback to establish recurring themes.</p><div className="demo-actions">{data.insights.top_tags.map(tag => <StatusBadge key={tag.aspect_id}>{tag.aggregate_tag ?? tag.aspect}</StatusBadge>)}{!data.insights.top_tags.length && <p>No tags have enough evidence yet.</p>}</div></section>
-      {!!data.insights.aspects.length && <section className="content-section demo-spaced"><div className="section-heading"><div><h2>Aspect summary</h2><p>Search and sort to inspect support and sentiment.</p></div></div><div className="insight-controls"><label>Search aspects<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Display, battery…" /></label><label>Sort by<select value={sort} onChange={event => setSort(event.target.value as typeof sort)}><option value="support">Review support</option><option value="name">Aspect name</option><option value="sentiment">Positive share</option></select></label></div><div className="table-scroll"><table><thead><tr><th>Aspect</th><th>Review support</th><th>Positive</th><th>Neutral</th><th>Negative</th><th>Classification</th></tr></thead><tbody>{aspects.map(aspect => <tr key={aspect.aspect_id}><td>{aspect.aspect}</td><td>{aspect.review_count}</td><td>{aspect.counts?.positive ?? '—'}</td><td>{aspect.counts?.neutral ?? '—'}</td><td>{aspect.counts?.negative ?? '—'}</td><td>{aspect.classification.replaceAll('_', ' ')}</td></tr>)}</tbody></table>{!aspects.length && <p className="field-hint">No aspects match that search.</p>}</div></section>}
-      <ProductReviewAssistant key={`ask:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
-      <EvidenceRobustnessPanel key={`robustness:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} />
-      <ReviewQualityPanel key={`quality:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} onReview={(reviewId, start, end) => {
-        const review = data.reviews.find(item => item.review.review_id === reviewId)
-        const tagIndex = review?.tags.findIndex(tag => tag.start_char === start && tag.end_char === end) ?? -1
-        if (review && tagIndex >= 0) setEvidence({ review, tagIndex })
-      }} />
-      <CorrectionExport productId={data.product.id} />
-      {data.snapshot_id && data.pipeline_version && <ReviewAnnotationWorkspace key={`annotations:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id} />}
-      <ProductComparisonPanel key={`comparison:${data.product.id}:${data.snapshot_id}`} productId={data.product.id} />
-      <section className="content-section demo-spaced"><h2>Representative reviews</h2><div className="representative-list">{(data.insights.representative_reviews ?? []).map((item, index) => <article key={`${item.review_id}-${index}`}><div className="section-heading"><strong>{item.aspect ?? data.insights.aspects.find(aspect => aspect.aspect_id === item.aspect_id)?.aspect ?? 'Product aspect'}</strong><SentimentBadge sentiment={item.sentiment as 'positive' | 'neutral' | 'negative'} /></div><p className="review-quote">“{item.review_text}”</p><span className="field-hint">{item.tag ?? `Representative evidence · ${((item.confidence ?? 0) * 100).toFixed(1)}% model score`}</span></article>)}{!data.insights.representative_reviews?.length && <p className="field-hint">Representative reviews will appear as reviews are analyzed.</p>}</div></section>
-      <h2 className="demo-spaced">Review evidence</h2><ReviewResults analyses={data.reviews} onEvidence={(review, tagIndex) => setEvidence({ review, tagIndex })} />{!data.reviews.length && <EmptyState title="No reviews yet">Analyze a review to populate this product’s insights.</EmptyState>}
+      {view === 'overview' && <><ProductInsights data={data} onEvidence={onEvidence} />{data.insights.top_tags.length > 0 && <section className="supported-tags"><h2>Supported product tags</h2><div>{data.insights.top_tags.map(tag => <StatusBadge key={tag.aspect_id}>{tag.aggregate_tag ?? tag.aspect}</StatusBadge>)}</div><p>Recurring feedback in this saved sample, supported by at least three reviews per feature.</p></section>}<details className="optional-assistant"><summary>Ask about these reviews <span>Optional assistance</span></summary><ProductReviewAssistant key={`ask:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} /></details></>}
+      {view === 'reviews' && <section aria-labelledby="review-evidence-heading"><div className="section-heading evidence-list-heading"><div><h2 id="review-evidence-heading">Review evidence</h2><p>Original reviews and predictions from this published sample. Select a highlighted phrase to inspect it.</p></div><span className="count-label">{data.reviews.length} reviews</span></div><ReviewResults analyses={data.reviews} onEvidence={onEvidence} />{!data.reviews.length && <EmptyState title="No reviews yet">Analyze a review to populate this product’s insights.</EmptyState>}</section>}
+      {view === 'advanced' && <div className="advanced-tools"><div className="section-heading"><div><h2>Review and evaluate</h2><p>Inspect prediction stability and record reviewer decisions. Decisions stay separate from model totals.</p></div></div><EvidenceRobustnessPanel key={`robustness:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} /><ReviewQualityPanel key={`quality:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id ?? null} onReview={(reviewId, start, end) => { const review = data.reviews.find(item => item.review.review_id === reviewId); const tagIndex = review?.tags.findIndex(tag => tag.start_char === start && tag.end_char === end) ?? -1; if (review && tagIndex >= 0) setEvidence({ review, tagIndex }) }} /><CorrectionExport productId={data.product.id} />{data.snapshot_id && data.pipeline_version && <ReviewAnnotationWorkspace key={`annotations:${data.snapshot_id}`} productId={data.product.id} snapshotId={data.snapshot_id} />}</div>}
+      {view === 'settings' && <><section className="data-settings-heading"><h2>Manage this product’s data</h2><p>Review imported batches or remove saved data. Removing reviews also removes their associated reviewer records.</p><SavedDataControls productId={data.product.id} productName={data.product.name} onCleared={refresh} onDeleted={() => navigate('/products')} /></section><SavedImportsPanel key={`imports:${data.snapshot_id}`} productId={data.product.id} onRemoved={refresh} /></>}
       <AspectEvidenceDrawer evidence={evidence && data.reviews.includes(evidence.review) ? evidence : null} onClose={() => setEvidence(null)} savedContext={data.snapshot_id && data.pipeline_version ? { productId: data.product.id, snapshotId: data.snapshot_id } : undefined} />
     </>}
   </>
@@ -366,8 +357,8 @@ function ReviewForm({ importing = false }: { importing?: boolean }) {
     </div>
   </>
 }
-export function ReviewPage() { return <ReviewForm /> }
-export function UploadPage() { return <ReviewForm importing /> }
+export function ReviewPage() { const { id } = useParams(); return <ReviewForm key={id} /> }
+export function UploadPage() { const { id } = useParams(); return <ReviewForm key={id} importing /> }
 
 function valueAt(value: unknown, path: string[]): unknown {
   return path.reduce<unknown>((current, key) => current && typeof current === 'object' ? (current as Record<string, unknown>)[key] : undefined, value)

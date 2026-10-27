@@ -52,6 +52,10 @@ class ImportInput(BaseModel):
     content: str = Field(max_length=10 * 1024 * 1024)
 
 
+class PreviewSummaryInput(BaseModel):
+    preview_ids: list[UUID] = Field(min_length=1, max_length=100)
+
+
 @asynccontextmanager
 async def lifespan(application):
     repository = Repository()
@@ -321,6 +325,12 @@ def preview(product_id: str, body: ReviewsInput):
             ids.append(str(item.id))
     return {'analyses': [], 'preview_ids': ids}
 
+
+
+@app.post('/api/demo/products/{product_id}/preview-summary')
+def preview_summary(product_id: str, body: PreviewSummaryInput):
+    from backend.app.preview_summary import summarize_previews
+    return summarize_previews(app.state.repository, product_id, body.preview_ids, app.state.version)
 
 
 @app.get('/api/demo/previews/{preview_id}')

@@ -11,7 +11,7 @@ test('explores robustness, review priorities and real product comparison', async
   for (const job of [leftJob, rightJob]) {
     await expect.poll(async () => (await (await request.get(`/api/demo/jobs/${job.id}`)).json()).status).toBe('completed')
   }
-  await page.goto(`/products/${left.id}`)
+  await page.goto(`/products/${left.id}/advanced`)
   const robustness = page.getByRole('region', { name: 'Evidence robustness', exact: true })
   await expect(robustness.getByText('40%', { exact: true })).toHaveCount(2)
   await robustness.getByLabel('Remove one vote').selectOption('0')
@@ -21,15 +21,16 @@ test('explores robustness, review priorities and real product comparison', async
   const download = page.waitForEvent('download')
   await quality.getByRole('button', { name: 'Export JSON' }).click()
   expect((await download).suggestedFilename()).toContain('review-quality-')
-  const comparison = page.getByRole('region', { name: 'Compare observed feedback' })
-  await comparison.getByLabel('Compare with').selectOption(right.id)
-  await comparison.getByRole('button', { name: 'Compare products' }).click()
-  await expect(comparison.getByText('Left higher', { exact: true })).toBeVisible()
   for (const width of [320, 768, 1440]) {
     await page.setViewportSize({ width, height: 1000 })
     await expect(robustness.getByRole('heading', { name: 'Evidence robustness' })).toBeVisible()
     await expect.poll(() => page.evaluate(() => document.body.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: testInfo.outputPath(`evidence-tools-${width}.png`), fullPage: true })
   }
+  await page.goto(`/compare?left=${left.id}`)
+  const comparison = page.getByRole('region', { name: 'Compare observed feedback' })
+  await comparison.getByLabel('Compare with').selectOption(right.id)
+  await comparison.getByRole('button', { name: 'Compare products' }).click()
+  await expect(comparison.getByText('Left higher', { exact: true })).toBeVisible()
   expect(errors).toEqual([])
 })

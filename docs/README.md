@@ -8,6 +8,7 @@ API v1 design contract is explicitly separated from the current runtime API.
 | Guide | Use it for |
 |---|---|
 | [Getting started](getting-started.md) | Installation, ports, local models, Compose, troubleshooting |
+| [Shopping companion](shopping-companion.md) | Design references, saved-product UI, unpacked Chrome setup, checks, and boundaries |
 | [Current API reference](api.md) | Live routes, payloads, polling, review writes, and exports |
 | [Verification](verification.md) | Reproducible Python, frontend, browser, and migration checks |
 | [Release status](release-status.md) | Current verification, evidence gates, and deployment limits |

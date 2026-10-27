@@ -112,10 +112,10 @@ export function ProductComparisonPanel({ productId }: Props) {
         {[comparison.left, comparison.right].map(side => <div key={side.product.id ?? side.product.name}>
           <strong>{side.product.name ?? 'Product'}</strong>
           <span>{side.review_count} saved reviews · revision {side.data_revision ?? 'unknown'}</span>
-          <span>Snapshot {side.snapshot_id ?? 'not published'} · {side.stale ? 'stale' : 'current'}</span>
-          <span>Pipeline {side.pipeline_version ?? 'unknown'}</span>
+          <span>{side.stale ? 'Earlier analysis · newer reviews may be missing' : 'Published analysis'}</span>
         </div>)}
       </div>
+      <details className="comparison-provenance-details"><summary>Analysis provenance</summary>{[comparison.left, comparison.right].map(side => <p key={side.product.id ?? side.product.name}><strong>{side.product.name}</strong><br />Snapshot {side.snapshot_id ?? 'not published'}<br />Pipeline {side.pipeline_version ?? 'unknown'}</p>)}</details>
       {(comparison.left.stale || comparison.right.stale) && <p className="comparison-note warning">At least one snapshot is stale and may exclude newer reviews.</p>}
       {comparison.pipeline_version_mismatch && <p className="comparison-note warning">Pipeline versions differ, so directional comparisons are withheld.</p>}
       <div className="table-scroll comparison-table" tabIndex={0} role="region" aria-label="Product comparison rows, scrollable">

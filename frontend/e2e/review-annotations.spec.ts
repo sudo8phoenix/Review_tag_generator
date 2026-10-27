@@ -28,7 +28,7 @@ test('adds missed spans, edits boundaries, persists progress and reviews the nex
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   try {
-    await page.goto(`/products/${product.id}`)
+    await page.goto(`/products/${product.id}/advanced`)
     const workspace = page.getByRole('region', { name: 'Annotation workspace' })
     await expect(workspace.getByText('0 of 2 reviewed · 2 need review · 0 need adjudication')).toBeVisible()
     await workspace.locator('.annotation-worklist > li').filter({ hasText: text }).getByRole('button', { name: 'Annotate review', exact: true }).click()
@@ -94,7 +94,7 @@ test('keeps annotation edits and request identity after a failed save', async ({
       if (requestIds.length === 1) await route.fulfill({ status: 503, json: { detail: 'Temporary annotation save failure.' } })
       else await route.continue()
     })
-    await page.goto(`/products/${product.id}`)
+    await page.goto(`/products/${product.id}/advanced`)
     const workspace = page.getByRole('region', { name: 'Annotation workspace' })
     await workspace.getByRole('button', { name: 'Annotate review', exact: true }).click()
     const drawer = page.getByRole('dialog', { name: 'Annotate review' })
@@ -118,7 +118,7 @@ test('keeps annotation edits and request identity after a failed save', async ({
 test('keeps a conflicting draft until the reviewer explicitly reloads', async ({ page, request }) => {
   const { product, before } = await setup(request, ['Great battery.'])
   try {
-    await page.goto(`/products/${product.id}`)
+    await page.goto(`/products/${product.id}/advanced`)
     await page.getByRole('region', { name: 'Annotation workspace' }).getByRole('button', { name: 'Annotate review', exact: true }).click()
     const drawer = page.getByRole('dialog', { name: 'Annotate review' })
     await drawer.getByLabel('Annotation reviewer').fill('Reviewer A')

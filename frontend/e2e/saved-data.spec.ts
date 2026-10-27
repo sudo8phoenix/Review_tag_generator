@@ -8,7 +8,7 @@ test('removes an import, clears saved data and deletes a product with confirmati
   for (const job of [first, second]) {
     await expect.poll(async () => (await (await request.get(`/api/demo/jobs/${job.id}`)).json()).status).toBe('completed')
   }
-  await page.goto(`/products/${product.id}`)
+  await page.goto(`/products/${product.id}/settings`)
   const imports = page.getByRole('region', { name: 'Saved imports', exact: true })
   await expect(imports.getByText('first.txt', { exact: true })).toBeVisible()
   await page.screenshot({ path: testInfo.outputPath('saved-imports-desktop.png'), fullPage: true })

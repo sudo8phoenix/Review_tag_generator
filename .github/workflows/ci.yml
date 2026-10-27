@@ -79,6 +79,7 @@ jobs:
           exit 1
       - run: npm run lint
       - run: npm run build
+      - run: npm run build:extension
       - run: npm test -- --run
       - name: Install Chromium for browser checks
         run: npx playwright install --with-deps chromium

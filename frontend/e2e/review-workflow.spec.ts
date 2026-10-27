@@ -32,6 +32,7 @@ test('previews a review before saving it and observes job completion', async ({ 
   await expect(page.getByRole('heading', { name: 'Review save progress' })).toBeVisible()
   await expect(page.getByText(/completed · 1 of 1 rows analyzed/)).toBeVisible({ timeout: 30_000 })
   await page.getByRole('link', { name: 'View updated product insights' }).click()
+  await page.getByRole('link', { name: 'Review evidence', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Review evidence' })).toBeVisible()
   await expect(page.getByText('The battery lasts all day and the display is bright.').last()).toBeVisible()
   expect(browserErrors).toEqual([])

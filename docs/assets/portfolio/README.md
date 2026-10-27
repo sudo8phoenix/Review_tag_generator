@@ -5,6 +5,8 @@ synthetic demonstration reviews and generated test product names, not customer d
 
 | Asset | Caption and provenance |
 |---|---|
+| [Shopping evidence](shopping-evidence.png) | Current saved-product feature/evidence layout; actual local heuristic backend with synthetic demo reviews, captured at 1440 px during the shopping design pass. |
+| [Shopping extension](shopping-extension.png) | Built Manifest V3 extension in isolated real Chromium, actual local heuristic API and synthetic pasted reviews; captured at 390 px by `shopping-companion.spec.ts` before explicit save. |
 | [Evidence tools](evidence-tools.png) | Aspect feedback, robustness, quality queue and comparison; real local heuristic pipeline with synthetic review input, captured by `evidence-tools.spec.ts`. |
 | [Cited assistant](cited-assistant.png) | Cited Q&A interface; provider responses are explicitly injected in `review-assistant.spec.ts`, so this image demonstrates UI behavior, not a live provider output or model accuracy. |
 | [Annotation editor](annotation-editor.png) | Complete-review editor and status controls; real local heuristic API/database with synthetic reviews, captured by `review-annotations.spec.ts`. |
