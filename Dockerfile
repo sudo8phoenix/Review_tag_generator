@@ -16,9 +16,10 @@ RUN python -m pip install --no-cache-dir -r requirements.lock -r requirements-in
 COPY pyproject.toml README.md ./
 COPY src ./src
 COPY backend ./backend
-COPY scripts/verify_artifacts.py ./scripts/verify_artifacts.py
+COPY scripts/verify_artifacts.py scripts/fetch_lfs_models.py scripts/start_render.sh ./scripts/
 COPY models ./models
 COPY audit/evidence ./audit/evidence
+RUN python scripts/fetch_lfs_models.py
 RUN python -m pip install --no-cache-dir --no-deps . \
     && PYTHONPATH=src python scripts/verify_artifacts.py
 
@@ -26,3 +27,5 @@ EXPOSE 8000
 
 # Keep runtime model discovery rooted in the bundled source and checkpoints.
 ENV PYTHONPATH=/app/src
+
+CMD ["/bin/sh", "scripts/start_render.sh"]
