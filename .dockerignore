@@ -13,3 +13,6 @@ distilbert_review_generator.ipynb
 .env
 .env.*
 !.env.release.example
+
+node_modules
+frontend/.vercel
