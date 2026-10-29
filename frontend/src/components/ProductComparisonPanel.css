@@ -32,3 +32,16 @@
   .comparison-controls { align-items: stretch; }
   .comparison-controls label, .comparison-controls select { width: 100%; }
 }
+.comparison-verdict { padding: 24px; background: #edf2eb; border-top: 3px solid var(--accent-dark); display: grid; gap: 16px; min-width: 0; }
+.comparison-verdict h3 { margin: 0; font-size: clamp(20px, 2.5vw, 28px); line-height: 1.3; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.comparison-verdict p { margin: 0; font-size: 13px; line-height: 1.8; max-width: 80ch; }
+.comparison-verdict > button { justify-self: start; white-space: normal; }
+.comparison-takeaways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-block: 18px; border-block: 1px solid var(--line); }
+.comparison-takeaways h4 { font-size: 14px; margin: 0 0 8px; overflow-wrap: anywhere; }
+.comparison-reason { display: block; margin-top: 10px; font-size: 11px; line-height: 1.7; color: var(--muted); }
+.comparison-ai { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.comparison-evidence { min-width: 0; }
+.comparison-evidence > summary { padding: 14px 0; cursor: pointer; color: var(--accent-dark); font-size: 13px; font-weight: 600; }
+@media (max-width: 640px) { .comparison-takeaways { grid-template-columns: minmax(0, 1fr); gap: 20px; } .comparison-verdict { padding: 18px; } }
+.comparison-ai-takeaway { min-width: 220px; max-width: 420px; font-size: 13px; line-height: 1.8; }
+.comparison-evidence > .button { margin-bottom: 16px; }

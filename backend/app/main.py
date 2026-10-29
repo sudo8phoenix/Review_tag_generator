@@ -286,6 +286,30 @@ def compare_product_feedback(product_id: str, other_product_id: str):
     return compare_products(left, right)
 
 
+@app.post('/api/demo/products/{product_id}/compare/{other_product_id}/summary')
+def summarize_comparison(product_id: str, other_product_id: str):
+    from review_tag_generator.comparison import compare_products
+    from backend.app.comparison_summary import explain_comparison
+    from backend.app.llm_provider import generate_structured
+    repository = app.state.repository
+    comparison = compare_products(
+        repository.detail(product_id, app.state.version, app.state.backend),
+        repository.detail(other_product_id, app.state.version, app.state.backend))
+    return call_assistant(lambda: explain_comparison(comparison, generate_structured))
+
+
+@app.post('/api/demo/products/{product_id}/compare/{other_product_id}/takeaways')
+def summarize_comparison_features(product_id: str, other_product_id: str):
+    from review_tag_generator.comparison import compare_products
+    from backend.app.comparison_summary import explain_features
+    from backend.app.llm_provider import generate_structured
+    repository = app.state.repository
+    comparison = compare_products(
+        repository.detail(product_id, app.state.version, app.state.backend),
+        repository.detail(other_product_id, app.state.version, app.state.backend))
+    return call_assistant(lambda: explain_features(comparison, generate_structured))
+
+
 @app.get('/api/demo/products/{product_id}/annotations')
 def annotation_worklist(product_id: str, snapshot_id: UUID | None = None,
                         status: Literal['all', 'needs_review', 'reviewed', 'needs_adjudication'] = 'all'):
