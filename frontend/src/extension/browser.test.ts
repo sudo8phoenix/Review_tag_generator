@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { capturePage, parsePastedReviews } from './browser'
-import { validConnection } from './api'
+import { getApiBaseUrl, getWebUrl, localRequest, validConnection } from './api'
 
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); document.body.innerHTML = '' })
 
@@ -50,4 +50,31 @@ describe('review capture boundaries', () => {
 it('restricts connection settings to valid loopback-service ports', () => {
   expect(validConnection({ apiPort: 8000, webPort: 5173 })).toBe(true)
   for (const port of [0, -1, 65536, Infinity, NaN, 80.5, '8000']) expect(validConnection({ apiPort: port, webPort: 5173 })).toBe(false)
+})
+
+it('supports Vercel and remote base URL connections', () => {
+  expect(validConnection({ mode: 'vercel', baseUrl: 'https://review-tag-generator.vercel.app' })).toBe(true)
+  expect(validConnection({ mode: 'vercel', baseUrl: 'not-a-url' })).toBe(false)
+  expect(validConnection({ mode: 'vercel', baseUrl: 'ftp://bad' })).toBe(false)
+  expect(getApiBaseUrl({ mode: 'vercel', baseUrl: 'https://review-tag-generator.vercel.app/' })).toBe('https://review-tag-generator.vercel.app')
+  expect(getWebUrl({ mode: 'vercel', baseUrl: 'https://review-tag-generator.vercel.app' })).toBe('https://review-tag-generator.vercel.app')
+  expect(getApiBaseUrl({ mode: 'local', apiPort: 8080 })).toBe('http://127.0.0.1:8080')
+  expect(getWebUrl({ mode: 'local', webPort: 3000 })).toBe('http://127.0.0.1:3000')
+})
+
+
+it('rejects hosted addresses outside the extension connection policy', () => {
+  for (const baseUrl of [
+    'https://example.com', 'http://review-tag-generator.vercel.app',
+    'https://user:password@review-tag-generator.vercel.app',
+    'https://review-tag-generator.vercel.app/not-an-origin',
+    'https://review-tag-generator.vercel.app?redirect=elsewhere',
+  ]) expect(validConnection({ mode: 'vercel', baseUrl })).toBe(false)
+  expect(validConnection({ mode: 'vercel', baseUrl: 'https://review-tag-generator-api.onrender.com' })).toBe(true)
+})
+
+
+it('reports an HTML wake-up or misrouted API page instead of treating it as product data', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('<html>Starting service</html>', { headers: { 'Content-Type': 'text/html' } })))
+  await expect(localRequest({ mode: 'vercel', baseUrl: 'https://review-tag-generator.vercel.app' }, '/api/demo/products')).rejects.toThrow('API is not ready')
 })

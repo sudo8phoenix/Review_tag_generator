@@ -88,3 +88,28 @@ The dependency advisory check initially reported five affected development-tool 
 | Review-agent final diff pass | No findings. Local change is coherent; live retailer/provider/PostgreSQL/deployment checks remain outside the verified scope. |
 
 The [seven-table audit index](shopping-audit.md) covers 36 registered API paths, state machines, timers, numeric bounds, data flows, resources, and concurrency. Local tests cover intake, evidence, corrections, annotation, deletion, replay, and recovery. The index marks live PostgreSQL concurrency/migrations, live provider transport, production rate/load behavior, retailer variations, and deployment/store distribution **unverified**. No production requests, public deployment, paid provider calls, or changes to the user’s saved demo database were part of this work. This is not an exhaustive production security certification.
+
+## Hosted companion connection
+
+Extension version 0.1.1 defaults to `https://review-tag-generator.vercel.app`.
+Connection settings can switch to local loopback or a Vercel/Render HTTPS origin.
+The manifest grants the matching host permissions and connection policy; rebuild
+with `npm --prefix frontend run build:extension`, then click **Reload** for the
+unpacked extension in `chrome://extensions` after updating. Reopen its side panel
+to replace an already-running copy. Old CSP errors can remain in the browser error
+list even after reloading; verify new requests and the connected status.
+
+Free Render backends may take time to wake. The panel retries automatically and
+preserves interrupted-save recovery. A submitted review can be saved while its
+analysis waits behind an import; inspect Save progress until it completes.
+
+Run hosted end-to-end checks explicitly with:
+
+```bash
+LIVE_DEMO_URL=https://review-tag-generator.vercel.app npm --prefix frontend run test:e2e -- hosted-demo.spec.ts
+```
+
+These checks create disposable QA products and remove them when no work is active.
+The retailer capture fixture is controlled test HTML; its preview and save requests
+use the real hosted trained-model API. This does not establish that every live
+retailer layout is supported.

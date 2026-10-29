@@ -15,7 +15,7 @@ test('product creation recovers after the panel opens while the API is unavailab
     let reviewsSaved = false
     const job = { id: 'saved-job', status: 'completed', completed_rows: 1, total_rows: 1, failed_rows: 0 }
     const product = { id: 'reconnect-product', name: 'HP Victus', review_count: 0 }
-    await context.route('http://127.0.0.1:8000/api/**', async route => {
+    await context.route('**/api/**', async route => {
       const request = route.request()
       if (request.url().endsWith('/jobs')) {
         expect(request.postDataJSON()).toEqual({ reviews: ['Excellent battery.'] })
@@ -40,7 +40,7 @@ test('product creation recovers after the panel opens while the API is unavailab
     await expect(panel.getByRole('alert')).toContainText('Retrying automatically')
     // Model the service coming back without closing/reopening the panel.
     available = true
-    await expect(panel.getByText('Local trained models', { exact: true })).toBeVisible({ timeout: 10_000 })
+    await expect(panel.getByText(/trained models/)).toBeVisible({ timeout: 10_000 })
     available = false
     await panel.reload()
     await expect(panel.getByRole('alert')).toContainText('Retrying automatically')

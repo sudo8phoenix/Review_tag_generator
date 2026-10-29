@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Review Tag Generator \u2014 Shopping Companion",
-  "version": "0.1.0",
-  "description": "Inspect feature feedback in captured reviews, then explicitly save to your local product workspace.",
+  "name": "Review Tag Generator — Shopping Companion",
+  "version": "0.1.1",
+  "description": "Inspect feature feedback in captured reviews, then explicitly save to your product workspace.",
   "minimum_chrome_version": "116",
   "permissions": [
     "sidePanel",
@@ -12,6 +12,8 @@
   ],
   "host_permissions": [
     "http://127.0.0.1/*",
+    "https://*.vercel.app/*",
+    "https://*.onrender.com/*",
     "https://*.amazon.com/*",
     "https://*.amazon.in/*",
     "https://*.flipkart.com/*",
@@ -29,6 +31,6 @@
     "default_path": "sidepanel.html"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; connect-src http://127.0.0.1:*"
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' http://127.0.0.1:* https://*.vercel.app https://*.onrender.com;"
   }
 }

@@ -2,6 +2,10 @@
 
 Turn product reviews into feature-level feedback you can inspect and review.
 
+**[Open the live demo](https://review-tag-generator.vercel.app)** · Vercel frontend
+and Render Free backend. The backend may take a minute to wake up. Optional cloud
+AI explanations are currently disabled; trained review analysis remains available.
+
 Two fine-tuned DistilBERT models extract aspect spans and classify their sentiment.
 Deterministic rules normalize known aliases, generate tags, and aggregate saved
 predictions into product insights. The application keeps original evidence,
