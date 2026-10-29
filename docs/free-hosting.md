@@ -1,4 +1,8 @@
-# Free hosting: Vercel and Oracle Always Free
+# Free hosting alternative: Vercel and Oracle Always Free
+
+**Historical alternative, updated 2026-10-30:** the current demo uses Vercel and
+Render; see [the Render guide](render-demo.md). The unpublished-frontend note at
+the end records the earlier Oracle attempt, not the current deployment status.
 
 Deployment is not complete until the backend is reachable and the public UI has
 been verified. A frontend-only deployment cannot analyze or load saved reviews.

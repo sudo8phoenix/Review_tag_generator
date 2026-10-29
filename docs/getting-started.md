@@ -161,3 +161,11 @@ and clean container startup remain open local verification gates. See
 
 Use the [runtime API reference](api.md) for current endpoints. The
 [API v1 design contract](contracts/api-v1.md) is a separate target document.
+
+## Chrome extension
+
+The extension source ships in this repository. For the hosted demo, only Node.js,
+npm, and Chrome 116+ are required to build and load it; no local Python service
+is needed. Follow the [extension installation guide](../frontend/extension/README.md).
+For local mode, start the service above and select **Localhost (127.0.0.1)** in
+Connection settings, matching the API and workspace ports to your running servers.

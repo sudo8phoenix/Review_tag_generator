@@ -8,6 +8,7 @@ API v1 design contract is explicitly separated from the current runtime API.
 | Guide | Use it for |
 |---|---|
 | [Getting started](getting-started.md) | Installation, ports, local models, Compose, troubleshooting |
+| [Chrome extension installation](../frontend/extension/README.md) | Source locations, build/load, hosted/local connections, permissions, recovery |
 | [Shopping companion](shopping-companion.md) | Design references, saved-product UI, unpacked Chrome setup, checks, and boundaries |
 | [Current API reference](api.md) | Live routes, payloads, polling, review writes, and exports |
 | [Verification](verification.md) | Reproducible Python, frontend, browser, and migration checks |
@@ -44,6 +45,11 @@ API v1 design contract is explicitly separated from the current runtime API.
 | [System architecture](architecture.md) | Implemented browser/API/worker/database and reviewer flows |
 | [Aggregation contract](contracts/aggregation.md) | Implemented saved-analysis voting and ranking policy |
 | [API v1 design contract](contracts/api-v1.md) | Target DTO/fixture design; not the live route table |
+
+## Hosting
+
+- [Render demo](render-demo.md): current Vercel/Render topology, free-tier limits, and health checks.
+- [Oracle alternative](free-hosting.md): historical setup attempt and an alternative deployment recipe.
 
 ## Demonstration and portfolio
 

@@ -1,8 +1,11 @@
 # Release status
 
-Last reconciled: **2026-10-15**. This page records the current implementation and
-local verification. It does not claim a public deployment or a successful remote
-CI run. [Documentation index](README.md) · [Verification commands](verification.md)
+Documentation reconciled: **2026-10-30**. The Vercel/Render demo and unpacked
+Chrome extension are documented in the [hosting guide](render-demo.md) and
+[extension guide](../frontend/extension/README.md). Remote CI must be checked
+separately. The table below preserves the **2026-10-15** local verification record;
+later scoped checks appear in [shopping companion](shopping-companion.md#verification-and-fixes)
+and [Render demo](render-demo.md#verification-before-deployment). [Documentation index](README.md) · [Verification commands](verification.md)
 
 ## Current verification
 

@@ -1,8 +1,10 @@
 # System architecture
 
 This document describes the application that exists in the repository. The
-production-shaped Compose topology is provided, but this project has not been
-established as a deployed public service. See [release status](release-status.md)
+Compose topology is provided alongside a Vercel frontend and Render demo backend
+(see [hosting](render-demo.md)). The Chrome side panel calls the configured API
+origin directly; the hosted web app proxies `/api` through Vercel. Both surfaces
+share saved products on that backend. Inference runs on the server, not in Chrome. See [release status](release-status.md)
 for verification limits and [the API contract](contracts/api-v1.md) for the
 separately documented target contract.
 

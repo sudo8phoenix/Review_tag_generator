@@ -38,11 +38,17 @@ cascading deletion. They do not establish human annotation quality.
 npm --prefix frontend run lint
 npm --prefix frontend test -- --run
 npm --prefix frontend run build
+npm --prefix frontend run build:extension
 ```
 
 The unit suite includes conversion from browser selections to source-code-point
 offsets, including emoji and CRLF/CR normalization. A Vite chunk-size advisory is
 currently emitted by a successful build; it is not a failed type/build check.
+
+The extension build must exist before browser checks that load the unpacked
+manifest. See [manual installation and recovery checks](../frontend/extension/README.md)
+and [hosted checks](shopping-companion.md#hosted-companion-connection). Historical
+check counts are evidence from their dated runs, not results of this documentation update.
 
 ## Isolated browser workflows
 

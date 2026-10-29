@@ -2,8 +2,9 @@
 
 Turn product reviews into feature-level feedback you can inspect and review.
 
-**[Open the live demo](https://review-tag-generator.vercel.app)** · Vercel frontend
-and Render Free backend. The backend may take a minute to wake up. Optional cloud
+**Hosted demo: [https://review-tag-generator.vercel.app](https://review-tag-generator.vercel.app)**
+
+Hosted on Vercel with a Render Free backend. The backend may take a minute to wake up. Optional cloud
 AI explanations are currently disabled; trained review analysis remains available.
 
 Two fine-tuned DistilBERT models extract aspect spans and classify their sentiment.
@@ -15,9 +16,13 @@ reviewer corrections, and full-review annotations separately traceable.
 [Architecture](docs/architecture.md) · [Release status](docs/release-status.md)
 
 The new [shopping companion guide](docs/shopping-companion.md) covers the saved-product
-interface, feature/evidence view, comparison page, and unpacked local Chrome extension.
+interface, feature/evidence view, comparison page, and unpacked Chrome extension.
 Open **Browser companion** in the app for setup. The retailer adapter is experimental;
-selection/paste, unsaved preview, and explicit saving work through the local API.
+selection/paste, unsaved preview, and explicit saving use the configured hosted or local API.
+The [extension source and installation guide](frontend/extension/README.md) are included
+in this repository. Build locally with `npm --prefix frontend run build:extension`
+after `npm --prefix frontend ci`, then load `frontend/dist-extension` in Chrome.
+The generated build directory is ignored by Git.
 
 ## What you can do
 
@@ -155,6 +160,9 @@ src/review_tag_generator/   Models, normalization, tags, and evidence tools
 backend/app/               API, workers, persistence, corrections, annotations
 backend/alembic/           PostgreSQL schema migrations
 frontend/src/              React routes, review forms, and annotation workspace
+frontend/extension/        Chrome manifest, service worker, side-panel entry, setup guide
+frontend/src/extension/    Companion UI, capture adapters, API connection, and unit tests
+frontend/vite.extension.config.ts  Dedicated extension build configuration
 frontend/e2e/              Browser workflow verification
 scripts/                   Evaluation, dataset preparation, imports, and demos
 tests/                     Unit, HTTP/storage, PostgreSQL, and model checks
