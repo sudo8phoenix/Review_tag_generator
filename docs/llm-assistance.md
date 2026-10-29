@@ -1,7 +1,7 @@
 # Optional LLM assistance
 
 The trained extraction/sentiment pipeline stays reproducible and works without an
-LLM. Two user-triggered assistance features run beside it:
+LLM. When a provider is configured, automatic fallback annotation runs alongside two user-triggered assistance features:
 
 1. **Unknown-aspect suggestions:** open an unknown aspect's evidence drawer and
    select **Suggest mapping**. The assistant may suggest an existing canonical
@@ -16,6 +16,35 @@ saved analyses,
 normalization mappings, tags, model scores, or aggregate totals. A proposed new
 feature is not automatically added to the ontology or used in training.
 
+## Automatic fallback annotation
+
+With `LLM_PROVIDER` and `LLM_MODEL` configured, new previews and saved imports
+request one structured LLM annotation per review when the trained model finds no
+aspects, leaves an aspect unmapped, or gives an aspect a confidence below 0.60.
+Set `LLM_AUTO_ANNOTATE=0` to disable this while keeping manual assistance enabled.
+Restart both API and worker after configuration changes; existing saved analyses
+require regeneration to run the fallback.
+
+For existing uncertain spans the LLM can only annotate those exact spans.
+Confident predictions are preserved. When no aspects were detected, it can
+extract explicit aspects from the full review. Exact Unicode offsets, source text,
+ontology IDs, sentiment labels and nonoverlapping spans are validated before any
+output is applied. If an LLM miscounts offsets, the server can locate an exact
+phrase only when it occurs once in the review; ambiguous repetitions are rejected. Invalid output, outages and rate limits retain the original
+predictions; empty responses are treated as abstention.
+
+Applied annotations carry provider/model provenance, preserve the original model
+predictions, and prefill the annotation workspace. They are not human-reviewed
+annotations or training labels. They may contribute to preview/saved evidence;
+a conservative score of 0.5 keeps them in the low-confidence review queue and is
+not a calibrated LLM probability. The annotation workspace shows fallback status.
+Unknown concepts remain unknown rather than expanding the ontology automatically.
+
+Fallback sends the review text to the configured provider (or local Ollama), and
+may add one provider request per uncertain review, including on preview and save.
+No provider calls occur when assistance is disabled. Provider failures are recorded
+without exposing credentials or response bodies.
+
 ## Why high-scoring aspects can remain unknown
 
 The model score summarizes extraction and sentiment confidence, not normalization
@@ -23,6 +52,32 @@ coverage. The current 21-feature ontology deliberately excludes some concepts.
 For example, an assistant might map “speed” to Performance, propose Operating
 System for “Windows 11”, and abstain on the overly broad word “computer”. These
 are examples of possible reasoning, not guaranteed model outputs.
+
+## Configure Gonka Broker
+
+Store these server-only settings in the ignored `.env.llm` file:
+
+```dotenv
+LLM_PROVIDER=gonka
+LLM_MODEL=MiniMaxAI/MiniMax-M2.7
+GONKA_API_KEY=your-key-here
+LLM_AUTO_ANNOTATE=1
+```
+
+The adapter uses Gonka Broker's documented endpoint,
+`https://proxy.gonkabroker.com/v1/chat/completions`, with bearer authentication.
+It requests JSON-schema output and inlines schema definitions because the broker
+rejects `$defs` and `$ref`. Local validation still checks every output and source
+span. Reasoning is disabled for switchable models to keep annotation latency and
+token use down; MiniMax M2.7 is exempt because its thinking is always on.
+
+Use the exact model ID from the live catalog at
+`https://proxy.gonkabroker.com/v1/models`. Model availability and prices change;
+an embeddings model such as BGE-M3 cannot perform annotation.
+See [Gonka API compatibility](https://docs.gonkabroker.com/reference/api-compatibility/)
+and [supported models](https://docs.gonkabroker.com/reference/supported-models/).
+Restart the API and worker after changing `.env.llm`; `scripts/start_demo.sh`
+loads it automatically. The key stays on the server and is never sent to Groq.
 
 ## Configure Groq
 
@@ -73,8 +128,8 @@ OLLAMA_BASE_URL=http://127.0.0.1:11434
 ```
 
 Start Ollama yourself with `ollama serve`. The app never downloads a model or
-silently switches providers. Cloud providers receive review text only when a user
-requests assistance. The UI identifies the configured provider before submission.
+silently switches providers. Cloud providers receive review text for manual
+assistance and, when enabled, automatic fallback during preview or save.
 Use `LLM_PROVIDER=disabled` to turn assistance off. `LLM_TIMEOUT_SECONDS` defaults
 to 90 and must be finite and between 1 and 120.
 

@@ -1,13 +1,34 @@
 {
   "manifest_version": 3,
-  "name": "Review Tag Generator — Shopping Companion",
+  "name": "Review Tag Generator \u2014 Shopping Companion",
   "version": "0.1.0",
   "description": "Inspect feature feedback in captured reviews, then explicitly save to your local product workspace.",
   "minimum_chrome_version": "116",
-  "permissions": ["sidePanel", "activeTab", "scripting", "storage"],
-  "host_permissions": ["http://127.0.0.1/*"],
-  "action": { "default_title": "Open review companion" },
-  "background": { "service_worker": "service-worker.js" },
-  "side_panel": { "default_path": "sidepanel.html" },
-  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'self'; connect-src http://127.0.0.1:*" }
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*",
+    "https://*.amazon.com/*",
+    "https://*.amazon.in/*",
+    "https://*.flipkart.com/*",
+    "https://*.walmart.com/*",
+    "https://*.bestbuy.com/*",
+    "https://*.target.com/*"
+  ],
+  "action": {
+    "default_title": "Open review companion"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src http://127.0.0.1:*"
+  }
 }

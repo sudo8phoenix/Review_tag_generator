@@ -65,6 +65,44 @@ def test_worklist_counts_all_published_reviews_including_zero_detections(client)
     assert client.get(BASE, params={'status': 'invented'}).status_code == 422
 
 
+def test_llm_fallback_is_saved_and_prefills_unreviewed_annotation(client, monkeypatch):
+    monkeypatch.setenv('LLM_AUTO_ANNOTATE', '1')
+    monkeypatch.setattr('backend.app.llm_annotation.assistant_status', lambda: {
+        'enabled': True, 'provider': 'ollama', 'model': 'fixture-model'})
+    calls = []
+
+    def generate(system, payload, schema):
+        calls.append(payload)
+        return {'mentions': [{'raw_aspect': 'hinge', 'start_char': 4, 'end_char': 9,
+                              'canonical_id': 'build_quality', 'sentiment': 'positive'}]}
+
+    monkeypatch.setattr('backend.app.llm_annotation.generate_structured', generate)
+    text = 'The hinge feels sturdy.'
+    # Ensure the fixture tests missing extraction, independently of heuristic vocabulary.
+    monkeypatch.setattr(app.state.worker.analyzer, 'analyze', lambda review: {
+        'review': {key: getattr(review, key) for key in ('review_id', 'product_id', 'review_text', 'product_category', 'rating', 'helpful_votes')},
+        'tags': [], 'backend': 'heuristic', 'context_policy': 'local_clause'})
+    detail = saved(client, [text])
+    draft = annotation(client, reference(detail, text))
+    assert len(calls) == 1
+    assert draft['status'] == 'needs_review'
+    assert draft['original_predictions'] == []
+    assert draft['mentions'][0]['raw_aspect'] == 'hinge'
+    assert draft['mentions'][0]['canonical_id'] == 'build_quality'
+    assert draft['llm_annotation']['status'] == 'applied'
+    assert draft['llm_annotation']['model'] == 'fixture-model'
+    assert detail['reviews'][0]['tags'][0]['normalization_method'] == 'llm'
+
+    preview = client.post('/api/demo/products/demo-laptop/preview', json={'reviews': [text]})
+    assert preview.status_code == 200, preview.text
+    while app.state.worker.run_once():
+        pass
+    output = client.get('/api/demo/previews/' + preview.json()['preview_ids'][0]).json()
+    assert output['status'] == 'completed'
+    assert output['analysis']['llm_annotation']['status'] == 'applied'
+    assert len(calls) == 2
+
+
 def test_add_missing_aspect_adjust_boundary_and_preserve_original_predictions(client):
     before = saved(client)
     text = '😀 Great battery life; wifi is poor.'

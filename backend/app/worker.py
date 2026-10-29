@@ -10,6 +10,7 @@ from uuid import uuid4
 from backend.app.repository import Repository, ROOT, pipeline_version
 from contextlib import contextmanager
 from review_tag_generator import ReviewAnalyzer
+from backend.app.llm_annotation import annotate_fallback
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,7 @@ class Worker:
             try:
                 started = perf_counter()
                 with self.renewing_lease(job_id=job_id), self.lock:
-                    result = self.analyzer.analyze(review)
+                    result = annotate_fallback(self.analyzer.analyze(review))
                 result['pipeline_version'] = self.version
                 result['elapsed_ms'] = round((perf_counter() - started) * 1000)
                 self.repository.finish_item(job_id, key, self.id, result=result)
@@ -69,7 +70,7 @@ class Worker:
             preview_id, review = preview
             try:
                 with self.renewing_lease(preview_id=preview_id), self.lock:
-                    result = self.analyzer.analyze(review)
+                    result = annotate_fallback(self.analyzer.analyze(review))
                 result['pipeline_version'] = self.version
                 self.repository.finish_preview(preview_id, self.id, result=result)
             except Exception as exc:

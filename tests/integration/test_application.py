@@ -144,6 +144,20 @@ def test_preview_expiry_queue_capacity_and_readiness(client, monkeypatch):
     assert client.post('/api/demo/products/bad-id/preview', json={'reviews': ['Great display.']}).status_code == 404
 
 
+def test_repeated_preview_reuses_work_even_when_queue_is_full(client, monkeypatch):
+    from backend.app.db.models import AnalysisPreview
+    monkeypatch.setenv('QUEUE_CAPACITY', '2')
+    payload = {'reviews': ['Great battery.', 'Bright display.']}
+    first = client.post('/api/demo/products/demo-laptop/preview', json=payload)
+    retry = client.post('/api/demo/products/demo-laptop/preview', json=payload)
+    assert first.status_code == retry.status_code == 200
+    assert retry.json()['preview_ids'] == first.json()['preview_ids']
+    with app.state.repository.transaction() as db:
+        assert db.scalar(select(func.count()).select_from(AnalysisPreview)) == 2
+    finish(client)
+    assert client.post('/api/demo/products/demo-laptop/preview', json=payload).json()['preview_ids'] == first.json()['preview_ids']
+
+
 def test_regeneration_preserves_immutable_runs_and_versions(client):
     from backend.app.db.models import AnalysisRun
     client.post('/api/demo/products/demo-laptop/jobs', json={'reviews': ['Great display.']})

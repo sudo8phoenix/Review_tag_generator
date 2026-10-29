@@ -338,14 +338,34 @@ def preview(product_id: str, body: ReviewsInput):
     with repository.transaction() as db:
         product = repository.require_product(db, product_id, lock=True)
         pid = product.id
-        count = db.scalar(select(func.count()).select_from(AnalysisPreview).where(AnalysisPreview.status.in_(['queued', 'running']), AnalysisPreview.expires_at > utcnow()))
-        if count + len(body.reviews) > int(os.environ.get('QUEUE_CAPACITY', '100')):
-            raise HTTPException(429, 'Preview queue is full; try again after current previews finish')
+        now = utcnow()
+        # Reopening a panel or retrying a timed-out batch must not enqueue the same
+        # work again. Reuse exact text only, scoped to product and pipeline version.
+        reusable = list(db.scalars(select(AnalysisPreview).where(
+            AnalysisPreview.product_id == pid, AnalysisPreview.pipeline_version == app.state.version,
+            AnalysisPreview.expires_at > now,
+            AnalysisPreview.status.in_(['queued', 'running', 'completed']),
+            AnalysisPreview.review_text.in_(set(body.reviews))).order_by(AnalysisPreview.created_at)))
+        by_text = {}
+        for item in reusable:
+            by_text.setdefault(item.review_text, []).append(item)
+        chosen = []
         for text in body.reviews:
-            item = AnalysisPreview(id=uuid4(), product_id=pid, review_text=text,
-                text_sha256=__import__('hashlib').sha256(text.encode()).hexdigest(),
-                status='queued', pipeline_version=app.state.version, expires_at=utcnow() + timedelta(minutes=30))
-            db.add(item)
+            pool = by_text.get(text, [])
+            chosen.append(pool.pop(0) if pool else None)
+        count = db.scalar(select(func.count()).select_from(AnalysisPreview).where(
+            AnalysisPreview.pipeline_version == app.state.version,
+            AnalysisPreview.status.in_(['queued', 'running']), AnalysisPreview.expires_at > now))
+        if count + chosen.count(None) > int(os.environ.get('QUEUE_CAPACITY', '100')):
+            raise HTTPException(429, 'Preview queue is full; try again after current previews finish')
+        for text, item in zip(body.reviews, chosen):
+            if item is None:
+                item = AnalysisPreview(id=uuid4(), product_id=pid, review_text=text,
+                    text_sha256=__import__('hashlib').sha256(text.encode()).hexdigest(),
+                    status='queued', pipeline_version=app.state.version, expires_at=now + timedelta(minutes=30))
+                db.add(item)
+            else:
+                item.expires_at = now + timedelta(minutes=30)
             ids.append(str(item.id))
     return {'analyses': [], 'preview_ids': ids}
 

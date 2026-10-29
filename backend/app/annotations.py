@@ -158,7 +158,8 @@ class Annotations:
                     'mentions': mentions, 'reviewer': latest.reviewer if latest else '',
                     'reason': latest.reason if latest else '',
                     'confirmed_no_aspects': bool(latest and latest.payload['confirmed_no_aspects']),
-                    'original_predictions': deepcopy(run.payload.get('tags', [])),
+                    'original_predictions': deepcopy(run.payload.get('model_predictions', run.payload.get('tags', []))),
+                    'llm_annotation': deepcopy(run.payload.get('llm_annotation')),
                     'history': [record(row) for row in annotations],
                     'correction_history': [self.corrections._record(row) for row in corrections]}
 

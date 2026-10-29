@@ -15,7 +15,7 @@ const message = (error: unknown) => error instanceof Error ? error.message : 'Th
 function isPending(value: unknown): value is Pending {
   if (!value || typeof value !== 'object') return false
   const record = value as Pending
-  return typeof record.productId === 'string' && typeof record.productName === 'string' && typeof record.key === 'string' && validConnection(record.connection) && Array.isArray(record.reviews) && record.reviews.length > 0 && record.reviews.length <= 20 && record.reviews.every(text => typeof text === 'string' && text.trim() && Array.from(text).length <= 10000) && (record.jobId === undefined || typeof record.jobId === 'string')
+  return typeof record.productId === 'string' && typeof record.productName === 'string' && typeof record.key === 'string' && validConnection(record.connection) && Array.isArray(record.reviews) && record.reviews.length > 0 && record.reviews.length <= 100 && record.reviews.every(text => typeof text === 'string' && text.trim() && Array.from(text).length <= 10000) && (record.jobId === undefined || typeof record.jobId === 'string')
 }
 
 export function CompanionPanel() {
@@ -30,11 +30,13 @@ export function CompanionPanel() {
   const [pasted, setPasted] = useState('')
   const [analyses, setAnalyses] = useState<Analysis[]>([])
   const [previewIds, setPreviewIds] = useState<string[]>([])
+  const [previewCompleted, setPreviewCompleted] = useState(0)
   const [summary, setSummary] = useState<Summary | null>(null)
   const [pending, setPending] = useState<Pending | null>(null)
   const [job, setJob] = useState<Job | null>(null)
   const [busy, setBusy] = useState('')
   const [error, setError] = useState('')
+  const [connectionError, setConnectionError] = useState('')
   const [saved, setSaved] = useState(false)
   const [recoveryMissing, setRecoveryMissing] = useState(false)
   const epoch = useRef(0)
@@ -44,7 +46,7 @@ export function CompanionPanel() {
 
   function clearPreview() {
     epoch.current++
-    setPreviewIds([]); setAnalyses([]); setSummary(null); setSaved(false)
+    setPreviewIds([]); setPreviewCompleted(0); setAnalyses([]); setSummary(null); setSaved(false)
   }
 
   useEffect(() => {
@@ -65,11 +67,25 @@ export function CompanionPanel() {
     if (!loaded) return
     let active = true
     const controller = new AbortController()
+    let timer: number | undefined
     setHealth(null)
-    Promise.all([localRequest<Health>(connection, '/api/health', undefined, undefined, controller.signal), localRequest<Product[]>(connection, '/api/demo/products', undefined, undefined, controller.signal)]).then(([status, rows]) => {
-      if (active) { setHealth(status); setProducts(rows); setError('') }
-    }).catch(() => { if (active) setError('Could not connect to the local service. Start the API and check Connection settings.') })
-    return () => { active = false; controller.abort() }
+    async function connect() {
+      try {
+        const [status, rows] = await Promise.all([localRequest<Health>(connection, '/api/health', undefined, undefined, controller.signal), localRequest<Product[]>(connection, '/api/demo/products', undefined, undefined, controller.signal)])
+        if (active) {
+          setHealth(status); setProducts(rows); setConnectionError('')
+          if (!status.worker_ready) timer = window.setTimeout(() => void connect(), 5000)
+        }
+      } catch {
+        if (active) {
+          setHealth(null)
+          setConnectionError(`Could not connect to the local service on port ${connection.apiPort}. Retrying automatically. Check Connection settings if your API uses a different port.`)
+          timer = window.setTimeout(() => void connect(), 5000)
+        }
+      }
+    }
+    void connect()
+    return () => { active = false; controller.abort(); window.clearTimeout(timer) }
   }, [loaded, connection])
 
   useEffect(() => {
@@ -96,6 +112,7 @@ export function CompanionPanel() {
       try {
         const results = await Promise.all(previewIds.map(id => localRequest<PreviewPoll>(connection, `/api/demo/previews/${id}`, undefined, undefined, controller.signal)))
         if (!active) return
+        setPreviewCompleted(results.filter(result => result.status === 'completed').length)
         const failed = results.find(result => result.status === 'failed')
         if (failed) throw new Error(failed.error_summary || 'A captured review could not be analyzed.')
         if (results.every(result => result.status === 'completed' && result.analysis)) {
@@ -103,7 +120,7 @@ export function CompanionPanel() {
           if (active) { setSummary(result); setAnalyses(results.map(item => item.analysis!)); setPreviewIds([]) }
           return
         }
-        if (Date.now() - started > 5 * 60 * 1000) throw new Error('Preview is taking too long. Check that the inference worker is running, then analyze again.')
+        if (Date.now() - started > 30 * 60 * 1000) throw new Error('Preview is taking too long. You can save the captured reviews now and let analysis continue in the background.')
       } catch (cause) {
         if (active) { setError(message(cause)); setPreviewIds([]) }
         return
@@ -156,7 +173,9 @@ export function CompanionPanel() {
       const chrome = chromeApi()!
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
       if (generation !== epoch.current) return
-      if (!tab?.id || !tab.url || !/^https?:\/\//.test(tab.url)) throw new Error('Open an ordinary product page, select a complete review, then invoke this extension from its toolbar icon.')
+      if (!tab?.id) throw new Error('No active browser tab was found. Open a product page in this window and try again.')
+      if (!tab.url) throw new Error('Page access is unavailable. In Chrome’s extension settings, allow this extension on this shopping site, then reload the extension. For other sites, click its toolbar icon while that page is active.')
+      if (!/^https?:\/\//.test(tab.url)) throw new Error('Capture works on http or https webpages. Open the product page in a browser tab and try again.')
       captureTab.current = tab.id
       const [result] = await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: capturePage })
       if (generation !== epoch.current) return
@@ -213,6 +232,7 @@ export function CompanionPanel() {
     try {
       const product = await localRequest<Product>(connection, '/api/demo/products', { name: productName })
       setProducts(current => [...current, { ...product, review_count: 0 }]); setProductId(product.id); setProductName(''); clearPreview()
+      setConnection(current => ({ ...current }))
     } catch (cause) { setError(message(cause)) }
     finally { operation.current = false; setBusy('') }
   }
@@ -236,14 +256,24 @@ export function CompanionPanel() {
     <main className="panel-content"><p className="eyebrow">Your shopping companion</p><h1>A closer look,<br />before you choose.</h1><p className="panel-intro">Find feature strengths and recurring complaints in the reviews you capture.</p>
       <div className="panel-connection"><span className={`panel-status-dot ${health ? 'connected' : ''}`} /><span>{health ? health.backend === 'transformer' ? 'Local trained models' : 'Heuristic demo · local service' : 'Local service not connected'}</span></div>
       {settingsOpen && <form className="panel-settings-form" onSubmit={saveSettings}><h2>Connection settings</h2><p>Connect to services running on this computer (127.0.0.1).</p><label>API port<input key={`api-${connection.apiPort}`} name="apiPort" type="number" min="1" max="65535" required defaultValue={connection.apiPort} /></label><label>Workspace port<input key={`web-${connection.webPort}`} name="webPort" type="number" min="1" max="65535" required defaultValue={connection.webPort} /></label><button className="button button-primary">Save connection</button></form>}
-      {loaded && !health?.worker_ready && <button className="button button-secondary panel-wide" disabled={locked} onClick={() => setConnection({ ...connection })}>Retry local connection</button>}{summary && <p className="panel-current-product"><Icon name="bookmark" /><span>Reviewing <strong>{product?.name}</strong></span></p>}{error && <p className="alert alert-error" role="alert">{error}</p>}
+      {loaded && !health?.worker_ready && <button className="button button-secondary panel-wide" disabled={locked} onClick={() => setConnection({ ...connection })}>Retry local connection</button>}{summary && <p className="panel-current-product"><Icon name="bookmark" /><span>Reviewing <strong>{product?.name}</strong></span></p>}{connectionError && <p className="alert alert-error" role="alert">{connectionError}</p>}{error && <p className="alert alert-error" role="alert">{error}</p>}
       {loaded && <>
-        <details className="panel-step" open={!summary}><summary className="panel-step-label"><span>01</span><h2>Bring in the reviews</h2></summary><button className="button button-primary panel-wide" disabled={locked} onClick={() => void captureCurrentPage()}><Icon name="browser" /> Capture from current page</button><p className="panel-note">Select a complete review first. On Amazon.com / .in, the experimental adapter can capture up to 20 loaded, unclipped reviews.</p><details><summary>Or paste review text</summary><label className="panel-paste-label" htmlFor="pasted-reviews">Reviews, separated by a blank line</label><textarea id="pasted-reviews" rows={5} value={pasted} maxLength={200000} disabled={locked} onChange={event => setPasted(event.target.value)} /><button className="button button-secondary panel-wide" disabled={locked || !pasted.trim()} onClick={() => { try { const reviews = parsePastedReviews(pasted); clearPreview(); captureTab.current = null; setCapture({ title: 'Pasted review sample', url: '', method: 'paste', reviews, skipped: 0, limited: false }); setJob(null); setError('') } catch (cause) { setError(message(cause)) } }}>Use pasted reviews</button></details>
-        {capture && <div className="panel-capture"><strong>{capture.reviews.length} review{capture.reviews.length === 1 ? '' : 's'} captured</strong><span>{capture.title}</span><p>{capture.method === 'amazon-loaded' ? 'Loaded review text only; other pages were not read.' : capture.method === 'selection' ? 'Selected text only. Check that it contains one complete review.' : 'Pasted sample only.'} {capture.skipped > 0 ? `${capture.skipped} incomplete or oversized reviews skipped.` : ''} {capture.limited ? 'Capture stopped at the 20-review limit.' : ''}</p><details><summary>Inspect captured text</summary>{capture.reviews.map((text, i) => <p className="panel-captured-text" key={i}>“{text}”</p>)}</details></div>}
+        <details className="panel-step" open={!summary}><summary className="panel-step-label"><span>01</span><h2>Bring in the reviews</h2></summary><button className="button button-primary panel-wide" disabled={locked} onClick={() => void captureCurrentPage()}><Icon name="browser" /> Capture from current page</button><p className="panel-note">Capture up to 100 loaded, complete reviews on Amazon.com / .in, Flipkart, Walmart, Best Buy, and Target. Expand review text and load more reviews first. Site adapters are experimental. You can also select one complete review.</p><details><summary>Or paste review text</summary><label className="panel-paste-label" htmlFor="pasted-reviews">Reviews, separated by a blank line</label><textarea id="pasted-reviews" rows={5} value={pasted} maxLength={2000200} disabled={locked} onChange={event => setPasted(event.target.value)} /><button className="button button-secondary panel-wide" disabled={locked || !pasted.trim()} onClick={() => { try { const reviews = parsePastedReviews(pasted); clearPreview(); captureTab.current = null; setCapture({ title: 'Pasted review sample', url: '', method: 'paste', reviews, skipped: 0, limited: false }); setJob(null); setError('') } catch (cause) { setError(message(cause)) } }}>Use pasted reviews</button></details>
+        {capture && <div className="panel-capture"><strong>{capture.reviews.length} review{capture.reviews.length === 1 ? '' : 's'} captured</strong><span>{capture.title}</span><p>{(capture.method === 'amazon-loaded' || capture.method === 'retailer-loaded') ? 'Loaded review text only; other pages were not read.' : capture.method === 'selection' ? 'Selected text only. Check that it contains one complete review.' : 'Pasted sample only.'} {capture.skipped > 0 ? `${capture.skipped} incomplete or oversized reviews skipped.` : ''} {capture.limited ? 'Capture stopped at the 100-review limit.' : ''}</p><details><summary>Inspect captured text</summary>{capture.reviews.map((text, i) => <p className="panel-captured-text" key={i}>“{text}”</p>)}</details></div>}
         </details>
-        <details className="panel-step" open={!summary}><summary className="panel-step-label"><span>02</span><h2>Choose a saved product</h2></summary><label className="sr-only" htmlFor="panel-product">Product for captured reviews</label><select id="panel-product" value={productId} disabled={locked} onChange={event => { clearPreview(); setProductId(event.target.value); setJob(null) }}><option value="">Choose a product…</option>{products.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</select><details><summary>Create a product</summary><form className="panel-create" onSubmit={createProduct}><label htmlFor="panel-product-name">Product name</label><input id="panel-product-name" value={productName} onChange={event => setProductName(event.target.value)} maxLength={120} required disabled={locked} /><button className="button button-secondary" disabled={!productName.trim() || locked || !health}>Create product</button><p className="panel-note">Creates an empty product. Captured reviews stay unsaved until you explicitly save them.</p></form></details></details>
-        <button className="button button-primary panel-wide" onClick={() => void preview()} disabled={!capture || !productId || !health?.worker_ready || locked}>{previewIds.length ? 'Analyzing captured reviews…' : 'Preview feature feedback'} <Icon name="arrow" /></button><p className="panel-note">Preview sends captured text to your local service. It does not add reviews to product totals.</p>
+        <details className="panel-step" open={!summary}><summary className="panel-step-label"><span>02</span><h2>Choose a saved product</h2></summary><label className="sr-only" htmlFor="panel-product">Product for captured reviews</label><select id="panel-product" value={productId} disabled={locked} onChange={event => { clearPreview(); setProductId(event.target.value); setJob(null) }}><option value="">Choose a product…</option>{products.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</select><details><summary>Create a product</summary><form className="panel-create" onSubmit={createProduct}><label htmlFor="panel-product-name">Product name</label><input id="panel-product-name" value={productName} onChange={event => setProductName(event.target.value)} maxLength={120} required disabled={locked} /><button className="button button-secondary" disabled={!productName.trim() || locked}>Create product</button><p className="panel-note">Creates an empty product. Captured reviews stay unsaved until you explicitly save them.</p></form></details></details>
+        <button className="button button-primary panel-wide" onClick={() => void preview()} disabled={!capture || !productId || !health?.worker_ready || locked}>{previewIds.length ? `Analyzing captured reviews… ${previewCompleted}/${previewIds.length}` : 'Preview feature feedback'} <Icon name="arrow" /></button><p className="panel-note">Preview sends captured text to your local service. It does not add reviews to product totals.</p>
         {(busy || previewIds.length > 0) && <p className="panel-note" role="status">{busy || 'The local models are processing your captured reviews…'}</p>}
+        {capture && <button className="button button-secondary panel-wide" type="button" onClick={() => {
+          const blob = new Blob([capture.reviews.join('\n\n')], { type: 'text/plain;charset=utf-8' })
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url; link.download = 'captured-reviews.txt'; link.click()
+          window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+        }}>Download captured reviews (.txt)</button>}
+        {capture && !summary && <><button className="button button-secondary panel-wide" type="button" disabled={!product || !!busy || !!pending || saved} onClick={() => {
+          if (product) { clearPreview(); void submit({ productId, productName: product.name, reviews: capture.reviews, key: crypto.randomUUID(), connection }) }
+        }}>{saved ? 'Reviews saved' : 'Save captured reviews'}</button><p className="panel-note">Save to the selected product without waiting for preview. Reviews are stored immediately; analysis continues in the background.</p></>}
         {health && !health.worker_ready && <p className="alert alert-warning">The inference worker is not ready. Start the worker and reopen this panel before previewing.</p>}
         {summary && <section className="panel-results" aria-labelledby="panel-results-title"><div className="panel-step-label"><span>03</span><h2 id="panel-results-title">What stands out</h2></div><p className="panel-note">{summary.insights.review_count} unique reviews · {summary.duplicate_reviews} duplicate texts excluded · {saved ? 'save finished' : pending ? 'save in progress' : 'not saved'}</p>{summary.insights.aspects.map(aspect => <details className="panel-feature" key={aspect.aspect_id}><summary><strong>{aspect.aspect}</strong><span className={`panel-feature-status ${aspect.classification}`}>{aspect.classification.replaceAll('_', ' ')}</span></summary><p className="panel-votes">{aspect.counts?.positive ?? 0} positive · {aspect.counts?.neutral ?? 0} neutral · {aspect.counts?.negative ?? 0} negative <span> / {aspect.review_count} reviews</span></p>{analyses.filter(review => review.tags.some(tag => tag.normalized_aspect_id === aspect.aspect_id || tag.normalized_aspect === aspect.aspect)).slice(0, 5).map(review => <blockquote key={review.review.review_id}>“{review.review.review_text}”</blockquote>)}</details>)}{!summary.insights.aspects.length && <p className="panel-note">No canonical features were detected. Your captured text remains available above.</p>}<p className="panel-note">Recurring tags require three supporting reviews. This is preview feedback for the captured sample. Open saved products for the published result after saving.</p><button className="button button-primary panel-wide" disabled={locked || saved} onClick={() => { if (capture && product) void submit({ productId, productName: product.name, reviews: capture.reviews, key: crypto.randomUUID(), connection }) }}>{saved ? 'Reviews saved' : 'Save captured reviews'}</button></section>}
         {pending && !pending.jobId && <div className="panel-recovery"><p>Save interrupted for <strong>{pending.productName}</strong>. Resume with the same request key to avoid duplicate submissions.</p><button className="button button-secondary panel-wide" disabled={!!busy} onClick={() => void submit(pending)}>Resume save</button></div>}

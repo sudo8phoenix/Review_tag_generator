@@ -25,7 +25,10 @@ AGGREGATE_VERSION = sha256((ROOT / 'src/review_tag_generator/aggregation.py').re
 def pipeline_version(backend):
     digest = sha256(backend.encode())
     digest.update(json.dumps({name: os.environ.get(name) for name in
-        ['SEMANTIC_MODEL_PATH', 'SEMANTIC_MODEL_REVISION', 'NORMALIZATION_THRESHOLD', 'MODEL_DEVICE']}, sort_keys=True).encode())
+        ['SEMANTIC_MODEL_PATH', 'SEMANTIC_MODEL_REVISION', 'NORMALIZATION_THRESHOLD', 'MODEL_DEVICE',
+         'LLM_AUTO_ANNOTATE', 'LLM_PROVIDER', 'LLM_MODEL', 'OLLAMA_BASE_URL']}, sort_keys=True).encode())
+    digest.update((ROOT / 'backend/app/llm_annotation.py').read_bytes())
+    digest.update((ROOT / 'backend/app/llm_provider.py').read_bytes())
     for path in sorted((ROOT / 'src/review_tag_generator').rglob('*.py')):
         digest.update(path.read_bytes())
     for path in sorted((ROOT / 'src/review_tag_generator/data').glob('*.json')):

@@ -99,3 +99,49 @@ def test_groq_schema_auth_and_response(monkeypatch):
         return io.BytesIO(json.dumps({'choices': [{'finish_reason': 'stop', 'message': {'content': '{"ok":true}'}}]}).encode())
     monkeypatch.setattr(provider, 'urlopen', request)
     assert provider.generate_structured('system', {}, {'type': 'object'}) == {'ok': True}
+
+
+def test_gonka_missing_key_disables_assistant(monkeypatch):
+    monkeypatch.setenv('LLM_PROVIDER', 'gonka')
+    monkeypatch.setenv('LLM_MODEL', 'deepseek-ai/DeepSeek-V4-Flash-0731')
+    monkeypatch.delenv('GONKA_API_KEY', raising=False)
+    assert not provider.assistant_status()['enabled']
+    assert 'GONKA_API_KEY' in provider.assistant_status()['reason']
+
+
+@pytest.mark.parametrize('model', ['deepseek-ai/DeepSeek-V4-Flash-0731', 'MiniMaxAI/MiniMax-M2.7'])
+def test_gonka_inlines_schema_and_uses_documented_endpoint(monkeypatch, model):
+    from backend.app.llm_annotation import FallbackOutput
+    schema = FallbackOutput.model_json_schema()
+    monkeypatch.setenv('LLM_PROVIDER', 'gonka')
+    monkeypatch.setenv('LLM_MODEL', model)
+    monkeypatch.setenv('GONKA_API_KEY', 'test-gonka-secret')
+
+    def request(req, **kwargs):
+        assert req.full_url == 'https://proxy.gonkabroker.com/v1/chat/completions'
+        assert req.get_header('Authorization') == 'Bearer test-gonka-secret'
+        body = json.loads(req.data)
+        assert body['max_tokens'] == 4096
+        if model == 'MiniMaxAI/MiniMax-M2.7':
+            assert 'reasoning_effort' not in body
+        else:
+            assert body['reasoning_effort'] == 'none'
+        assert 'max_completion_tokens' not in body
+        contract = body['response_format']['json_schema']['schema']
+        assert '$defs' not in json.dumps(contract)
+        assert '$ref' not in json.dumps(contract)
+        assert contract['properties']['mentions']['items']['properties']['raw_aspect']['type'] == 'string'
+        assert b'test-gonka-secret' not in req.data
+        return io.BytesIO(json.dumps({'choices': [{'finish_reason': 'stop', 'message': {
+            'reasoning': 'ignored', 'content': '{"mentions":[]}'}}]}).encode())
+
+    monkeypatch.setattr(provider, 'urlopen', request)
+    assert provider.generate_structured('system', {}, schema) == {'mentions': []}
+    assert '$defs' in schema  # Caller contract remains unchanged.
+
+
+def test_schema_inlining_rejects_recursive_and_external_references():
+    with pytest.raises(ValueError):
+        provider.inline_schema({'$ref': 'https://example.com/schema'})
+    with pytest.raises(ValueError):
+        provider.inline_schema({'$defs': {'loop': {'$ref': '#/$defs/loop'}}, '$ref': '#/$defs/loop'})

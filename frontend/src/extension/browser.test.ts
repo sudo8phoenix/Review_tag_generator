@@ -28,11 +28,22 @@ describe('review capture boundaries', () => {
   })
 
   it('bounds pasted batches and preserves line breaks inside each review', () => {
+    expect(parsePastedReviews(Array(100).fill('Review').join('\n\n'))).toHaveLength(100)
     expect(parsePastedReviews('First review.\nSecond sentence.\n\nAnother review.')).toEqual(['First review.\nSecond sentence.', 'Another review.'])
-    expect(() => parsePastedReviews(Array(21).fill('Review').join('\n\n'))).toThrow(/1–20/)
+    expect(() => parsePastedReviews(Array(101).fill('Review').join('\n\n'))).toThrow(/1–100/)
     expect(() => parsePastedReviews('x'.repeat(10001))).toThrow(/10,000/)
-    expect(() => parsePastedReviews('  ')).toThrow(/1–20/)
+    expect(() => parsePastedReviews('  ')).toThrow(/1–100/)
     expect(parsePastedReviews('😀'.repeat(10000))).toHaveLength(1)
+  })
+
+  it('skips incomplete and duplicate Flipkart reviews', () => {
+    vi.stubGlobal('location', new URL('https://www.flipkart.com/product-reviews/sample'))
+    vi.spyOn(window, 'getSelection').mockReturnValue(null)
+    vi.spyOn(HTMLElement.prototype, 'getClientRects').mockReturnValue([{}] as unknown as DOMRectList)
+    const texts = ['Great display.', ' Great   display. ', 'Truncated read more', 'x'.repeat(10001), 'Hidden review']
+    document.body.innerHTML = texts.map((_, i) => `<div class="ZmyHeo" ${i === 4 ? 'hidden' : ''}></div>`).join('')
+    document.querySelectorAll('.ZmyHeo').forEach((node, i) => Object.defineProperty(node, 'innerText', { value: texts[i] }))
+    expect(capturePage()).toMatchObject({ method: 'retailer-loaded', reviews: ['Great display.'], skipped: 2 })
   })
 })
 

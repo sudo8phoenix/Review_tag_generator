@@ -44,7 +44,7 @@ export function ProductInsights({ data, onEvidence }: { data: Detail; onEvidence
 
   return <>
     <div className="insight-summary" aria-label="Saved evidence summary">
-      <div><span className="summary-label">Reviews analyzed</span><strong>{data.insights.review_count}<span>saved reviews</span></strong></div>
+      <div><span className="summary-label">Reviews analyzed</span><strong>{data.insights.review_count}<span>in published analysis</span></strong></div>
       <div><span className="summary-label">What stands out</span><strong>{strengths.length}<span>supported strengths</span></strong></div>
       <div><span className="summary-label">Worth a closer look</span><strong>{complaints.length}<span>recurring complaints</span></strong></div>
     </div>

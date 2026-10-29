@@ -2,7 +2,7 @@ export type Tag = { normalized_aspect: string | null; normalized_aspect_id?: str
 export type Analysis = { review: { review_id: string; review_text: string }; tags: Tag[]; backend: string; context_policy?: string }
 export type Product = { id: string; name: string; review_count: number }
 export type Detail = {
-  product: Product; reviews: Analysis[]; backend: string; stale?: boolean; pipeline_version?: string; requested_pipeline_version?: string; snapshot_id?: string | null; data_revision?: number
+  product: Product; review_counts?: Record<string, number>; reviews: Analysis[]; backend: string; stale?: boolean; pipeline_version?: string; requested_pipeline_version?: string; snapshot_id?: string | null; data_revision?: number
   insights: { review_count: number; sentiment_distribution: Record<string, number>; aspects: { aspect_id: string; aspect: string; review_count: number; classification: string; counts?: Record<string, number>; ratios?: Record<string, number>; average_confidence?: number; aggregate_tag?: string | null }[]; top_tags: { aggregate_tag: string | null; aspect_id: string; aspect: string }[]; representative_reviews?: { aspect?: string; aspect_id?: string; sentiment: string; review_id: string; review_text: string; tag?: string | null; confidence?: number }[] }
 }
 export type PreviewResult = { analyses: Analysis[]; preview_ids?: string[] }
